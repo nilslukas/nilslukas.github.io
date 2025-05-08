@@ -8,3 +8,4 @@ github_repos:
   - microsoft/analysing_pii_leakage
   - dnn-security/gan-watermark
   - nilslukas/adaptive-watermark-attacks
+  - nilslukas/ada-wm-evasion

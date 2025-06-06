@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Nils Lukas</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:title" content="Nils Lukas">
+  <meta property="og:description"
+        content="Assistant Professor at MBZUAI focusing on Secure and Private Machine Learning.">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="font-awesome.min.css">
+
+  <!-- Minimal, self‑contained styling -->
+  <style>
+    :root {
+      /* Neutral professional palette */
+      --primary-color:#7A869A;      /* slate gray‑blue */
+      --accent-color:#425466;       /* deep slate */
+      --secondary-bg-color:#F4F6F8; /* light neutral */
+      --neutral:#333;
+      --title-font:#111;
+      --sm-gap:.5rem;
+      --md-gap:1.75rem;
+      --lg-gap:3rem;
+      --body-font:'Inter','Helvetica Neue',Arial,sans-serif;
+    }
+    *{box-sizing:border-box;}
+    body{
+      margin:0;
+      font-family:var(--body-font);
+      color:var(--neutral);
+      line-height:1.65;
+      background:#fff;
+    }
+    h1,h2,h3,h4{color:var(--title-font);margin-top:0;}
+    a{color:var(--accent-color);text-decoration:none;}
+    a:hover{color:var(--accent-color);text-decoration:underline;}
+
+    /* Containers */
+    .main-container{width:90%;max-width:950px;margin:0 auto;}
+
+    /* Navbar */
+    nav{
+      background:var(--accent-color);
+    }
+    nav .navbar-link{
+      color:#fff;
+    }
+    nav .navbar-link:hover,
+    nav .navbar-link.active{
+      color:#FFD66B;                /* soft gold highlight */
+    }
+    nav .navbar-link.active::after{
+      background:#FFD66B;
+    }
+
+    /* Brand link style */
+    nav .main-container > a{
+      color:#fff;
+    }
+    nav .main-container > a:hover{
+      opacity:.9;
+    }
+
+    /* Buttons adopt accent color */
+    .btn-list a{
+      display:inline-block;
+      margin-right:.5rem;
+      margin-bottom:.5rem;
+      padding:.4rem .8rem;
+      border:1px solid var(--accent-color);
+      border-radius:8px;
+      font-size:.85rem;
+      font-weight:500;
+      background:#fff;
+      color:var(--accent-color);
+    }
+    .btn-list a:hover{
+      background:var(--accent-color);
+      color:#fff;
+      text-decoration:none;
+    }
+
+    /* Highlighted announcement banner – pastel outline */
+    .announcement{
+      display:flex;
+      align-items:center;
+      gap:.5rem;
+      font-weight:600;
+      margin:var(--md-gap) 0 .75rem;
+      padding-left:.5rem;
+      border-left:4px solid var(--accent-color);  /* subtle accent line */
+      background:none;
+      color:var(--neutral);
+    }
+    .announcement i{color:var(--accent-color);}
+
+    nav .main-container{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:var(--sm-gap) 0;
+    }
+    .navbar-link{
+      margin-left:1rem;
+      font-weight:500;
+      color:var(--neutral);
+      position:relative;
+    }
+    .navbar-link:hover,
+    .navbar-link.active{color:var(--primary-color);}
+    .navbar-link.active::after{
+      content:'';
+      position:absolute;
+      left:0;
+      bottom:-4px;
+      width:100%;
+      height:2px;
+      background:var(--primary-color);
+    }
+
+    /* Section spacing */
+    section{padding:var(--lg-gap) 0;}
+
+    /* About grid */
+    #about .about-grid{
+      display:grid;
+      grid-template-columns:minmax(200px,250px) 1fr;
+      gap:var(--md-gap);
+      align-items:start;
+    }
+    #profile img{
+      width:100%;
+      border-radius:4px;
+      display:block;
+    }
+    #profile .small{font-size:.9rem;}
+
+    /* Buttons */
+    .btn-list{margin-top:var(--sm-gap);}
+    .btn-list a{
+      display:inline-block;
+      margin-right:.5rem;
+      margin-bottom:.5rem;
+      padding:.35rem .7rem;
+      border:1px solid var(--accent-color);
+      border-radius:4px;
+      font-size:.85rem;
+      font-weight:500;
+    }
+    .btn-list a:hover{
+      background:var(--accent-color);
+      color:#fff;
+      text-decoration:none;
+    }
+
+    /* News items */
+    .news{
+      display:flex;
+      gap:.75rem;
+      margin-bottom:.4rem;
+      font-size:.9rem;
+    }
+    .news small.muted{color:#777;}
+
+    /* News container – pastel card */
+    .news-container{
+      margin-top:.75rem;
+      padding-left:.5rem;
+      border-left:4px solid var(--accent-color);
+      background:none;
+    }
+
+    /* Generic pastel card style */
+    .card{
+      margin-bottom:var(--md-gap);
+      padding:0;                /* remove interior padding */
+      border:none;              /* remove border */
+      background:none;          /* transparent background */
+      box-shadow:none;          /* remove shadow */
+    }
+    /* Make profile card a little roomier */
+    #profile.card{
+      display:flex;
+      flex-direction:column;
+      gap:1rem;
+    }
+
+    /* Contact pane: smaller font, no italics, aligned rows */
+    .contact-info p{
+      display:flex;
+      align-items:center;
+      gap:.4rem;
+      margin:.25rem 0;
+      font-size:.85rem;
+      font-style:normal;    /* ensure not italic */
+    }
+
+    /* Make right‑hand info column flex so news can stick to bottom */
+    #info{
+      display:flex;
+      flex-direction:column;
+    }
+    .news-section{
+      margin-top:auto;           /* push news block to bottom */
+    }
+    .see-all{
+      font-size:.8rem;
+      margin-left:.5rem;
+      color:var(--accent-color);
+      cursor:pointer;
+    }
+    .see-all:hover{text-decoration:underline;}
+
+    /* Hidden news items */
+    .news.hidden{display:none;}
+
+    /* Toggle button – circular icon */
+    .show-toggle{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:40px;
+      height:40px;
+      margin:1rem auto 0;
+      border:1px solid var(--accent-color);
+      border-radius:20px;        /* make it a circle */
+      background:#fff;
+      color:var(--accent-color);
+      cursor:pointer;
+      transition:background .2s,color .2s;
+      font-size:1.2rem;
+    }
+    /* Arrow bounce keyframes */
+    @keyframes bounceArrow {
+      0%,100% { transform: translateY(0); }
+      50%     { transform: translateY(4px); }
+    }
+    .show-toggle i{
+      animation:bounceArrow 1s infinite ease-in-out;
+    }
+    .show-toggle.expanded i{
+      animation:none;                /* stop when expanded */
+    }
+    .show-toggle:hover{
+      background:var(--accent-color);
+      color:#fff;
+    }
+
+    /* Interest tags */
+    .tag-list{
+      margin:0;
+      padding:0;
+      list-style:none;
+      display:flex;
+      flex-wrap:wrap;
+      gap:.5rem;
+    }
+    .tag-list li{
+      background:#EDF0F2;
+      border:1px solid #dcdfe3;
+      border-radius:8px;
+      padding:.25rem .7rem;
+      font-size:.85rem;
+      white-space:nowrap;
+    }
+
+    /* Publications */
+    #publications ul{padding-left:1.2rem;}
+
+    /* Footer */
+    footer{
+      background:var(--secondary-bg-color);
+      text-align:center;
+      padding:var(--md-gap) 0;
+      font-size:.85rem;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <div class="main-container">
+      <a style="font-size:1.45rem;font-weight:600;" href="https://nilslukas.github.io/">Nils Lukas</a>
+      <div>
+        <a class="navbar-link active" href="#about">About</a>
+        <a class="navbar-link" href="publications.html">Publications</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- About -->
+  <section id="about">
+    <div class="main-container about-grid">
+      <!-- Profile column -->
+      <div id="profile" class="card">
+        <img src="images/nils_wide.jpeg"
+             alt="Nils Lukas portrait">
+
+        <!-- Contact card -->
+        <div>
+          <h2>Contact</h2>
+          <div class="contact-info">
+            <p><i class="fa fa-envelope" aria-hidden="true"></i>
+               📧 <a href="mailto:nils.lukas@mbzuai.ac.ae">nils.lukas@mbzuai.ac.ae</a></p>
+            <p><i class="fa fa-map" aria-hidden="true"></i>
+               <a href="https://mbzuai.ac.ae/">🏫 MBZUAI, Abu Dhabi, UAE</a></p>
+          </div>
+        </div>
+
+        <!-- Bio card -->
+        <div>
+          <h2>Bio</h2>
+          <table class="small">
+            <tr><td class="muted">2024–now</td><td>Asst. Prof</td><td><i>MBZUAI</i></td></tr>
+            <tr><td class="muted">2019–23</td><td>PhD</td><td><i>U. Waterloo</i></td></tr>
+            <tr><td class="muted">2016–18</td><td>MSc</td><td><i>RWTH Aachen</i></td></tr>
+          </table>
+        </div>
+      </div>
+
+      <!-- Info column -->
+      <div id="info">
+        <p>Guten Tag, I’m Nils 👋. I’m an <strong>Assistant Professor</strong> of Machine Learning at <a href="https://mbzuai.ac.ae/">MBZUAI</a> in Abu Dhabi leading the
+            <strong>Secure, Private, Open and Trustworthy</strong> (SPOT) AI lab.
+
+        <p>My research focuses on (i) secure, (ii) private and (iii) strategic machine learning.
+          I am interested in researching methods to making large ML system accessible to millions of
+          users in a responsible way. This includes topics such as content watermarking, privacy-preserving inference,
+          AI safety & security and developing conversational agents with social intelligence. </p>
+
+        <div class="btn-list">
+          <a href="https://scholar.google.com/citations?user=fmlEab4AAAAJ&hl=en&oi=ao"><i class="fa fa-graduation-cap"></i>Scholar</a>
+          <a href="https://github.com/nilslukas"><i class="fa fa-github"></i>GitHub</a>
+          <a href="https://ae.linkedin.com/in/nils-lukas-135779130"><i class="fa fa-linkedin"></i>LinkedIn</a>
+          <a href="https://nilslukas.github.io/assets/pdfs/cv_nils_lukas.pdf"><i class="fa fa-file-pdf-o"></i>CV</a>
+        </div>
+
+        <!-- Announcement -->
+        <div class="announcement">
+          <i class="fa fa-bullhorn" aria-hidden="true"></i>
+            <span>> I am always looking for talented students (MSc & PhD).
+               <br>
+            > We have three open Postdoc positions (August 2025). Apply <a href="https://mbzuai-hiring.github.io/">here</a>.</span>
+        </div>
+
+        <div class="news-section">
+        <h2>Latest News <a id="see-all-link" class="see-all" href="#">(see&nbsp;all)</a></h2>
+        <div class="news-container">
+          <div class="news">
+            <small class="muted">May'25</small>
+            <small>🔥 Two papers accepted at ICML’25, one with a spotlight award (top 2.6%).</small>
+          </div>
+          <div class="news">
+            <small class="muted">May'25</small>
+            <small>I travelled to the US AI Forum by MBZUAI in San Francisco.</small>
+           </div>
+          <div class="news">
+            <small class="muted">Jun'24</small>
+            <small>🔥 Two papers accepted at USENIX’24 on Private Set Intersection& secure DNN inference.</small>
+          </div>
+          <div class="news">
+            <small class="muted">Apr'24</small>
+            <small>🥇Received the Mathematics Doctoral Prize and a nomination for Waterloo’s Governor General’s GoldMedal.</small>
+          </div>
+          <div class="news">
+            <small class="muted">Jan'24</small>
+            <small>🔥 Two papers accepted at ICLR’24 (Vienna) on adaptive image‑watermark attacks & universal backdoors.</small>
+          </div>
+          <div class="news">
+            <small class="muted">Dec'23</small>
+            <small>Gave a research talk at Meta on privacy of personal information in fine‑tuned LLMs.</small>
+          </div>
+          <div class="news">
+            <small class="muted">Oct'23</small>
+            <small>Talk at UCBerkeley & 🥇Best Poster Award at Cheriton Symposium (Waterloo).</small>
+          </div>
+          <div class="news">
+            <small class="muted">Oct'23</small>
+            <small>🏆 Distinguished Contribution Award at Microsoft MLADS for our IEEE S&amp;P’23 paper.</small>
+          </div>
+          <div class="news">
+            <small class="muted">Jun'23</small>
+            <small>Research talks at Google & MongoDB; IEEE S&amp;P’23 paper featured on the Microsoft Research Focus blog.</small>
+          </div>
+          <div class="news">
+            <small class="muted">May'23</small>
+            <small>🔥 Paper on learnable watermarks for image generators accepted at USENIX’23 Security (Anaheim).</small>
+          </div>
+          <div class="news">
+            <small class="muted">Apr'23</small>
+            <small>🔥 Paper on PII leakage in language models accepted at IEEE S&amp;P’23 (San Francisco).</small>
+          </div>
+          <div class="news">
+            <small class="muted">May'22</small>
+            <small>Started research internship at Microsoft Research with Shruti Tople & Lukas Wutschitz.</small>
+          </div>
+          <div class="news">
+            <small class="muted">Feb'22</small>
+            <small>🏆 Awarded the David R. Cheriton Scholarship for outstanding academic achievements.</small>
+          </div>
+        </div>
+        </div> <!-- end news‑section -->
+      </div>
+    </div>
+  </section>
+
+
+  <footer>
+    <div class="main-container">
+      Nils Lukas – Last updated 6 Jun 2025
+    </div>
+  </footer>
+</body>
+  <script>
+    /* Toggle visibility of additional news items */
+    document.addEventListener('DOMContentLoaded', () => {
+      const container = document.querySelector('.news-container');
+      if (!container) return;
+
+      const items = Array.from(container.querySelectorAll('.news'));
+      const maxVisible = 5;
+      let expanded = false;
+
+      function applyVisibility() {
+        items.forEach((item, idx) => {
+          if (!expanded && idx >= maxVisible) {
+            item.classList.add('hidden');
+          } else {
+            item.classList.remove('hidden');
+          }
+        });
+        const linkLabel = expanded ? '(show less)' : '(see all)';
+        if (seeLink) seeLink.textContent = linkLabel;
+      }
+
+      /* Initial hiding */
+      items.forEach((item, idx) => {
+        if (idx >= maxVisible) item.classList.add('hidden');
+      });
+
+      /* Toggle via "see all" link */
+      const seeLink = container.parentElement.querySelector('#see-all-link');
+      if (seeLink) {
+        seeLink.addEventListener('click', (e) => {
+          e.preventDefault();
+          expanded = !expanded;
+          applyVisibility();
+        });
+      }
+    });
+  </script>
+</html>

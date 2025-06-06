@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Nils Lukas</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:title" content="Nils Lukas">
+  <meta property="og:description"
+        content="Assistant Professor at MBZUAI focusing on Secure and Private Machine Learning.">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="font-awesome.min.css">
+
+  <!-- Minimal, self‑contained styling -->
+  <style>
+    :root {
+      /* Neutral professional palette */
+      --primary-color:#7A869A;      /* slate gray‑blue */
+      --accent-color:#425466;       /* deep slate */
+      --secondary-bg-color:#F4F6F8; /* light neutral */
+      --neutral:#333;
+      --title-font:#111;
+      --sm-gap:.5rem;
+      --md-gap:1.75rem;
+      --lg-gap:3rem;
+      --body-font:'Inter','Helvetica Neue',Arial,sans-serif;
+    }
+    *{box-sizing:border-box;}
+    body{
+      margin:0;
+      font-family:var(--body-font);
+      color:var(--neutral);
+      line-height:1.65;
+      background:#fff;
+    }
+    h1,h2,h3,h4{color:var(--title-font);margin-top:0;}
+    a{color:var(--accent-color);text-decoration:none;}
+    a:hover{color:var(--accent-color);text-decoration:underline;}
+
+    /* Containers */
+    .main-container{width:90%;max-width:950px;margin:0 auto;}
+
+    /* Navbar */
+    nav{
+      background:var(--accent-color);
+    }
+    nav .navbar-link{
+      color:#fff;
+    }
+    nav .navbar-link:hover,
+    nav .navbar-link.active{
+      color:#FFD66B;                /* soft gold highlight */
+    }
+    nav .navbar-link.active::after{
+      background:#FFD66B;
+    }
+
+    /* Brand link style */
+    nav .main-container > a{
+      color:#fff;
+    }
+    nav .main-container > a:hover{
+      opacity:.9;
+    }
+
+    /* Buttons adopt accent color */
+    .btn-list a{
+      display:inline-block;
+      margin-right:.5rem;
+      margin-bottom:.5rem;
+      padding:.4rem .8rem;
+      border:1px solid var(--accent-color);
+      border-radius:8px;
+      font-size:.85rem;
+      font-weight:500;
+      background:#fff;
+      color:var(--accent-color);
+    }
+    .btn-list a:hover{
+      background:var(--accent-color);
+      color:#fff;
+      text-decoration:none;
+    }
+
+    /* Highlighted announcement banner – pastel outline */
+    .announcement{
+      display:flex;
+      align-items:center;
+      gap:.5rem;
+      font-weight:600;
+      margin:var(--md-gap) 0 .75rem;
+      padding-left:.5rem;
+      border-left:4px solid var(--accent-color);  /* subtle accent line */
+      background:none;
+      color:var(--neutral);
+    }
+    .announcement i{color:var(--accent-color);}
+
+    nav .main-container{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:var(--sm-gap) 0;
+    }
+    .navbar-link{
+      margin-left:1rem;
+      font-weight:500;
+      color:var(--neutral);
+      position:relative;
+    }
+    .navbar-link:hover,
+    .navbar-link.active{color:var(--primary-color);}
+    .navbar-link.active::after{
+      content:'';
+      position:absolute;
+      left:0;
+      bottom:-4px;
+      width:100%;
+      height:2px;
+      background:var(--primary-color);
+    }
+
+    /* Section spacing */
+    section{padding:var(--lg-gap) 0;}
+
+    /* About grid */
+    #about .about-grid{
+      display:grid;
+      grid-template-columns:minmax(200px,250px) 1fr;
+      gap:var(--md-gap);
+      align-items:start;
+    }
+    #profile img{
+      width:100%;
+      border-radius:4px;
+      display:block;
+    }
+    #profile .small{font-size:.9rem;}
+
+    /* Buttons */
+    .btn-list{margin-top:var(--sm-gap);}
+    .btn-list a{
+      display:inline-block;
+      margin-right:.5rem;
+      margin-bottom:.5rem;
+      padding:.35rem .7rem;
+      border:1px solid var(--accent-color);
+      border-radius:4px;
+      font-size:.85rem;
+      font-weight:500;
+    }
+    .btn-list a:hover{
+      background:var(--accent-color);
+      color:#fff;
+      text-decoration:none;
+    }
+
+    /* News items */
+    .news{
+      display:flex;
+      gap:.75rem;
+      margin-bottom:.4rem;
+      font-size:.9rem;
+    }
+    .news small.muted{color:#777;}
+
+    /* News container – pastel card */
+    .news-container{
+      margin-top:.75rem;
+      padding-left:.5rem;
+      border-left:4px solid var(--accent-color);
+      background:none;
+    }
+
+    /* Generic pastel card style */
+    .card{
+      margin-bottom:var(--md-gap);
+      padding:0;                /* remove interior padding */
+      border:none;              /* remove border */
+      background:none;          /* transparent background */
+      box-shadow:none;          /* remove shadow */
+    }
+    /* Make profile card a little roomier */
+    #profile.card{
+      display:flex;
+      flex-direction:column;
+      gap:1rem;
+    }
+
+    /* Contact pane: smaller font, no italics, aligned rows */
+    .contact-info p{
+      display:flex;
+      align-items:center;
+      gap:.4rem;
+      margin:.25rem 0;
+      font-size:.85rem;
+      font-style:normal;    /* ensure not italic */
+    }
+
+    /* Make right‑hand info column flex so news can stick to bottom */
+    #info{
+      display:flex;
+      flex-direction:column;
+    }
+    .news-section{
+      margin-top:auto;           /* push news block to bottom */
+    }
+    .see-all{
+      font-size:.8rem;
+      margin-left:.5rem;
+      color:var(--accent-color);
+      cursor:pointer;
+    }
+    .see-all:hover{text-decoration:underline;}
+
+    /* Hidden news items */
+    .news.hidden{display:none;}
+
+    /* Toggle button – circular icon */
+    .show-toggle{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      width:40px;
+      height:40px;
+      margin:1rem auto 0;
+      border:1px solid var(--accent-color);
+      border-radius:20px;        /* make it a circle */
+      background:#fff;
+      color:var(--accent-color);
+      cursor:pointer;
+      transition:background .2s,color .2s;
+      font-size:1.2rem;
+    }
+    /* Arrow bounce keyframes */
+    @keyframes bounceArrow {
+      0%,100% { transform: translateY(0); }
+      50%     { transform: translateY(4px); }
+    }
+    .show-toggle i{
+      animation:bounceArrow 1s infinite ease-in-out;
+    }
+    .show-toggle.expanded i{
+      animation:none;                /* stop when expanded */
+    }
+    .show-toggle:hover{
+      background:var(--accent-color);
+      color:#fff;
+    }
+
+    /* Interest tags */
+    .tag-list{
+      margin:0;
+      padding:0;
+      list-style:none;
+      display:flex;
+      flex-wrap:wrap;
+      gap:.5rem;
+    }
+    .tag-list li{
+      background:#EDF0F2;
+      border:1px solid #dcdfe3;
+      border-radius:8px;
+      padding:.25rem .7rem;
+      font-size:.85rem;
+      white-space:nowrap;
+    }
+
+    /* Publications */
+    #publications ul{padding-left:1.2rem;}
+
+    /* Publication table */
+    .pub-table{
+      width:100%;
+      max-width:950px;
+      margin:0 auto var(--lg-gap);
+      border-collapse:separate;
+      border-spacing:0 10px;          /* row gap */
+    }
+    .pub-table tr{
+      background:var(--secondary-bg-color);
+      border:1px solid #dcdfe3;
+      border-radius:6px;
+      overflow:hidden;                /* clip rounded corners */
+    }
+    .pub-table td{
+      padding:10px 14px;
+      vertical-align:top;
+    }
+    .pub-table .year{
+      width:55px;
+      font-weight:600;
+      color:var(--accent-color);
+    }
+    .pub-table .details .title{font-weight:600;}
+    /* Inline link icons next to the title */
+    .title-row{
+      display:flex;
+      align-items:center;
+      flex-wrap:wrap;
+      gap:8px;
+    }
+    .link-tags a{
+      font-size:.8rem;
+      color:var(--accent-color);
+      margin-left:8px;
+    }
+    .link-tags a:hover{text-decoration:underline;}
+
+    /* Spotlight star */
+    .spotlight{ 
+      color:#FFD700;              /* gold */
+      margin-left:6px;
+    }
+
+    /* Footer */
+    footer{
+      background:var(--secondary-bg-color);
+      text-align:center;
+      padding:var(--md-gap) 0;
+      font-size:.85rem;
+    }
+
+    /* Toast notification */
+    .toast{
+      position:fixed;
+      bottom:20px;
+      right:20px;
+      background:var(--accent-color);
+      color:#fff;
+      padding:10px 14px;
+      border-radius:6px;
+      box-shadow:0 2px 6px rgba(0,0,0,.15);
+      opacity:0;
+      pointer-events:none;
+      transition:opacity .3s;
+      z-index:1000;
+    }
+    .toast.show{opacity:1;}
+  </style>
+</head>
+
+<body>
+<!-- Navigation -->
+<nav>
+  <div class="main-container">
+    <a style="font-size:1.45rem;font-weight:600;" href="https://nilslukas.github.io/">Nils Lukas</a>
+    <div>
+      <a class="navbar-link" href="index.html">About</a>
+      <a class="navbar-link active" href="publications.html">Publications</a>
+    </div>
+  </div>
+</nav>
+
+
+<!-- Publications -->
+<section id="publications" style="background:var(--secondary-bg-color);">
+  <div class="main-container">
+    <h2>Publications</h2>
+    <p id="pub-loading" class="small" style="margin-bottom:1rem;">Loading publications…</p>
+    <table id="pub-table" class="pub-table"></table>
+  </div>
+</section>
+
+<footer>
+  <div class="main-container">
+    Nils Lukas – Last updated 6 Jun 2025
+  </div>
+</footer>
+</body>
+<!-- Paste your BibTeX entries in the block below -->
+<script id="bibtex-inline" type="text/plain">
+
+@article{diaa2025adaptivellm,
+  title = {Optimizing Adaptive Attacks against Content Watermarks for Language Models},
+  author = {Abdulrahman Diaa, Toluwani Aremu, Nils Lukas},
+  journal = {ICML 2025, 🏆 Spotlight Presentation, 🏆 Oral Presentation at 1st GenAI Watermark Workshop (ICLR'24)},
+  order = {96},
+  year = {2025}
+}
+
+@article{wu2025cowpox,
+  title = {Cowpox: Towards the Immunity of VLM-based Multi-Agent Systems},
+  author = {Yutong Wu, Jie Zhang, Yiming Li, Chao Zhang, Qing Guo, Han Qiu, Nils Lukas, Tianwei Zhang},
+  journal = {ICML 2025},
+  order = {97},
+  year = {2025}
+}
+
+
+
+@article{shamshad2024neurips,
+  title = {First-Place Solution to NeurIPS 2024 Invisible Watermark Removal Challenge},
+  author = {Fahad Shamshad, Tameem Bakr, Yahia Salaheldin Shaaban, Noor Hazim Hussein, Karthik Nandakumar and Nils Lukas},
+  journal = {The 1st Workshop on GenAI Watermarking},
+  order={98},
+  year = {2025}
+}
+
+@article{lukas2023leveraging,
+  title = {Leveraging Optimization for Adaptive Attacks on Image Watermarks},
+  author = {Nils Lukas and Abdulrahma Diaan and Lucas Fenaux and Florian Kerschbaum},
+  journal = {ICLR 2024},
+  year = {2024},
+  order={99},
+  url={https://arxiv.org/abs/2309.16952},
+  code={https://github.com/nilslukas/adaptive-watermark-attacks}
+}
+
+@article{schneider2023universal,
+  title = {Universal Backdoor Attacks},
+  author = {Benjamin Schneider and Nils Lukas and Florian Kerschbaum},
+  journal = {ICLR 2024},
+  order={100},
+  year = {2024},
+}
+
+@article{diaa2023fast,
+  title = {Fast and Private Inference of Deep Neural Networks by Co-designing Activation Functions},
+  author = {Abdulrahman Diaa and Lucas Fenaux  and Thomas Humphries and Marian Dietz and Faezeh Ebrahimianghazani and Bailey Kacsmar and Xinda Li and Nils Lukas and Rasoul Akhavan Mahdavi and Simon Oya and others},
+  journal = {The 33rd USENIX Security Symposium},
+  order={101},
+  year = {2024}
+}
+
+@article{mahdavi2023pepsi,
+  title = {PEPSI: Practically Efficient Private Set Intersection in the Unbalanced Setting},
+  author = {Rasoul Akhavan Mahdavi and Nils Lukas and Faezeh Ebrahimianghazani and Thomas Humphries and Bailey Kacsmar and John Premkumar and Xinda Li and Simon Oya and Ehsan Amjadian and Florian Kerschbaum},
+  year = {2024},
+  order={102},
+  journal = {The 33rd USENIX Security Symposium},
+}
+
+@article{lukas2023ptw,
+  title = {PTW: Pivotal Tuning Watermarking for Pre-Trained Image Generators},
+  author = {Nils Lukas and Florian Kerschbaum},
+  journal = {32nd USENIX Security Symposium},
+  order={120},
+  year = {2023},
+}
+
+@article{lukas2023analyzing,
+  title = {Analyzing Leakage of Personally Identifiable Information in Language Models},
+  author = {Nils Lukas and Ahmed Salem and Robert Sim and Shruti Tople and Lukas Wutschitz and Santiago Zanella-Beguelin},
+  journal = {44th IEEE Symposium on Security and Privacy (SP)},
+  order={120},
+  year = {2023},
+}
+
+@inproceedings{lukas2022sok,
+  title = {Sok: How Robust is Image Classification Deep Neural Network Watermarking?},
+  author = {Nils Lukas and Edward Jiang and Xinda Li and Florian Kerschbaum},
+  booktitle = {43rd IEEE Symposium on Security and Privacy (SP)},
+  pages = {787--804},
+  year = {2022},
+  order={150},
+  organization = {IEEE},
+}
+
+@article{lukas2021deep,
+  title = {Deep Neural Network Fingerprinting by Conferrable Adversarial Examples},
+  author = {Nils Lukas and Yuxuan Zhang and Florian Kerschbaum},
+  journal = {ICLR 2021, 🏆 Spotlight Presentation},
+  order={200},
+  year = {2021},
+}
+
+@inproceedings{shafieinejad2021robustness,
+  title = {On the Robustness of Backdoor-based Watermarking in Deep Neural Networks},
+  author = {Masoumeh Shafieinejad and Nils Lukas and Wang, Jiaqi and Xinda Li and Florian Kerschbaum},
+  booktitle = {Proceedings of the 2021 ACM Workshop on Information Hiding and Multimedia Security},
+  pages = {177--188},
+  year = {2021},
+}
+
+@inproceedings{mahdavi2020practical,
+  title = {Practical Over-threshold Multi-party Private Set Intersection},
+  author = {Rasoul Akhavan Mahdavi and Thomas Humphries and Bailey Kacsmar and Krastnikov, Simeon and Nils Lukas and Premkumar, John A and Masoumeh Shafieinejad and Simon Oya and Florian Kerschbaum and Erik-Oliver Blass},
+  booktitle = {Annual Computer Security Applications Conference},
+  pages = {772--783},
+  year = {2020},
+}
+
+@inproceedings{kacsmar2020differentially,
+  title = {Differentially Private Two-party Set Operations},
+  author = {Bailey Kacsmar and Khurram, Basit and Nils Lukas and Alexander Norton and Masoumeh Shafieinejad and Zhiwei Shang and Yaser Baseri and Maryam Sepehri and Simon Oya and Florian Kerschbaum},
+  booktitle = {2020 IEEE European Symposium on Security and Privacy (EuroS&P)},
+  pages = {390--404},
+  year = {2020},
+  organization = {IEEE},
+}
+</script>
+
+<script>
+/* Soft toast */
+function showToast(msg){
+  let toast=document.getElementById('toast');
+  if(!toast){
+    toast=document.createElement('div');
+    toast.id='toast';
+    toast.className='toast';
+    document.body.appendChild(toast);
+  }
+  toast.textContent=msg;
+  toast.classList.add('show');
+  setTimeout(()=>toast.classList.remove('show'),3000);
+}
+
+/* -------- helper -------- */
+function copyBib(key){
+  const txt = window.bibEntries?.[key] || '';
+  if(!txt) return false;
+  navigator.clipboard.writeText(txt).then(()=>{
+    showToast('BibTeX copied to clipboard');
+  });
+  return false;
+}
+
+/* -------- renderer -------- */
+function renderPublications(list){
+  const table=document.getElementById('pub-table');
+  document.getElementById('pub-loading')?.remove();
+
+  list.sort((a,b)=>{
+    const oa = parseInt(a.order||'9999',10);
+    const ob = parseInt(b.order||'9999',10);
+    if(oa!==ob) return oa-ob;                      // explicit order first
+    return (b.year||'').localeCompare(a.year||''); // then newest‑year first
+  });
+  let lastYear='';
+  list.forEach(e=>{
+    const row=document.createElement('tr');
+    const isSpotlight = /spotlight/i.test(
+      (e.note||'') + ' ' + (e.journal||'') + ' ' + (e.booktitle||'')
+    );
+    // Bold “Nils Lukas” in the author list
+    const authorsHtml = (e.author||'')
+      .replace(/Nils Lukas/gi,'<strong>Nils Lukas</strong>');
+
+    row.innerHTML = `
+      <td class="year">${e.year===lastYear ? '' : (lastYear=e.year)}</td>
+      <td class="details">
+        <div class="title-row">
+          <span class="title">${e.title||'Untitled'} ${isSpotlight?'★':''}</span>
+          <span class="link-tags">
+            ${e.url   ? `<a href="${e.url}"   target="_blank">[pdf]</a>`   : ''}
+            ${e.arxiv ? `<a href="${e.arxiv}" target="_blank">[arXiv]</a>` : ''}
+            ${e.code  ? `<a href="${e.code}"  target="_blank">[code]</a>`  : ''}
+            <a href="#" onclick="return copyBib('${e.key}');">[bib]</a>
+          </span>
+        </div>
+        <div class="authors">${authorsHtml}</div>
+        <div class="venue">${e.journal||e.booktitle||''}</div>
+      </td>
+    `;
+    table.appendChild(row);
+  });
+}
+
+/* -------- main -------- */
+document.addEventListener('DOMContentLoaded',()=>{
+  const inline=document.getElementById('bibtex-inline');
+  if(inline){
+    const list=parseBibtex(inline.textContent);
+    const bibEntries={};
+    list.forEach(entry=>bibEntries[entry.key]=entry.raw);
+    window.bibEntries=bibEntries;
+    renderPublications(list);
+  }else{
+    const load=document.getElementById('pub-loading');
+    if(load) load.textContent='No publications found ‑ add BibTeX entries in the page.';
+  }
+});
+
+/* -------- tiny BibTeX parser -------- */
+function parseBibtex(text){
+  const entries=[], re=/@(\w+)\s*{\s*([^,]+),([\s\S]*?)\n}/g; let m;
+  while((m=re.exec(text))!==null){
+    const [,type,key,body]=m, f={type,key,raw:`@${type}{${key},${body}\n}`};
+    body.split(/\n/).forEach(l=>{
+      const kv=l.match(/\s*(\w+)\s*=\s*[{"'](.*?)[}"'],?\s*$/);
+      if(kv) f[kv[1].toLowerCase()]=kv[2];
+    });
+    entries.push(f);
+  }
+  return entries;
+}
+</script>
+</html>

@@ -422,7 +422,7 @@
 @article{diaa2025adaptivellm,
   title = {Optimizing Adaptive Attacks against Content Watermarks for Language Models},
   author = {Abdulrahman Diaa, Toluwani Aremu, Nils Lukas},
-  journal = {ICML 2025, 🏆 Spotlight Presentation, 🏆 Oral Presentation at 1st GenAI Watermark Workshop (ICLR'24)},
+  journal = {ICML 2025 🏆 Spotlight Presentation, 🏆 Oral Presentation at 1st GenAI Watermark Workshop (ICLR'24)},
   order = {96},
   url = {https://arxiv.org/abs/2410.02440},
   code = {https://github.com/nilslukas/ada-wm-evasion},
@@ -617,7 +617,7 @@ function renderPublications(list){
       <td class="year">${e.year===lastYear ? '' : (lastYear=e.year)}</td>
       <td class="details">
         <div class="title-row">
-          <span class="title">${e.title||'Untitled'} ${isSpotlight?'★':''}</span>
+          <span class="title">${e.title||'Untitled'} ${isSpotlight?'':''}</span>
           <span class="link-tags">
             ${e.url   ? `<a href="${e.url}"   target="_blank">[pdf]</a>`   : ''}
             ${e.arxiv ? `<a href="${e.arxiv}" target="_blank">[arXiv]</a>` : ''}

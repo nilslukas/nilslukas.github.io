@@ -338,6 +338,53 @@
       z-index:1000;
     }
     .toast.show{opacity:1;}
+    /* ===== Mobile (≤600px) ===== */
+    @media (max-width:600px){
+      /* Navbar stacks vertically */
+      nav .main-container{
+        flex-direction:column;
+        gap:.25rem;
+        text-align:center;
+      }
+      .navbar-link{
+        margin:0 .4rem;
+      }
+
+      /* Publication rows behave like cards */
+      .pub-table{
+        border-spacing:0;
+      }
+      .pub-table tr{
+        display:block;
+        margin-bottom:8px;
+      }
+      .pub-table td{
+        display:block;
+        width:100%;
+        padding:6px 10px;
+      }
+      .pub-table .year{
+        font-size:.9rem;
+        margin-bottom:2px;
+      }
+      .title-row{
+        flex-wrap:wrap;
+        gap:6px;
+      }
+      .link-tags{
+        gap:6px;
+        font-size:.75rem;
+      }
+
+      /* Reduce outer spacing */
+      section{
+        padding:var(--sm-gap) 0;
+      }
+      h2{
+        font-size:1.25rem;
+        margin-top:0;
+      }
+    }
   </style>
 </head>
 
@@ -377,6 +424,8 @@
   author = {Abdulrahman Diaa, Toluwani Aremu, Nils Lukas},
   journal = {ICML 2025, 🏆 Spotlight Presentation, 🏆 Oral Presentation at 1st GenAI Watermark Workshop (ICLR'24)},
   order = {96},
+  url = {https://arxiv.org/abs/2410.02440},
+  code = {https://github.com/nilslukas/ada-wm-evasion},
   year = {2025}
 }
 
@@ -385,16 +434,16 @@
   author = {Yutong Wu, Jie Zhang, Yiming Li, Chao Zhang, Qing Guo, Han Qiu, Nils Lukas, Tianwei Zhang},
   journal = {ICML 2025},
   order = {97},
+  url = {https://icml.cc/virtual/2025/poster/46436},
   year = {2025}
 }
-
-
 
 @article{shamshad2024neurips,
   title = {First-Place Solution to NeurIPS 2024 Invisible Watermark Removal Challenge},
   author = {Fahad Shamshad, Tameem Bakr, Yahia Salaheldin Shaaban, Noor Hazim Hussein, Karthik Nandakumar and Nils Lukas},
   journal = {The 1st Workshop on GenAI Watermarking},
   order={98},
+  url = {https://openreview.net/forum?id=wLaP37BrhE},
   year = {2025}
 }
 
@@ -413,6 +462,8 @@
   author = {Benjamin Schneider and Nils Lukas and Florian Kerschbaum},
   journal = {ICLR 2024},
   order={100},
+  url = {https://arxiv.org/abs/2312.00157},
+  code = {https://github.com/Ben-Schneider-code/Universal-Backdoor-Attacks},
   year = {2024},
 }
 
@@ -420,6 +471,7 @@
   title = {Fast and Private Inference of Deep Neural Networks by Co-designing Activation Functions},
   author = {Abdulrahman Diaa and Lucas Fenaux  and Thomas Humphries and Marian Dietz and Faezeh Ebrahimianghazani and Bailey Kacsmar and Xinda Li and Nils Lukas and Rasoul Akhavan Mahdavi and Simon Oya and others},
   journal = {The 33rd USENIX Security Symposium},
+  url = {https://arxiv.org/abs/2306.08538},
   order={101},
   year = {2024}
 }
@@ -429,6 +481,7 @@
   author = {Rasoul Akhavan Mahdavi and Nils Lukas and Faezeh Ebrahimianghazani and Thomas Humphries and Bailey Kacsmar and John Premkumar and Xinda Li and Simon Oya and Ehsan Amjadian and Florian Kerschbaum},
   year = {2024},
   order={102},
+  url = {https://arxiv.org/abs/2310.14565},
   journal = {The 33rd USENIX Security Symposium},
 }
 
@@ -437,6 +490,8 @@
   author = {Nils Lukas and Florian Kerschbaum},
   journal = {32nd USENIX Security Symposium},
   order={120},
+  url = {https://arxiv.org/pdf/2304.07361},
+  code = {https://github.com/nilslukas/gan-watermark},
   year = {2023},
 }
 
@@ -445,7 +500,21 @@
   author = {Nils Lukas and Ahmed Salem and Robert Sim and Shruti Tople and Lukas Wutschitz and Santiago Zanella-Beguelin},
   journal = {44th IEEE Symposium on Security and Privacy (SP)},
   order={120},
+  url = {https://arxiv.org/abs/2302.00539},
   year = {2023},
+}
+
+@article{kerschbaum2023privacy,
+  title={Privacy-Preserving Machine Learning [Cryptography]},
+  author={Florian Kerschbaum and Nils Lukas},
+  journal={IEEE Security & Privacy},
+  volume={21},
+  number={6},
+  pages={90--94},
+  order={121},
+  url = {https://ieeexplore.ieee.org/document/10315769},
+  year={2023},
+  publisher={IEEE}
 }
 
 @inproceedings{lukas2022sok,
@@ -455,6 +524,8 @@
   pages = {787--804},
   year = {2022},
   order={150},
+  url = {https://arxiv.org/abs/2108.04974},
+  code = {https://github.com/dnn-security/Watermark-Robustness-Toolbox},
   organization = {IEEE},
 }
 
@@ -463,6 +534,7 @@
   author = {Nils Lukas and Yuxuan Zhang and Florian Kerschbaum},
   journal = {ICLR 2021, 🏆 Spotlight Presentation},
   order={200},
+  url = {https://arxiv.org/abs/1912.00888},
   year = {2021},
 }
 
@@ -471,6 +543,7 @@
   author = {Masoumeh Shafieinejad and Nils Lukas and Wang, Jiaqi and Xinda Li and Florian Kerschbaum},
   booktitle = {Proceedings of the 2021 ACM Workshop on Information Hiding and Multimedia Security},
   pages = {177--188},
+  url = {https://arxiv.org/abs/1906.07745},
   year = {2021},
 }
 
@@ -479,6 +552,7 @@
   author = {Rasoul Akhavan Mahdavi and Thomas Humphries and Bailey Kacsmar and Krastnikov, Simeon and Nils Lukas and Premkumar, John A and Masoumeh Shafieinejad and Simon Oya and Florian Kerschbaum and Erik-Oliver Blass},
   booktitle = {Annual Computer Security Applications Conference},
   pages = {772--783},
+  url = {https://nilslukas.github.io/assets/pdfs/mahdavi_tpsi_paper.pdf}
   year = {2020},
 }
 
@@ -488,6 +562,7 @@
   booktitle = {2020 IEEE European Symposium on Security and Privacy (EuroS&P)},
   pages = {390--404},
   year = {2020},
+  url = {https://nilslukas.github.io/assets/pdfs/kacsmar_dipsi_paper.pdf},
   organization = {IEEE},
 }
 </script>

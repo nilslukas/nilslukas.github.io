@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Conference Deadlines – Nils Lukas</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:title" content="Conference Deadlines – Nils Lukas">
+  <meta property="og:description" content="Upcoming submission deadlines for top ML and security conferences.">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="font-awesome.min.css">
+
+  <style>
+    :root {
+      --primary-color:#7A869A;
+      --accent-color:#425466;
+      --secondary-bg-color:#F4F6F8;
+      --neutral:#333;
+      --title-font:#111;
+      --sm-gap:.5rem;
+      --md-gap:1.75rem;
+      --lg-gap:3rem;
+      --body-font:'Inter','Helvetica Neue',Arial,sans-serif;
+    }
+    *{box-sizing:border-box;}
+    body{
+      margin:0;
+      font-family:var(--body-font);
+      color:var(--neutral);
+      line-height:1.65;
+      background:#fff;
+    }
+    h1,h2,h3,h4{color:var(--title-font);margin-top:0;}
+    a{color:var(--accent-color);text-decoration:none;}
+    a:hover{color:var(--accent-color);text-decoration:underline;}
+
+    .main-container{width:90%;max-width:950px;margin:0 auto;}
+
+    /* Navbar */
+    nav{background:var(--accent-color);}
+    nav .navbar-link{color:#fff;}
+    nav .navbar-link:hover,
+    nav .navbar-link.active{color:#FFD66B;}
+    nav .navbar-link.active::after{background:#FFD66B;}
+    nav .main-container > a{color:#fff;}
+    nav .main-container > a:hover{opacity:.9;}
+    nav .main-container{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:var(--sm-gap) 0;
+    }
+    .navbar-link{
+      margin-left:1rem;
+      font-weight:500;
+      color:var(--neutral);
+      position:relative;
+    }
+    .navbar-link:hover,
+    .navbar-link.active{color:var(--primary-color);}
+    .navbar-link.active::after{
+      content:'';
+      position:absolute;
+      left:0;
+      bottom:-4px;
+      width:100%;
+      height:2px;
+      background:var(--primary-color);
+    }
+
+    section{padding:var(--lg-gap) 0;}
+
+    /* Page header */
+    .page-header{
+      margin-bottom:var(--md-gap);
+    }
+    .page-header h2{margin-bottom:.25rem;}
+    .page-header p{
+      color:#666;
+      font-size:.9rem;
+      margin:0;
+    }
+
+    /* Filter tags */
+    .filter-bar{
+      display:flex;
+      flex-wrap:wrap;
+      gap:.5rem;
+      margin-bottom:var(--md-gap);
+    }
+    .filter-tag{
+      padding:.3rem .75rem;
+      border:1px solid #dcdfe3;
+      border-radius:8px;
+      font-size:.82rem;
+      font-weight:500;
+      cursor:pointer;
+      background:#fff;
+      color:var(--neutral);
+      transition:background .15s,color .15s,border-color .15s;
+      user-select:none;
+    }
+    .filter-tag:hover{
+      border-color:var(--accent-color);
+    }
+    .filter-tag.active{
+      background:var(--accent-color);
+      color:#fff;
+      border-color:var(--accent-color);
+    }
+
+    /* Conference cards */
+    .conf-card{
+      background:var(--secondary-bg-color);
+      border:1px solid #E8EAED;
+      border-radius:8px;
+      padding:1.1rem 1.3rem;
+      margin-bottom:.85rem;
+      transition:opacity .2s;
+    }
+    .conf-card.hidden{display:none;}
+    .conf-card-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-start;
+      gap:.75rem;
+      margin-bottom:.15rem;
+    }
+    .conf-name{
+      font-size:1.1rem;
+      font-weight:700;
+      color:var(--title-font);
+    }
+    .conf-name a{color:inherit;}
+    .conf-name a:hover{color:var(--accent-color);}
+    .conf-full-name{
+      font-size:.82rem;
+      color:#888;
+      margin-bottom:.35rem;
+    }
+    .conf-meta{
+      font-size:.85rem;
+      color:#555;
+      margin-bottom:.6rem;
+    }
+    .conf-meta i{
+      width:16px;
+      text-align:center;
+      margin-right:.2rem;
+      color:var(--primary-color);
+    }
+    .conf-meta span{margin-right:1.2rem;}
+
+    /* Tags on cards */
+    .conf-tags{
+      display:flex;
+      gap:.35rem;
+      flex-shrink:0;
+    }
+    .conf-tag{
+      padding:.15rem .5rem;
+      border-radius:4px;
+      font-size:.72rem;
+      font-weight:600;
+      text-transform:uppercase;
+      letter-spacing:.3px;
+    }
+    .conf-tag.ml{background:#E8F5E9;color:#2E7D32;}
+    .conf-tag.security{background:#FFF3E0;color:#E65100;}
+    .conf-tag.vision{background:#E3F2FD;color:#1565C0;}
+    .conf-tag.nlp{background:#F3E5F5;color:#6A1B9A;}
+    .conf-tag.privacy{background:#E0F7FA;color:#00695C;}
+
+    /* Deadline rows */
+    .deadline-list{
+      display:flex;
+      flex-direction:column;
+      gap:.3rem;
+    }
+    .deadline-row{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      font-size:.85rem;
+      padding:.25rem .5rem;
+      border-radius:4px;
+    }
+    .deadline-row.upcoming{
+      background:#fff;
+      border:1px solid #c8e6c9;
+    }
+    .deadline-row.passed{
+      color:#999;
+    }
+    .deadline-label{
+      font-weight:600;
+      min-width:70px;
+    }
+    .deadline-date{
+      flex:1;
+      margin-left:.5rem;
+    }
+    .countdown{
+      font-weight:600;
+      font-size:.8rem;
+      white-space:nowrap;
+    }
+    .countdown.upcoming{color:#2E7D32;}
+    .countdown.passed{color:#999;}
+    .countdown.imminent{color:#C62828;}
+    .deadline-check{
+      color:#999;
+      margin-right:.3rem;
+    }
+    .deadline-clock{
+      color:#2E7D32;
+      margin-right:.3rem;
+    }
+    .deadline-clock.imminent{
+      color:#C62828;
+    }
+    .tba-note{
+      font-size:.82rem;
+      color:#999;
+      font-style:italic;
+      padding:.25rem .5rem;
+    }
+
+    /* Section divider */
+    .section-divider{
+      margin:var(--lg-gap) 0 var(--md-gap);
+      padding-bottom:.5rem;
+      border-bottom:2px solid #E8EAED;
+      font-size:.9rem;
+      font-weight:600;
+      color:#999;
+      text-transform:uppercase;
+      letter-spacing:.5px;
+    }
+
+    /* Footer */
+    footer{
+      background:var(--secondary-bg-color);
+      text-align:center;
+      padding:var(--md-gap) 0;
+      font-size:.85rem;
+    }
+
+    /* No results */
+    .no-results{
+      text-align:center;
+      color:#999;
+      padding:2rem;
+      font-size:.9rem;
+      display:none;
+    }
+
+    /* Mobile */
+    @media (max-width:600px){
+      nav .main-container{
+        flex-direction:column;
+        gap:.25rem;
+        text-align:center;
+      }
+      .navbar-link{margin:0 .4rem;}
+      section{padding:var(--sm-gap) 0;}
+      .conf-card-header{
+        flex-direction:column;
+        gap:.3rem;
+      }
+      .conf-meta span{
+        display:block;
+        margin-bottom:.2rem;
+      }
+      .deadline-row{
+        flex-wrap:wrap;
+        gap:.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+  <div class="main-container">
+    <a style="font-size:1.45rem;font-weight:600;" href="https://nilslukas.github.io/">Nils Lukas</a>
+    <div>
+      <a class="navbar-link" href="index.html">About</a>
+      <a class="navbar-link" href="publications.html">Publications</a>
+      <a class="navbar-link active" href="deadlines.html">Conferences</a>
+    </div>
+  </div>
+</nav>
+
+<section>
+  <div class="main-container">
+    <div class="page-header">
+      <h2>Conference Deadlines</h2>
+      <p>Submission deadlines for top ML and security conferences. All deadlines are AoE (Anywhere on Earth).</p>
+    </div>
+
+    <!-- Filters -->
+    <div class="filter-bar">
+      <span class="filter-tag active" data-tag="all">All</span>
+      <span class="filter-tag" data-tag="ml">ML</span>
+      <span class="filter-tag" data-tag="security">Security</span>
+      <span class="filter-tag" data-tag="vision">Vision</span>
+      <span class="filter-tag" data-tag="nlp">NLP</span>
+      <span class="filter-tag" data-tag="privacy">Privacy</span>
+    </div>
+
+    <!-- Conference list (rendered by JS) -->
+    <div id="conf-list"></div>
+    <div id="no-results" class="no-results">No conferences match the selected filter.</div>
+  </div>
+</section>
+
+<footer>
+  <div class="main-container">
+    Nils Lukas – Last updated 21 February 2026
+  </div>
+</footer>
+
+<script>
+const CONFERENCES = [
+  // ——— Imminent deadlines ———
+  {
+    id: "eccv2026",
+    name: "ECCV 2026",
+    fullName: "European Conference on Computer Vision",
+    tags: ["vision", "ml"],
+    link: "https://eccv.ecva.net/",
+    location: "Malmo, Sweden",
+    dates: "Sep 8–13, 2026",
+    deadlines: [
+      { label: "Registration", date: "2026-02-26" },
+      { label: "Paper", date: "2026-03-05" }
+    ]
+  },
+  {
+    id: "pets2026",
+    name: "PETS 2026",
+    fullName: "Privacy Enhancing Technologies Symposium (Issue 4)",
+    tags: ["privacy", "security"],
+    link: "https://petsymposium.org/",
+    location: "Calgary, Canada",
+    dates: "Jul 20–25, 2026",
+    deadlines: [
+      { label: "Paper (Issue 4)", date: "2026-02-28" }
+    ]
+  },
+  // ——— 2027 editions (with known/estimated deadlines) ———
+  {
+    id: "aaai2027",
+    name: "AAAI 2027",
+    fullName: "AAAI Conference on Artificial Intelligence",
+    tags: ["ml"],
+    link: "https://aaai.org/conference/aaai/",
+    location: "Montreal, Canada",
+    dates: "Feb 16–23, 2027",
+    deadlines: [
+      { label: "Abstract", date: "2026-07-25", note: "Expected, TBA" },
+      { label: "Paper", date: "2026-08-01", note: "Expected, TBA" }
+    ]
+  },
+  {
+    id: "aistats2027",
+    name: "AISTATS 2027",
+    fullName: "International Conference on AI and Statistics",
+    tags: ["ml"],
+    link: "https://aistats.org/",
+    location: "TBA",
+    dates: "~May 2027",
+    deadlines: [
+      { label: "Paper", date: "2026-10-02", note: "Expected, TBA" }
+    ]
+  },
+  {
+    id: "emnlp2026",
+    name: "EMNLP 2026",
+    fullName: "Conference on Empirical Methods in Natural Language Processing",
+    tags: ["nlp", "ml"],
+    link: "https://2026.emnlp.org/",
+    location: "Budapest, Hungary",
+    dates: "Oct 24–29, 2026",
+    deadlines: [
+      { label: "ARR Submission", date: "2026-05-25", note: "Expected, TBA" },
+      { label: "Demos", date: "2026-07-04" }
+    ]
+  },
+  {
+    id: "acsac2026",
+    name: "ACSAC 2026",
+    fullName: "Annual Computer Security Applications Conference",
+    tags: ["security"],
+    link: "https://www.acsac.org/",
+    location: "Los Angeles, CA, USA",
+    dates: "Dec 7–11, 2026",
+    deadlines: [
+      { label: "Paper", date: "2026-05-30", note: "Expected, TBA" }
+    ]
+  },
+  // ——— 2027 editions (with known deadlines) ———
+  {
+    id: "ndss2027",
+    name: "NDSS 2027",
+    fullName: "Network and Distributed System Security Symposium",
+    tags: ["security"],
+    link: "https://www.ndss-symposium.org/",
+    location: "San Diego, CA, USA",
+    dates: "Feb 23–27, 2027",
+    deadlines: [
+      { label: "Summer Abstract", date: "2026-04-16" },
+      { label: "Summer Paper", date: "2026-04-23" },
+      { label: "Fall Abstract", date: "2026-07-30" },
+      { label: "Fall Paper", date: "2026-08-06" }
+    ]
+  },
+  {
+    id: "usenix2027",
+    name: "USENIX Security 2027",
+    fullName: "USENIX Security Symposium",
+    tags: ["security"],
+    link: "https://www.usenix.org/conference/usenixsecurity27",
+    location: "Denver, CO, USA",
+    dates: "Aug 7–13, 2027",
+    deadlines: [
+      { label: "Cycle 1", date: "2026-08-19", note: "Expected, TBA" },
+      { label: "Cycle 2", date: "2027-01-28", note: "Expected, TBA" }
+    ]
+  },
+  // ——— 2026 editions ———
+  {
+    id: "colm2026",
+    name: "COLM 2026",
+    fullName: "Conference on Language Modeling",
+    tags: ["ml"],
+    link: "https://colmweb.org/",
+    location: "San Francisco, CA, USA",
+    dates: "Oct 6–9, 2026",
+    deadlines: [
+      { label: "Abstract", date: "2026-03-26" },
+      { label: "Paper", date: "2026-03-31" }
+    ]
+  },
+  {
+    id: "ccs2026",
+    name: "CCS 2026",
+    fullName: "ACM Conference on Computer and Communications Security",
+    tags: ["security"],
+    link: "https://www.sigsac.org/ccs/CCS2026/",
+    location: "The Hague, Netherlands",
+    dates: "Nov 15–19, 2026",
+    deadlines: [
+      { label: "Cycle 1 Abstract", date: "2026-01-07" },
+      { label: "Cycle 1 Paper", date: "2026-01-14" },
+      { label: "Cycle 2 Abstract", date: "2026-04-22" },
+      { label: "Cycle 2 Paper", date: "2026-04-29" }
+    ]
+  },
+  {
+    id: "neurips2026",
+    name: "NeurIPS 2026",
+    fullName: "Conference on Neural Information Processing Systems",
+    tags: ["ml"],
+    link: "https://neurips.cc/",
+    location: "Sydney, Australia",
+    dates: "Dec 6–12, 2026",
+    deadlines: [
+      { label: "Abstract", date: "2026-05-14", note: "Expected, TBA" },
+      { label: "Paper", date: "2026-05-21", note: "Expected, TBA" }
+    ]
+  },
+  {
+    id: "icml2026",
+    name: "ICML 2026",
+    fullName: "International Conference on Machine Learning",
+    tags: ["ml"],
+    link: "https://icml.cc/Conferences/2026",
+    location: "Seoul, South Korea",
+    dates: "Jul 6–11, 2026",
+    deadlines: [
+      { label: "Abstract", date: "2026-01-23" },
+      { label: "Paper", date: "2026-01-28" }
+    ]
+  },
+  {
+    id: "cvpr2026",
+    name: "CVPR 2026",
+    fullName: "IEEE/CVF Conference on Computer Vision and Pattern Recognition",
+    tags: ["vision", "ml"],
+    link: "https://cvpr.thecvf.com/Conferences/2026",
+    location: "Denver, CO, USA",
+    dates: "Jun 3–7, 2026",
+    deadlines: [
+      { label: "Abstract", date: "2025-11-07" },
+      { label: "Paper", date: "2025-11-13" }
+    ]
+  },
+  {
+    id: "sp2026",
+    name: "IEEE S&P 2026",
+    fullName: "IEEE Symposium on Security and Privacy",
+    tags: ["security"],
+    link: "https://sp2026.ieee-security.org/",
+    location: "San Francisco, CA, USA",
+    dates: "May 18–21, 2026",
+    deadlines: [
+      { label: "Cycle 1 Abstract", date: "2025-05-29" },
+      { label: "Cycle 1 Paper", date: "2025-06-05" },
+      { label: "Cycle 2 Abstract", date: "2025-11-06" },
+      { label: "Cycle 2 Paper", date: "2025-11-13" }
+    ]
+  },
+  {
+    id: "usenix2026",
+    name: "USENIX Security 2026",
+    fullName: "USENIX Security Symposium",
+    tags: ["security"],
+    link: "https://www.usenix.org/conference/usenixsecurity26",
+    location: "Baltimore, MD, USA",
+    dates: "Aug 12–14, 2026",
+    deadlines: [
+      { label: "Cycle 1 Registration", date: "2025-08-19" },
+      { label: "Cycle 1 Paper", date: "2025-08-26" },
+      { label: "Cycle 2 Registration", date: "2026-01-29" },
+      { label: "Cycle 2 Paper", date: "2026-02-05" }
+    ]
+  },
+  {
+    id: "iclr2026",
+    name: "ICLR 2026",
+    fullName: "International Conference on Learning Representations",
+    tags: ["ml"],
+    link: "https://iclr.cc/Conferences/2026",
+    location: "Rio de Janeiro, Brazil",
+    dates: "Apr 23–27, 2026",
+    deadlines: [
+      { label: "Abstract", date: "2025-09-19" },
+      { label: "Paper", date: "2025-09-24" }
+    ]
+  },
+  {
+    id: "satml2026",
+    name: "SaTML 2026",
+    fullName: "IEEE Conference on Secure and Trustworthy Machine Learning",
+    tags: ["security", "ml"],
+    link: "https://satml.org/",
+    location: "Munich, Germany",
+    dates: "Mar 23–25, 2026",
+    deadlines: [
+      { label: "Paper", date: "2025-09-24" }
+    ]
+  },
+  {
+    id: "ndss2026",
+    name: "NDSS 2026",
+    fullName: "Network and Distributed System Security Symposium",
+    tags: ["security"],
+    link: "https://www.ndss-symposium.org/ndss2026/",
+    location: "San Diego, CA, USA",
+    dates: "Feb 23–27, 2026",
+    deadlines: [
+      { label: "Summer Paper", date: "2025-04-23" },
+      { label: "Fall Paper", date: "2025-08-06" }
+    ]
+  }
+];
+
+/* ----- helpers ----- */
+function parseAoE(dateStr) {
+  // AoE = UTC-12, end of day. So "2026-03-26" AoE ends at 2026-03-27T12:00:00Z
+  const [y, m, d] = dateStr.split('-').map(Number);
+  return new Date(Date.UTC(y, m - 1, d + 1, 12, 0, 0));
+}
+
+function daysBetween(a, b) {
+  return Math.ceil((b - a) / (1000 * 60 * 60 * 24));
+}
+
+function formatDate(dateStr) {
+  const [y, m, d] = dateStr.split('-').map(Number);
+  const dt = new Date(y, m - 1, d);
+  return dt.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+function getNextDeadline(conf) {
+  const now = new Date();
+  for (const dl of conf.deadlines) {
+    if (parseAoE(dl.date) > now) return dl;
+  }
+  return null;
+}
+
+function getLatestDeadline(conf) {
+  return conf.deadlines[conf.deadlines.length - 1];
+}
+
+/* ----- sorting ----- */
+function sortConferences(confs) {
+  const now = new Date();
+  return confs.slice().sort((a, b) => {
+    const nextA = getNextDeadline(a);
+    const nextB = getNextDeadline(b);
+    // upcoming first, then by earliest upcoming deadline
+    if (nextA && !nextB) return -1;
+    if (!nextA && nextB) return 1;
+    if (nextA && nextB) {
+      return parseAoE(nextA.date) - parseAoE(nextB.date);
+    }
+    // both passed: sort by latest deadline descending
+    const latA = getLatestDeadline(a);
+    const latB = getLatestDeadline(b);
+    return parseAoE(latB.date) - parseAoE(latA.date);
+  });
+}
+
+/* ----- rendering ----- */
+function renderConferences(filter) {
+  const list = document.getElementById('conf-list');
+  const noResults = document.getElementById('no-results');
+  list.innerHTML = '';
+
+  const now = new Date();
+  const sorted = sortConferences(CONFERENCES);
+
+  let hasUpcoming = false;
+  let hasPassed = false;
+  let shownUpcomingDivider = false;
+  let shownPassedDivider = false;
+  let visibleCount = 0;
+
+  // separate into upcoming and passed
+  const upcoming = sorted.filter(c => getNextDeadline(c));
+  const passed = sorted.filter(c => !getNextDeadline(c));
+
+  function matchesFilter(conf) {
+    if (filter === 'all') return true;
+    return conf.tags.includes(filter);
+  }
+
+  // Upcoming section
+  if (upcoming.some(matchesFilter)) {
+    const divider = document.createElement('div');
+    divider.className = 'section-divider';
+    divider.textContent = 'Upcoming Deadlines';
+    list.appendChild(divider);
+  }
+
+  upcoming.forEach(conf => {
+    const card = renderCard(conf, now, matchesFilter(conf));
+    list.appendChild(card);
+    if (matchesFilter(conf)) visibleCount++;
+  });
+
+  // Passed section
+  if (passed.some(matchesFilter)) {
+    const divider = document.createElement('div');
+    divider.className = 'section-divider';
+    divider.textContent = 'Past Deadlines';
+    list.appendChild(divider);
+  }
+
+  passed.forEach(conf => {
+    const card = renderCard(conf, now, matchesFilter(conf));
+    list.appendChild(card);
+    if (matchesFilter(conf)) visibleCount++;
+  });
+
+  noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+}
+
+function renderCard(conf, now, visible) {
+  const card = document.createElement('div');
+  card.className = 'conf-card' + (visible ? '' : ' hidden');
+
+  const tagsHtml = conf.tags.map(t =>
+    `<span class="conf-tag ${t}">${t}</span>`
+  ).join('');
+
+  let deadlinesHtml = '';
+  conf.deadlines.forEach(dl => {
+    const end = parseAoE(dl.date);
+    const isPassed = end <= now;
+    const days = daysBetween(now, end);
+
+    let countdownHtml = '';
+    let rowClass = '';
+    let icon = '';
+
+    if (isPassed) {
+      const ago = Math.abs(days);
+      const label = ago === 0 ? 'Today' : ago === 1 ? '1 day ago' : `${ago} days ago`;
+      countdownHtml = `<span class="countdown imminent">${label}</span>`;
+      rowClass = 'passed';
+      icon = '';
+    } else {
+      const isImminent = days <= 14;
+      const label = days === 0 ? 'Today!' : days === 1 ? '1 day left' : `${days} days left`;
+      countdownHtml = `<span class="countdown ${isImminent ? 'imminent' : 'upcoming'}">${label}</span>`;
+      rowClass = 'upcoming';
+      icon = `<i class="fa fa-clock-o deadline-clock${isImminent ? ' imminent' : ''}" aria-hidden="true"></i>`;
+    }
+
+    const noteHtml = dl.note ? ` <span style="font-size:.75rem;color:#999;">(${dl.note})</span>` : '';
+
+    deadlinesHtml += `
+      <div class="deadline-row ${rowClass}">
+        <span>${icon}<span class="deadline-label">${dl.label}:</span>
+        <span class="deadline-date">${dl.note && dl.note.includes('Expected') ? '~' : ''}${formatDate(dl.date)}${noteHtml}</span></span>
+        ${countdownHtml}
+      </div>`;
+  });
+
+  card.innerHTML = `
+    <div class="conf-card-header">
+      <div>
+        <div class="conf-name"><a href="${conf.link}" target="_blank">${conf.name} <i class="fa fa-external-link" style="font-size:.7em;"></i></a></div>
+        <div class="conf-full-name">${conf.fullName}</div>
+      </div>
+      <div class="conf-tags">${tagsHtml}</div>
+    </div>
+    <div class="conf-meta">
+      <span><i class="fa fa-map-marker" aria-hidden="true"></i> ${conf.location}</span>
+      <span><i class="fa fa-calendar" aria-hidden="true"></i> ${conf.dates}</span>
+    </div>
+    <div class="deadline-list">${deadlinesHtml}</div>`;
+
+  return card;
+}
+
+/* ----- filter logic ----- */
+document.addEventListener('DOMContentLoaded', () => {
+  renderConferences('all');
+
+  document.querySelectorAll('.filter-tag').forEach(tag => {
+    tag.addEventListener('click', () => {
+      document.querySelectorAll('.filter-tag').forEach(t => t.classList.remove('active'));
+      tag.classList.add('active');
+      renderConferences(tag.dataset.tag);
+    });
+  });
+});
+</script>
+</body>
+</html>

@@ -173,6 +173,85 @@
     }
     .news small.muted{color:#777;}
 
+    /* Conference venue chips – pastel, color per conference */
+    .venue{
+      display:inline-block;
+      padding:0 .35rem;
+      border-radius:.25rem;
+      font-weight:600;
+      white-space:nowrap;
+    }
+    .venue-icml    {background:rgba(255,138,76,.18); color:#b85200;}
+    .venue-acl     {background:rgba(236,72,153,.18); color:#a31165;}
+    .venue-cvpr    {background:rgba(34,197,94,.18);  color:#15803d;}
+    .venue-iclr    {background:rgba(14,165,233,.18); color:#0369a1;}
+    .venue-eacl    {background:rgba(168,85,247,.18); color:#6b21a8;}
+    .venue-neurips {background:rgba(99,102,241,.18); color:#3730a3;}
+    .venue-emnlp   {background:rgba(20,184,166,.18); color:#0f766e;}
+    .venue-usenix  {background:rgba(234,179,8,.18);  color:#854d0e;}
+    .venue-snp     {background:rgba(239,68,68,.18);  color:#b91c1c;}
+    /* Achievement chips – distinct from venues */
+    .venue-oral      {background:rgba(202,138,4,.20); color:#854d0e;}
+    .venue-spotlight {background:rgba(217,70,239,.18); color:#86198f;}
+    /* Jersey-style award badge sitting on a venue chip */
+    .venue-star{
+      position:relative;
+      font-size:.75em;
+      margin-left:.15rem;
+      vertical-align:.1em;
+      text-decoration:none;
+    }
+    a.venue-star:hover{ text-decoration:none; opacity:.85; }
+    /* Custom tooltip on the badge */
+    .venue-star[data-tooltip]:hover::after,
+    .venue-star[data-tooltip]:focus::after{
+      content:attr(data-tooltip);
+      position:absolute;
+      left:50%;
+      bottom:calc(100% + 8px);
+      transform:translateX(-50%);
+      background:#1f2937;
+      color:#fff;
+      padding:.45rem .6rem;
+      border-radius:6px;
+      font-size:11px;
+      font-weight:500;
+      line-height:1.4;
+      white-space:normal;
+      width:max-content;
+      max-width:240px;
+      text-align:left;
+      box-shadow:0 4px 12px rgba(0,0,0,.18);
+      pointer-events:none;
+      z-index:20;
+    }
+    .venue-star[data-tooltip]:hover::before,
+    .venue-star[data-tooltip]:focus::before{
+      content:'';
+      position:absolute;
+      left:50%;
+      bottom:calc(100% + 3px);
+      transform:translateX(-50%);
+      border:5px solid transparent;
+      border-top-color:#1f2937;
+      pointer-events:none;
+      z-index:20;
+    }
+
+    /* Venue summary strip above news */
+    .venue-summary{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      gap:.35rem;
+      margin:.5rem 0 .75rem;
+      font-size:.8rem;
+    }
+    .venue-summary-label{
+      color:#777;
+      margin-right:.25rem;
+    }
+
     /* News container – pastel card */
     .news-container{
       margin-top:.75rem;
@@ -452,18 +531,30 @@
 
         <div class="news-section">
         <h2>Latest News <a id="see-all-link" class="see-all" href="#">(see&nbsp;all)</a></h2>
+        <div class="venue-summary">
+          <span class="venue-summary-label">Publications by venue:</span>
+          <span class="venue venue-icml">ICML &times;4 <a class="venue-star" href="https://arxiv.org/abs/2410.02440" target="_blank" rel="noopener" data-tooltip="Spotlight at ICML'25 — Optimizing Adaptive Attacks against Content Watermarks for Language Models">🌟</a></span>
+          <span class="venue venue-iclr">ICLR &times;4 <a class="venue-star" href="https://arxiv.org/abs/1912.00888" target="_blank" rel="noopener" data-tooltip="Spotlight at ICLR'21 — Deep Neural Network Fingerprinting by Conferrable Adversarial Examples">🌟</a></span>
+          <span class="venue venue-usenix">USENIX &times;3</span>
+          <span class="venue venue-neurips">NeurIPS &times;2</span>
+          <span class="venue venue-snp">IEEE S&amp;P &times;2</span>
+          <span class="venue venue-acl">ACL &times;2</span>
+          <span class="venue venue-cvpr">CVPR &times;1 <a class="venue-star" href="https://arxiv.org/abs/2601.08832" target="_blank" rel="noopener" data-tooltip="Oral (top 0.8%) at CVPR'26 — RAVEN: Erasing Invisible Watermarks via Novel View Synthesis">🏆</a></span>
+          <span class="venue venue-emnlp">EMNLP &times;1</span>
+          <span class="venue venue-eacl">EACL &times;1</span>
+        </div>
         <div class="news-container">
           <div class="news">
             <small class="muted">Apr'26</small>
-            <small>🔥 Two papers accepted at ICML'26: <a href="https://arxiv.org/abs/2602.10765">Collaborative Threshold Watermarking</a> and <a href="https://arxiv.org/abs/2601.21600">CoRe: Collaborative Reasoning via Cross Teaching</a>.</small>
+            <small>🔥 Two papers accepted at <span class="venue venue-icml">ICML'26</span>: <a href="https://arxiv.org/abs/2602.10765">Collaborative Threshold Watermarking</a> and <a href="https://arxiv.org/abs/2601.21600">CoRe: Collaborative Reasoning via Cross Teaching</a>.</small>
           </div>
           <div class="news">
             <small class="muted">Apr'26</small>
-            <small>🔥 Two papers accepted at ACL'26, one at the main conference and one at Findings.</small>
+            <small>🔥 Two papers accepted at <span class="venue venue-acl">ACL'26</span>, one at the main conference and one at Findings.</small>
           </div>
           <div class="news">
             <small class="muted">Feb'26</small>
-            <small>🔥 One accepted <a href="https://arxiv.org/pdf/2601.08832">paper</a> at CVPR'26 as an oral presentation (🏆top 0.8%). </small>
+            <small>🔥 One accepted <a href="https://arxiv.org/pdf/2601.08832">paper</a> at <span class="venue venue-cvpr">CVPR'26</span> as an <span class="venue venue-oral">🏆 Oral (top 0.8%)</span>. </small>
           </div>
           <div class="news">
             <small class="muted">Feb'26</small>
@@ -471,7 +562,7 @@
           </div>
           <div class="news">
             <small class="muted">Jan'26</small>
-            <small>🔥 Two accepted papers. <a href="https://arxiv.org/abs/2507.04531">DP-Fusion</a> to ICLR'26 and <a href="https://arxiv.org/abs/2601.17982">SD-E^2</a> to EACL (Findings). </small>
+            <small>🔥 Two accepted papers. <a href="https://arxiv.org/abs/2507.04531">DP-Fusion</a> to <span class="venue venue-iclr">ICLR'26</span> and <a href="https://arxiv.org/abs/2601.17982">SD-E^2</a> to <span class="venue venue-eacl">EACL</span> (Findings). </small>
           </div>
         <div class="news">
             <small class="muted">Dec'25</small>
@@ -487,7 +578,7 @@
           </div>
           <div class="news">
             <small class="muted">Sept'25</small>
-            <small>🔥 <a href="https://arxiv.org/pdf/2504.12739">One paper</a> on mask image watermarking accepted at NeurIPS’25.</small>
+            <small>🔥 <a href="https://arxiv.org/pdf/2504.12739">One paper</a> on mask image watermarking accepted at <span class="venue venue-neurips">NeurIPS’25</span>.</small>
           </div>
           <div class="news">
             <small class="muted">Aug'25</small>
@@ -495,11 +586,11 @@
           </div>
           <div class="news">
             <small class="muted">Aug'25</small>
-            <small>🔥 <a href="https://arxiv.org/abs/2505.13541">One paper</a> on patching Speech Language Models accepted at EMNLP’25 (main).</small>
+            <small>🔥 <a href="https://arxiv.org/abs/2505.13541">One paper</a> on patching Speech Language Models accepted at <span class="venue venue-emnlp">EMNLP’25</span> (main).</small>
           </div>
           <div class="news">
             <small class="muted">May'25</small>
-            <small>🔥 Two papers accepted at ICML’25, one with a spotlight award (top 2.6%).</small>
+            <small>🔥 Two papers accepted at <span class="venue venue-icml">ICML’25</span>, one as a <span class="venue venue-spotlight">🌟 Spotlight (top 2.6%)</span>.</small>
           </div>
           <div class="news">
             <small class="muted">May'25</small>
@@ -507,7 +598,7 @@
            </div>
           <div class="news">
             <small class="muted">Dec'24</small>
-            <small>🥇First place in the <a href="https://erasinginvisible.github.io/">NeurIPS'24 watermark removal challenge</a> with 4.4k USD price money. Congrats to <a href="https://fahadshamshad.github.io/">Fahad Shamsha</a> and the team. (<a href="https://openreview.net/forum?id=wLaP37BrhE">link</a>)</small>
+            <small>🥇First place in the <span class="venue venue-neurips">NeurIPS'24</span> <a href="https://erasinginvisible.github.io/">watermark removal challenge</a> with 4.4k USD price money. Congrats to <a href="https://fahadshamshad.github.io/">Fahad Shamsha</a> and the team. (<a href="https://openreview.net/forum?id=wLaP37BrhE">link</a>)</small>
           </div>
           <div class="news">
             <small class="muted">Oct'24</small>
@@ -519,7 +610,7 @@
           </div>
           <div class="news">
             <small class="muted">Jun'24</small>
-            <small>🔥 Two papers accepted at USENIX’24 on Private Set Intersection& secure DNN inference.</small>
+            <small>🔥 Two papers accepted at <span class="venue venue-usenix">USENIX’24</span> on Private Set Intersection& secure DNN inference.</small>
           </div>
           <div class="news">
             <small class="muted">Apr'24</small>
@@ -527,7 +618,7 @@
           </div>
           <div class="news">
             <small class="muted">Jan'24</small>
-            <small>🔥 Two papers accepted at ICLR’24 (Vienna) on adaptive image‑watermark attacks & universal backdoors.</small>
+            <small>🔥 Two papers accepted at <span class="venue venue-iclr">ICLR’24</span> (Vienna) on adaptive image‑watermark attacks & universal backdoors.</small>
           </div>
           <div class="news">
             <small class="muted">Dec'23</small>
@@ -539,19 +630,19 @@
           </div>
           <div class="news">
             <small class="muted">Oct'23</small>
-            <small>🏆 Distinguished Contribution Award at Microsoft MLADS for our IEEE S&amp;P’23 paper.</small>
+            <small>🏆 Distinguished Contribution Award at Microsoft MLADS for our <span class="venue venue-snp">IEEE S&amp;P’23</span> paper.</small>
           </div>
           <div class="news">
             <small class="muted">Jun'23</small>
-            <small>Research talks at Google & MongoDB; IEEE S&amp;P’23 paper featured on the Microsoft Research Focus blog.</small>
+            <small>Research talks at Google & MongoDB; <span class="venue venue-snp">IEEE S&amp;P’23</span> paper featured on the Microsoft Research Focus blog.</small>
           </div>
           <div class="news">
             <small class="muted">May'23</small>
-            <small>🔥 Paper on learnable watermarks for image generators accepted at USENIX’23 Security (Anaheim).</small>
+            <small>🔥 Paper on learnable watermarks for image generators accepted at <span class="venue venue-usenix">USENIX’23</span> Security (Anaheim).</small>
           </div>
           <div class="news">
             <small class="muted">Apr'23</small>
-            <small>🔥 Paper on PII leakage in language models accepted at IEEE S&amp;P’23 (San Francisco).</small>
+            <small>🔥 Paper on PII leakage in language models accepted at <span class="venue venue-snp">IEEE S&amp;P’23</span> (San Francisco).</small>
           </div>
           <div class="news">
             <small class="muted">May'22</small>

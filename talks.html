@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Talks – Nils Lukas</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:title" content="Talks – Nils Lukas">
+  <meta property="og:description" content="Selected invited talks and workshop presentations by Nils Lukas.">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="font-awesome.min.css">
+
+  <style>
+    :root {
+      --primary-color:#7A869A;
+      --accent-color:#425466;
+      --secondary-bg-color:#F4F6F8;
+      --neutral:#333;
+      --title-font:#111;
+      --sm-gap:.5rem;
+      --md-gap:1.75rem;
+      --lg-gap:3rem;
+      --body-font:'Inter','Helvetica Neue',Arial,sans-serif;
+    }
+    *{box-sizing:border-box;}
+    body{
+      margin:0;
+      font-family:var(--body-font);
+      color:var(--neutral);
+      line-height:1.65;
+      background:#fff;
+    }
+    h1,h2,h3,h4{color:var(--title-font);margin-top:0;}
+    a{color:var(--accent-color);text-decoration:none;}
+    a:hover{color:var(--accent-color);text-decoration:underline;}
+
+    .main-container{width:90%;max-width:950px;margin:0 auto;}
+
+    /* Navbar */
+    nav{background:var(--accent-color);}
+    nav .navbar-link{color:#fff;}
+    nav .navbar-link:hover,
+    nav .navbar-link.active{color:#FFD66B;}
+    nav .navbar-link.active::after{background:#FFD66B;}
+    nav .main-container > a{color:#fff;}
+    nav .main-container > a:hover{opacity:.9;}
+    nav .main-container{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:var(--sm-gap) 0;
+    }
+    .navbar-link{
+      margin-left:1rem;
+      font-weight:500;
+      color:var(--neutral);
+      position:relative;
+    }
+    .navbar-link:hover,
+    .navbar-link.active{color:var(--primary-color);}
+    .navbar-link.active::after{
+      content:'';
+      position:absolute;
+      left:0;
+      bottom:-4px;
+      width:100%;
+      height:2px;
+      background:var(--primary-color);
+    }
+
+    section{padding:var(--lg-gap) 0;}
+
+    .page-header{margin-bottom:var(--md-gap);}
+    .page-header h2{margin-bottom:.25rem;}
+    .page-header p{color:#666;font-size:.9rem;margin:0;}
+
+    /* Talk cards */
+    .talk{
+      display:grid;
+      grid-template-columns:120px 1fr;
+      gap:1.25rem;
+      padding:1.1rem 0;
+      border-bottom:1px solid #E8EAED;
+    }
+    .talk:last-child{border-bottom:none;}
+    .talk-meta{
+      font-size:.82rem;
+      color:#666;
+    }
+    .talk-meta .date{
+      display:block;
+      font-weight:600;
+      color:var(--accent-color);
+      margin-bottom:.15rem;
+    }
+    .talk-meta .loc{display:block;}
+    .talk-body h3{
+      font-size:1.05rem;
+      margin:0 0 .35rem;
+      line-height:1.35;
+    }
+    .talk-body .venue{
+      font-size:.85rem;
+      color:#555;
+      margin:0 0 .5rem;
+    }
+    .talk-body p.summary{
+      margin:0 0 .65rem;
+      font-size:.92rem;
+    }
+    .talk-actions a{
+      display:inline-flex;
+      align-items:center;
+      gap:.35rem;
+      padding:.3rem .65rem;
+      border:1px solid var(--accent-color);
+      border-radius:4px;
+      font-size:.82rem;
+      font-weight:500;
+      color:var(--accent-color);
+    }
+    .talk-actions a:hover{
+      background:var(--accent-color);
+      color:#fff;
+      text-decoration:none;
+    }
+
+    footer{
+      background:var(--secondary-bg-color);
+      text-align:center;
+      padding:var(--md-gap) 0;
+      font-size:.85rem;
+    }
+
+    @media (max-width:600px){
+      nav .main-container{flex-direction:column;gap:.25rem;}
+      .navbar-link{margin:0 .4rem;}
+      section{padding:var(--md-gap) 0;}
+      .talk{grid-template-columns:1fr;gap:.5rem;}
+      .talk-meta{display:flex;gap:.75rem;flex-wrap:wrap;}
+      .talk-meta .date,
+      .talk-meta .loc{display:inline;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+  <div class="main-container">
+    <a style="font-size:1.45rem;font-weight:600;" href="https://nilslukas.github.io/">Nils Lukas</a>
+    <div>
+      <a class="navbar-link" href="index.html">About</a>
+      <a class="navbar-link" href="publications.html">Publications</a>
+      <a class="navbar-link active" href="talks.html">Talks</a>
+      <a class="navbar-link" href="deadlines.html">Conferences</a>
+    </div>
+  </div>
+</nav>
+
+<section>
+  <div class="main-container">
+    <div class="page-header">
+      <h2>Talks</h2>
+      <p>Slides from selected invited talks and workshops. Reach out if you would like a longer version or the source files.</p>
+    </div>
+
+    <!-- ADIA Lab & UGR Summer School 2026 -->
+    <div class="talk">
+      <div class="talk-meta">
+        <span class="date">May 12, 2026</span>
+        <span class="loc">Granada, Spain</span>
+      </div>
+      <div class="talk-body">
+        <h3>AI Safety Workshop: Alignment, Oversight and Deception</h3>
+        <p class="venue"><a href="https://www.adialab.ae/summerschool-2026-rai">ADIA Lab &amp; UGR Summer School 2026 — Responsible AI in the Generative and Agentic AI Era</a></p>
+        <p class="summary">A workshop on AI safety for the generative and agentic era, covering how we specify what models should do (alignment), how we verify they actually do it (oversight), and how deceptive behavior can emerge and be detected in increasingly capable systems.</p>
+        <div class="talk-actions">
+          <a href="assets/pdfs/adia_labs_talk.pdf"><i class="fa fa-file-pdf-o"></i> Slides (PDF)</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Meta FAIR watermark talk -->
+    <div class="talk">
+      <div class="talk-meta">
+        <span class="date">Sept 17, 2025</span>
+        <span class="loc">Meta (FAIR), Paris — remote</span>
+      </div>
+      <div class="talk-body">
+        <h3>Adaptively Robust and Forgery-Resistant Watermarking</h3>
+        <p class="venue">Invited talk to the watermarking team at Meta (FAIR), hosted by <a href="https://www.hadyelsahar.io/">Hady Elsahar</a>.</p>
+        <p class="summary">An overview of recent work on content watermarks for language and image models that hold up under adaptive attacks and resist forgery, including takeaways from our ICML'25 spotlight on adaptive attacks against LLM watermarks.</p>
+        <div class="talk-actions">
+          <a href="assets/pdfs/sept17_meta_watermark_presentation.pdf"><i class="fa fa-file-pdf-o"></i> Slides (PDF)</a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="main-container">
+    Nils Lukas – Last updated 12 May 2026
+  </div>
+</footer>
+</body>
+</html>

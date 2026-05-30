@@ -94,7 +94,13 @@
       color:var(--accent-color);
       margin-bottom:.15rem;
     }
-    .talk-meta .loc{display:block;}
+    .talk-meta .org{
+      display:block;
+      font-weight:600;
+      color:var(--title-font);
+      margin-bottom:.05rem;
+    }
+    .talk-meta .loc{display:block;color:#777;}
     .talk-body h3{
       font-size:1.05rem;
       margin:0 0 .35rem;
@@ -140,6 +146,7 @@
       .talk{grid-template-columns:1fr;gap:.5rem;}
       .talk-meta{display:flex;gap:.75rem;flex-wrap:wrap;}
       .talk-meta .date,
+      .talk-meta .org,
       .talk-meta .loc{display:inline;}
     }
   </style>
@@ -170,7 +177,8 @@
     <div class="talk">
       <div class="talk-meta">
         <span class="date">May 12, 2026</span>
-        <span class="loc">ADIA Lab, Granada, Spain</span>
+        <span class="org">ADIA Lab &amp; UGR</span>
+        <span class="loc">Granada, Spain</span>
       </div>
       <div class="talk-body">
         <h3>AI Safety Workshop: Alignment, Oversight and Deception</h3>
@@ -186,6 +194,7 @@
     <div class="talk">
       <div class="talk-meta">
         <span class="date">Nov 26, 2025</span>
+        <span class="org">UAE Cyber Security Council · TII</span>
         <span class="loc">ADNEC, Abu Dhabi, UAE</span>
       </div>
       <div class="talk-body">
@@ -202,7 +211,8 @@
     <div class="talk">
       <div class="talk-meta">
         <span class="date">2025</span>
-        <span class="loc">Meta (FAIR) · MBZUAI</span>
+        <span class="org">Meta (FAIR) · MBZUAI</span>
+        <span class="loc">Paris (remote) · Abu Dhabi</span>
       </div>
       <div class="talk-body">
         <h3>Adaptively Robust and Forgery-Resistant Watermarking</h3>
@@ -221,7 +231,8 @@
     <div class="talk">
       <div class="talk-meta">
         <span class="date">May 16, 2025</span>
-        <span class="loc">Google Developer Groups, Abu Dhabi, UAE</span>
+        <span class="org">Google Developer Groups</span>
+        <span class="loc">Abu Dhabi, UAE</span>
       </div>
       <div class="talk-body">
         <h3>Emerging Topics in Machine Learning</h3>
@@ -237,7 +248,8 @@
     <div class="talk">
       <div class="talk-meta">
         <span class="date">2023 – 2024</span>
-        <span class="loc">Canada — remote</span>
+        <span class="org">Microsoft · Meta · MongoDB</span>
+        <span class="loc">Remote (Canada)</span>
       </div>
       <div class="talk-body">
         <h3>Analyzing Leakage of Personal Information in Language Models</h3>
@@ -254,7 +266,8 @@
     <div class="talk">
       <div class="talk-meta">
         <span class="date">Oct 17, 2024</span>
-        <span class="loc">Emirates, Dubai, UAE</span>
+        <span class="org">Emirates</span>
+        <span class="loc">Dubai, UAE</span>
       </div>
       <div class="talk-body">
         <h3>Aviation Future Week — Panel on AI &amp; Customer Experience</h3>
@@ -278,7 +291,8 @@
     <div class="talk">
       <div class="talk-meta">
         <span class="date">2024</span>
-        <span class="loc">Canada — remote</span>
+        <span class="org">DeepMind · UC Berkeley</span>
+        <span class="loc">Remote (Canada)</span>
       </div>
       <div class="talk-body">
         <h3>Optimizing Adaptive Attacks against Content Watermarks</h3>
@@ -294,7 +308,8 @@
     <div class="talk">
       <div class="talk-meta">
         <span class="date">2023</span>
-        <span class="loc">Canada — remote</span>
+        <span class="org">Google · UC Berkeley</span>
+        <span class="loc">Remote (Canada)</span>
       </div>
       <div class="talk-body">
         <h3>How Reliable is Watermarking for Image Generators?</h3>

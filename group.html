@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Group – Nils Lukas</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta property="og:title" content="Group – Nils Lukas">
+  <meta property="og:description" content="The SPOT (Secure, Private, Open and Trustworthy) AI lab led by Nils Lukas at MBZUAI.">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="font-awesome.min.css">
+
+  <style>
+    :root {
+      --primary-color:#7A869A;
+      --accent-color:#425466;
+      --secondary-bg-color:#F4F6F8;
+      --neutral:#333;
+      --title-font:#111;
+      --sm-gap:.5rem;
+      --md-gap:1.75rem;
+      --lg-gap:3rem;
+      --body-font:'Inter','Helvetica Neue',Arial,sans-serif;
+    }
+    *{box-sizing:border-box;}
+    body{
+      margin:0;
+      font-family:var(--body-font);
+      color:var(--neutral);
+      line-height:1.65;
+      background:#fff;
+    }
+    h1,h2,h3,h4{color:var(--title-font);margin-top:0;}
+    a{color:var(--accent-color);text-decoration:none;}
+    a:hover{color:var(--accent-color);text-decoration:underline;}
+
+    .main-container{width:90%;max-width:950px;margin:0 auto;}
+
+    /* Navbar */
+    nav{background:var(--accent-color);}
+    nav .navbar-link{color:#fff;}
+    nav .navbar-link:hover,
+    nav .navbar-link.active{color:#FFD66B;}
+    nav .navbar-link.active::after{background:#FFD66B;}
+    nav .main-container > a{color:#fff;}
+    nav .main-container > a:hover{opacity:.9;}
+    nav .main-container{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:var(--sm-gap) 0;
+    }
+    .navbar-link{
+      margin-left:1rem;
+      font-weight:500;
+      color:var(--neutral);
+      position:relative;
+    }
+    .navbar-link:hover,
+    .navbar-link.active{color:var(--primary-color);}
+    .navbar-link.active::after{
+      content:'';
+      position:absolute;
+      left:0;
+      bottom:-4px;
+      width:100%;
+      height:2px;
+      background:var(--primary-color);
+    }
+
+    section{padding:var(--lg-gap) 0;}
+
+    .page-header{margin-bottom:var(--md-gap);}
+    .page-header h2{margin-bottom:.25rem;}
+    .page-header p{color:#666;font-size:.92rem;margin:.35rem 0 0;}
+    .page-header .lab-logo{height:1.25em;vertical-align:-0.22em;}
+
+    /* Announcement banner (matches home page) */
+    .announcement{
+      display:flex;
+      align-items:flex-start;
+      gap:.5rem;
+      font-weight:600;
+      margin:var(--md-gap) 0 0;
+      padding-left:.5rem;
+      border-left:4px solid var(--accent-color);
+      color:var(--neutral);
+      font-size:.92rem;
+    }
+    .announcement i{color:var(--accent-color);margin-top:.25rem;}
+
+    /* People groups */
+    .people-group{margin-bottom:var(--md-gap);}
+    .people-group h3{
+      font-size:1.1rem;
+      margin:0 0 .15rem;
+      padding-bottom:.35rem;
+      border-bottom:1px solid #E8EAED;
+    }
+    .people-group .group-note{
+      font-size:.82rem;
+      color:#888;
+      margin:0 0 .85rem;
+    }
+    .sub-label{
+      font-size:.8rem;
+      font-weight:600;
+      color:var(--primary-color);
+      text-transform:uppercase;
+      letter-spacing:.04em;
+      margin:1rem 0 .5rem;
+    }
+    .people{
+      display:grid;
+      grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+      gap:.7rem 1.5rem;
+    }
+    .person{line-height:1.4;}
+    .person .name{font-weight:600;color:var(--title-font);}
+    .person .meta{display:block;font-size:.8rem;color:#777;}
+    .area{
+      display:inline-block;
+      font-size:.7rem;
+      font-weight:600;
+      padding:0 .35rem;
+      margin-left:.35rem;
+      border-radius:.25rem;
+      vertical-align:.08em;
+    }
+    .area-ml    {background:rgba(99,102,241,.15);  color:#3730a3;}
+    .area-nlp   {background:rgba(20,184,166,.15);  color:#0f766e;}
+    .area-cv    {background:rgba(34,197,94,.15);   color:#15803d;}
+    .area-stats {background:rgba(234,179,8,.18);   color:#854d0e;}
+
+    footer{
+      background:var(--secondary-bg-color);
+      text-align:center;
+      padding:var(--md-gap) 0;
+      font-size:.85rem;
+    }
+
+    @media (max-width:600px){
+      nav .main-container{flex-direction:column;gap:.25rem;}
+      .navbar-link{margin:0 .4rem;}
+      section{padding:var(--md-gap) 0;}
+      .people{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+  <div class="main-container">
+    <a style="font-size:1.45rem;font-weight:600;" href="https://nilslukas.github.io/">Nils Lukas</a>
+    <div>
+      <a class="navbar-link" href="index.html">About</a>
+      <a class="navbar-link active" href="group.html">Group</a>
+      <a class="navbar-link" href="publications.html">Publications</a>
+      <a class="navbar-link" href="talks.html">Talks</a>
+      <a class="navbar-link" href="deadlines.html">Conferences</a>
+    </div>
+  </div>
+</nav>
+
+<section>
+  <div class="main-container">
+    <div class="page-header">
+      <h2>Group <img src="images/spot_lab_logo.png" alt="SPOT Lab logo" class="lab-logo"></h2>
+      <p>The <strong>Secure, Private, Open and Trustworthy (SPOT) AI lab</strong> at <a href="https://mbzuai.ac.ae/">MBZUAI</a>, led by Nils Lukas. We work on secure, private, and strategic machine learning — including content watermarking, privacy-preserving inference, AI safety &amp; security, and conversational agents with social intelligence.</p>
+
+      <div class="announcement">
+        <i class="fa fa-bullhorn" aria-hidden="true"></i>
+        <span>We have open positions for talented students! Please apply by e-mail (my personal address or <a href="mailto:spot.ai@mbzuai.ac.ae">spot.ai@mbzuai.ac.ae</a>).</span>
+      </div>
+    </div>
+
+    <!-- Postdocs -->
+    <div class="people-group">
+      <h3>Postdoctoral Researchers</h3>
+      <div class="people">
+        <div class="person"><span class="name">Samuele Poppi</span><span class="meta">since 2025</span></div>
+        <div class="person"><span class="name">Kshitij Mishra</span><span class="meta">since 2025</span></div>
+        <div class="person"><span class="name">Dushyant Chauhan</span><span class="meta">since 2025</span></div>
+        <div class="person"><span class="name">Yuhan Liu</span><span class="meta">since 2025</span></div>
+      </div>
+    </div>
+
+    <!-- PhD -->
+    <div class="people-group">
+      <h3>PhD Students</h3>
+      <div class="people">
+        <div class="person"><span class="name">Fabian Zhang<span class="area area-ml">ML</span></span><span class="meta">since 2025</span></div>
+        <div class="person"><span class="name">Kseniia Kuvshinova<span class="area area-ml">ML</span></span><span class="meta">since 2025</span></div>
+        <div class="person"><span class="name">Toluwani Aremu<span class="area area-ml">ML</span></span><span class="meta">since 2024</span></div>
+      </div>
+
+      <div class="sub-label">Co-advised</div>
+      <div class="people">
+        <div class="person"><span class="name">Tair Djanibekov<span class="area area-nlp">NLP</span></span><span class="meta">since 2025</span></div>
+        <div class="person"><span class="name">Vamshi Krishna Bonagiri<span class="area area-nlp">NLP</span></span><span class="meta">since 2025</span></div>
+        <div class="person"><span class="name">Abhijith Sharma<span class="area area-ml">ML</span></span><span class="meta">since 2025</span></div>
+        <div class="person"><span class="name">Rushil Thareja<span class="area area-nlp">NLP</span></span><span class="meta">since 2024</span></div>
+        <div class="person"><span class="name">Thuan Hoang Nguyen<span class="area area-cv">CV</span></span><span class="meta">since 2024</span></div>
+      </div>
+    </div>
+
+    <!-- MSc -->
+    <div class="people-group">
+      <h3>MSc Students</h3>
+      <div class="people">
+        <div class="person"><span class="name">Juan Nicolas Sepulveda Arias<span class="area area-cv">CV</span></span><span class="meta">since 2025</span></div>
+        <div class="person"><span class="name">Mohamed Mahmoud Mohamed Hendy<span class="area area-ml">ML</span></span><span class="meta">since 2025</span></div>
+        <div class="person"><span class="name">Majid Mohamed Mohamed Sulaiman Ibrahim<span class="area area-ml">ML</span></span><span class="meta">since 2025</span></div>
+        <div class="person"><span class="name">Prince Jha<span class="area area-ml">ML</span></span><span class="meta">since 2025</span></div>
+        <div class="person"><span class="name">Muhammad Mohideen<span class="area area-cv">CV</span></span><span class="meta">since 2025</span></div>
+        <div class="person"><span class="name">Tameem Bakr<span class="area area-ml">ML</span></span><span class="meta">since 2024</span></div>
+        <div class="person"><span class="name">Shaikha Jasem Mohamed Ismail Alhosani<span class="area area-ml">ML</span></span><span class="meta">since 2024</span></div>
+        <div class="person"><span class="name">Maryam Abdulla Rashed Abdulla Alshamsi<span class="area area-ml">ML</span></span><span class="meta">since 2024</span></div>
+        <div class="person"><span class="name">Maryam Alshehyari<span class="area area-ml">ML</span></span><span class="meta">since 2024</span></div>
+        <div class="person"><span class="name">Abdalla Khalid Mohamed Abdalla Alzaabi<span class="area area-ml">ML</span></span><span class="meta">since 2024</span></div>
+        <div class="person"><span class="name">Ali Al-Ali<span class="area area-ml">ML</span></span><span class="meta">since 2024</span></div>
+      </div>
+
+      <div class="sub-label">Co-advised</div>
+      <div class="people">
+        <div class="person"><span class="name">Bilal Ashfaq<span class="area area-stats">STATS</span></span><span class="meta">since 2025</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="main-container">
+    Nils Lukas – Last updated 30 May 2026
+  </div>
+</footer>
+</body>
+</html>

@@ -9,7 +9,7 @@
   <meta property="og:description" content="The SPOT (Secure, Private, Open and Trustworthy) AI lab led by Nils Lukas at MBZUAI.">
 
   <!-- Icons -->
-  <link rel="stylesheet" href="font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
   <style>
     :root {
@@ -143,8 +143,9 @@
     }
 
     @media (max-width:600px){
-      nav .main-container{flex-direction:column;gap:.25rem;}
-      .navbar-link{margin:0 .4rem;}
+      nav .main-container{flex-direction:column;align-items:center;gap:.4rem;text-align:center;}
+      nav .main-container > div{display:flex;flex-wrap:wrap;justify-content:center;gap:.15rem .1rem;}
+      .navbar-link{margin:0 .55rem;}
       section{padding:var(--md-gap) 0;}
       .people{grid-template-columns:1fr;}
     }

@@ -10,7 +10,7 @@
   <meta property="og:description" content="Curriculum Vitae of Nils Lukas, Assistant Professor at MBZUAI working on secure and private machine learning.">
 
   <!-- Icons -->
-  <link rel="stylesheet" href="font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
   <!-- Computer Modern (LaTeX) web font — self-hosted, no external dependency -->
   <style>
@@ -186,6 +186,14 @@
     }
     #cv-bar .tools a.btn:hover{background:#ffe08a;}
     #cv-bar .tools a.btn:active{transform:translateY(1px);}
+    /* Center the fixed top bar's brand, links and button when they wrap on
+       narrow screens. Placed after the base #cv-bar rules so it wins on
+       source order (media queries add no specificity). */
+    @media (max-width:640px){
+      #cv-bar{justify-content:center;text-align:center;gap:.45rem;padding:.5rem 16px;}
+      #cv-bar .links{width:100%;justify-content:center;gap:.35rem .9rem;}
+      #cv-bar .tools{width:100%;justify-content:center;}
+    }
 
     /* View modes (set by JS on <html data-cv>) ----------------------------
        default / view : the A4 HTML sheet (renders identically everywhere)
@@ -222,6 +230,7 @@
     .pub-tag.v-emnlp{background:rgba(20,184,166,.16);color:#0f766e;}
     .pub-tag.v-usenix{background:rgba(234,179,8,.18);color:#854d0e;}
     .pub-tag.v-snp{background:rgba(239,68,68,.15);color:#b91c1c;}
+    .pub-tag.v-eccv{background:rgba(37,99,235,.16);color:#1d4ed8;}
     .pub-tag[data-tip]{cursor:help;}
     .pub-tag[data-tip]:hover::after{
       content:attr(data-tip);position:absolute;left:0;top:calc(100% + 6px);
@@ -386,7 +395,7 @@
       <div class="sec-label">Research Grants</div>
       <div class="sec-body">
         <div class="group">
-          <div class="ghd">Awarded</div>
+          <div class="ghd" style="display:flex;align-items:baseline;justify-content:space-between;gap:.6rem;"><span>Awarded</span><span class="grant-amt">$686,000</span></div>
           <div class="grant">
             <div class="grant-head">
               <div class="grant-main"><span class="grant-funder">Etihad Airways</span> <span class="grant-title">Conversational Booking Agents</span></div>
@@ -410,7 +419,7 @@
           </div>
         </div>
         <div class="group">
-          <div class="ghd">Selected</div>
+          <div class="ghd" style="display:flex;align-items:baseline;justify-content:space-between;gap:.6rem;"><span>Selected</span><span class="grant-amt">$136,000</span></div>
           <div class="grant">
             <div class="grant-head">
               <div class="grant-main"><span class="grant-funder">TII Funding</span> <span class="grant-title">GFlowNets for Fuzzing of Agentic Applications</span></div>
@@ -426,6 +435,14 @@
     <section class="sec">
       <div class="sec-label">Conference Publications</div>
       <div class="sec-body">
+
+        <div class="pub">
+          <div class="pub-meta"><div class="pub-tag">[ECCV'26]</div><div class="pub-ar">Datasets &amp; Benchmarks</div></div>
+          <div>
+            <a class="pub-title" href="https://arxiv.org/abs/2511.19558">SPQR: A Multi-Dimensional Benchmark for Safety Alignment under Benign Model Adaptation</a>
+            <div class="pub-authors">Mohammed Talha Alam, Nada Saadi, Fahad Shamshad, <strong class="me">Nils Lukas</strong>, Karthik Nandakumar, Fakhri Karray, Samuele Poppi. European Conference on Computer Vision, 2026.</div>
+          </div>
+        </div>
 
         <div class="pub">
           <div class="pub-meta"><div class="pub-tag">[CVPR'26]</div><div class="pub-note">&#127942; Oral (top 0.8%)</div></div>
@@ -880,6 +897,7 @@
         ['ICML','v-icml','International Conference on Machine Learning'],
         ['ICLR','v-iclr','International Conference on Learning Representations'],
         ['CVPR','v-cvpr','IEEE/CVF Conference on Computer Vision and Pattern Recognition'],
+        ['ECCV','v-eccv','European Conference on Computer Vision'],
         ['EACL','v-eacl','European Chapter of the Association for Computational Linguistics'],
         ['EMNLP','v-emnlp','Conference on Empirical Methods in Natural Language Processing'],
         ['ACL','v-acl','Annual Meeting of the Association for Computational Linguistics'],
@@ -904,6 +922,7 @@
         'collaborative threshold':{arxiv:'2602.10765'},
         'core: collaborative':{arxiv:'2601.21600'},
         'raven':{arxiv:'2601.08832'},
+        'spqr':{arxiv:'2511.19558'},
         'dp-fusion':{arxiv:'2507.04531'},
         'sd-e':{arxiv:'2601.17982'},
         'practical over-threshold':{pdf:'https://nilslukas.github.io/assets/pdfs/mahdavi_tpsi_paper.pdf'},

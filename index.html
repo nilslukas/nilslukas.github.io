@@ -10,7 +10,7 @@
         content="Assistant Professor at MBZUAI focusing on Secure and Private Machine Learning.">
 
   <!-- Icons -->
-  <link rel="stylesheet" href="font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
   <!-- Minimal, self‑contained styling -->
   <style>
@@ -192,6 +192,7 @@
     .venue-emnlp   {background:rgba(20,184,166,.18); color:#0f766e;}
     .venue-usenix  {background:rgba(234,179,8,.18);  color:#854d0e;}
     .venue-snp     {background:rgba(239,68,68,.18);  color:#b91c1c;}
+    .venue-eccv    {background:rgba(37,99,235,.18);  color:#1d4ed8;}
     /* Achievement chips – distinct from venues */
     .venue-oral      {background:rgba(202,138,4,.20); color:#854d0e;}
     .venue-spotlight {background:rgba(217,70,239,.18); color:#86198f;}
@@ -395,10 +396,18 @@
     @media (max-width:600px){
       nav .main-container{
         flex-direction:column;
-        gap:.25rem;
+        align-items:center;
+        gap:.4rem;
+        text-align:center;
+      }
+      nav .main-container > div{
+        display:flex;
+        flex-wrap:wrap;
+        justify-content:center;
+        gap:.15rem .1rem;
       }
       .navbar-link{
-        margin:0 .5rem;
+        margin:0 .55rem;
       }
 
       /* Stack profile + info */
@@ -462,6 +471,7 @@
         <a class="navbar-link" href="publications.html">Publications</a>
         <a class="navbar-link" href="talks.html">Talks</a>
         <a class="navbar-link" href="group.html">Group</a>
+        <a class="navbar-link" href="cv.html">CV</a>
         <a class="navbar-link" href="deadlines.html">Conferences</a>
       </div>
     </div>
@@ -523,7 +533,7 @@
           <a href="https://scholar.google.com/citations?user=fmlEab4AAAAJ&hl=en&oi=ao"><i class="fa fa-graduation-cap"></i>Scholar</a>
           <a href="https://github.com/nilslukas"><i class="fa fa-github"></i>GitHub</a>
           <a href="https://ae.linkedin.com/in/nils-lukas-135779130"><i class="fa fa-linkedin"></i>LinkedIn</a>
-          <a href="https://nilslukas.github.io/assets/pdfs/cv_nils_lukas.pdf"><i class="fa fa-file-pdf-o"></i>CV</a>
+          <a href="cv.html"><i class="fa fa-file-pdf-o"></i>CV</a>
         </div>
 
         <!-- Announcement -->
@@ -544,10 +554,15 @@
           <span class="venue venue-snp">IEEE S&amp;P &times;2</span>
           <span class="venue venue-acl">ACL &times;2</span>
           <span class="venue venue-cvpr" data-tooltip="Oral (top 0.8%) at CVPR'26 — RAVEN: Erasing Invisible Watermarks via Novel View Synthesis">CVPR &times;1 <a class="venue-star" href="https://arxiv.org/abs/2601.08832" target="_blank" rel="noopener">🏆</a></span>
+          <span class="venue venue-eccv">ECCV &times;1</span>
           <span class="venue venue-emnlp">EMNLP &times;1</span>
           <span class="venue venue-eacl">EACL &times;1</span>
         </div>
         <div class="news-container">
+          <div class="news">
+            <small class="muted">Jun'26</small>
+            <small>🔥 <a href="https://arxiv.org/abs/2511.19558">SPQR</a>, a benchmark for the safety alignment of text-to-image models under benign fine-tuning, was accepted at <span class="venue venue-eccv">ECCV'26</span> (Datasets &amp; Benchmarks).</small>
+          </div>
           <div class="news">
             <small class="muted">May'26</small>
             <small>I gave a talk on <a href="https://nilslukas.github.io/assets/pdfs/adia_labs_talk.pdf">'AI Safety: Alignment, Oversight and Deception'</a> at the <a href="https://www.adialab.ae/summerschool-2026-rai">ADIA Lab &amp; UGR Summer School</a> in Granada, Spain.</small>
@@ -567,6 +582,10 @@
           <div class="news">
             <small class="muted">Feb'26</small>
             <small>I attended our US AI Forum in San Francisco, then traveled to Washington DC for a <a href="https://cra.org/career-mentoring-workshop/">CRA career</a> event.  </small>
+          </div>
+          <div class="news">
+            <small class="muted">Feb'26</small>
+            <small>I am a PI on a grant from TII (Technology Innovation Institute), together with <a href="https://lahlou.org/">Salem Lahlou</a>, to research GFlowNets for fuzzing of agentic applications.</small>
           </div>
           <div class="news">
             <small class="muted">Jan'26</small>

@@ -9,7 +9,7 @@
   <meta property="og:description" content="Upcoming submission deadlines for top ML and security conferences.">
 
   <!-- Icons -->
-  <link rel="stylesheet" href="font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
   <style>
     :root {
@@ -260,10 +260,17 @@
     @media (max-width:600px){
       nav .main-container{
         flex-direction:column;
-        gap:.25rem;
+        align-items:center;
+        gap:.4rem;
         text-align:center;
       }
-      .navbar-link{margin:0 .4rem;}
+      nav .main-container > div{
+        display:flex;
+        flex-wrap:wrap;
+        justify-content:center;
+        gap:.15rem .1rem;
+      }
+      .navbar-link{margin:0 .55rem;}
       section{padding:var(--sm-gap) 0;}
       .conf-card-header{
         flex-direction:column;
@@ -291,6 +298,7 @@
       <a class="navbar-link" href="publications.html">Publications</a>
       <a class="navbar-link" href="talks.html">Talks</a>
       <a class="navbar-link" href="group.html">Group</a>
+      <a class="navbar-link" href="cv.html">CV</a>
       <a class="navbar-link active" href="deadlines.html">Conferences</a>
     </div>
   </div>

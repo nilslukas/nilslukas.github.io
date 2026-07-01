@@ -602,6 +602,9 @@ footer a:hover{color:var(--accent);}
 }
 .page-header .lab-logo,
 .lab-logo{height:1.25em;vertical-align:-0.22em;}
+/* Lab logo is a link to the SpotAI page */
+.lab-logo-link{display:inline-block;line-height:0;text-decoration:none;transition:opacity .15s ease;}
+.lab-logo-link:hover{opacity:.78;text-decoration:none;}
 
 /* ---------------------------------------------------------------------
    14. Publications table

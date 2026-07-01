@@ -297,6 +297,7 @@
     .grant-amt{white-space:nowrap;font-weight:700;color:#15803d;
       font-variant-numeric:tabular-nums;}
     .grant-amt .yr{color:var(--muted);font-weight:400;}
+    .award-amt{color:#15803d;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap;}
     .grant-meta{font-size:.92em;color:#555;margin-top:.05rem;}
 
     /* Deep-linkable section headings */
@@ -348,6 +349,7 @@
       .grant-funder::before{content:"[";}
       .grant-funder::after{content:"]";}
       .grant-amt{color:#000 !important;}
+      .award-amt{color:#000 !important;}
       .grant-amt .yr{color:#000;}
       .grant-meta{color:#000;}
     }
@@ -406,16 +408,16 @@
     <section class="sec">
       <div class="sec-label">Honors &amp; Awards</div>
       <div class="sec-body">
-        <div class="line"><span><a href="https://www.linkedin.com/feed/update/urn:li:activity:7407701184796573697/">Amazon Research Award</a> [100,000 USD]</span><span class="dt">2025</span></div>
-        <div class="line"><span>First Place at the NeurIPS'24 Watermarking Competition [4,400 USD]</span><span class="dt">2024</span></div>
-        <div class="line"><span>First Place at DGE Elite Hackathon, GITEX'24 [10,900 USD]</span><span class="dt">2024</span></div>
-        <div class="line"><span>Top Mathematics Doctoral Thesis, University of Waterloo [1,080 USD]</span><span class="dt">2024</span></div>
+        <div class="line"><span><a href="https://www.linkedin.com/feed/update/urn:li:activity:7407701184796573697/">Amazon Research Award</a> <span class="award-amt">[100,000 USD]</span></span><span class="dt">2025</span></div>
+        <div class="line"><span>First Place at the NeurIPS'24 Watermarking Competition <span class="award-amt">[4,400 USD]</span></span><span class="dt">2024</span></div>
+        <div class="line"><span>First Place at DGE Elite Hackathon, GITEX'24 <span class="award-amt">[10,900 USD]</span></span><span class="dt">2024</span></div>
+        <div class="line"><span>Top Mathematics Doctoral Thesis, University of Waterloo <span class="award-amt">[1,080 USD]</span></span><span class="dt">2024</span></div>
         <div class="line"><span>Alumni Gold Medal, One PhD Award Yearly, University of Waterloo</span><span class="dt">2024</span></div>
-        <div class="line"><span>Best Poster Award, Sponsored by David R. Cheriton [220 USD]</span><span class="dt">2023</span></div>
+        <div class="line"><span>Best Poster Award, Sponsored by David R. Cheriton <span class="award-amt">[220 USD]</span></span><span class="dt">2023</span></div>
         <div class="line"><span>Distinguished Contribution Award, Microsoft MLADS conference</span><span class="dt">2023</span></div>
-        <div class="line"><span>David R. Cheriton Scholarship, University of Waterloo [14,400 USD]</span><span class="dt">2022, 2023</span></div>
+        <div class="line"><span>David R. Cheriton Scholarship, University of Waterloo <span class="award-amt">[14,400 USD]</span></span><span class="dt">2022, 2023</span></div>
         <div class="line"><span>Outstanding Reviewer, ICML'22</span><span class="dt">2022</span></div>
-        <div class="line"><span>Best Poster Award, Sponsored by Rogers [720 USD]</span><span class="dt">2019</span></div>
+        <div class="line"><span>Best Poster Award, Sponsored by Rogers <span class="award-amt">[720 USD]</span></span><span class="dt">2019</span></div>
       </div>
     </section>
 
@@ -425,6 +427,13 @@
       <div class="sec-body">
         <div class="group">
           <div class="ghd" style="display:flex;align-items:baseline;justify-content:space-between;gap:.6rem;"><span>Awarded</span><span class="grant-amt">$822,000</span></div>
+          <div class="grant">
+            <div class="grant-head">
+              <div class="grant-main"><span class="grant-funder">Amazon Research Awards &ndash; Special Call</span> <span class="grant-title">AdvSim2Real: Robustifying Agents in Simulated Adversarial Environments</span></div>
+              <span class="grant-amt">$100,000 <span class="yr">&middot; 2025</span></span>
+            </div>
+            <div class="grant-meta">PI: <strong class="me">Nils Lukas</strong> &middot; Co-PI: <a href="https://sites.mit.edu/praneeth/">Praneeth Vepakomma</a></div>
+          </div>
           <div class="grant">
             <div class="grant-head">
               <div class="grant-main"><span class="grant-funder">Etihad Airways</span> <span class="grant-title">Conversational Booking Agents</span></div>
@@ -445,15 +454,7 @@
               <span class="grant-amt">$136,000 <span class="yr">&middot; 2025</span></span>
             </div>
             <div class="grant-meta">PIs: Salem Lahlou &amp; <strong class="me">Nils Lukas</strong></div>
-          </div>
-          <div class="grant">
-            <div class="grant-head">
-              <div class="grant-main"><span class="grant-funder">Amazon Research Awards &ndash; Special Call</span> <span class="grant-title">AdvSim2Real: Robustifying Agents in Simulated Adversarial Environments</span></div>
-              <span class="grant-amt">$100,000 <span class="yr">&middot; 2025</span></span>
-            </div>
-            <div class="grant-meta">PI: <strong class="me">Nils Lukas</strong> &middot; Co-PI: <a href="https://sites.mit.edu/praneeth/">Praneeth Vepakomma</a></div>
-          </div>
-        </div>
+          </div>        </div>
       </div>
     </section>
 
@@ -463,7 +464,7 @@
       <div class="sec-body">
 
         <div class="pub">
-          <div class="pub-meta"><div class="pub-tag">[ECCV'26]</div><div class="pub-ar">Datasets &amp; Benchmarks</div></div>
+          <div class="pub-meta"><div class="pub-tag">[ECCV'26]</div></div>
           <div>
             <a class="pub-title" href="https://arxiv.org/abs/2511.19558">SPQR: A Multi-Dimensional Benchmark for Safety Alignment under Benign Model Adaptation</a>
             <div class="pub-authors">Mohammed Talha Alam, Nada Saadi, Fahad Shamshad, <strong class="me">Nils Lukas</strong>, Karthik Nandakumar, Fakhri Karray, Samuele Poppi. European Conference on Computer Vision, 2026.</div>
@@ -1033,6 +1034,7 @@
             '<a href="talks.html">Talks</a>' +
             '<a href="group.html">SpotAI</a>' +
             '<a class="active" href="cv.html">CV</a>' +
+            '<a href="#" data-bio-open>Bio</a>' +
             '<details class="nav-drawer">' +
               '<summary>More</summary>' +
               '<div class="nav-drawer-menu">' +
@@ -1099,5 +1101,6 @@
       }
     })();
   </script>
+  <script src="last-updated.js"></script>
 </body>
 </html>

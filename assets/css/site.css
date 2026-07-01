@@ -233,6 +233,8 @@ a.navbar-link.active::after{
   z-index:1000;
 }
 .nav-drawer-menu .navbar-link{width:100%;}
+/* "Bio" trigger: shown top-level on desktop, folded into "More" on mobile */
+.nav-drawer-menu .bio-mobile{display:none;}
 
 /* ---------------------------------------------------------------------
    6. Home hero — about grid
@@ -1085,6 +1087,9 @@ td,th{text-align:left;}
     font-size:.8rem;
   }
   a.navbar-link.active::after{left:.34rem;right:.34rem;bottom:.3rem;}
+  /* On mobile, hide the top-level Bio link and show it inside "More" */
+  a.navbar-link.bio-desktop{display:none;}
+  .nav-drawer-menu .bio-mobile{display:flex;}
 
   /* Hero → single column */
   #about{padding-top:var(--md-gap);}

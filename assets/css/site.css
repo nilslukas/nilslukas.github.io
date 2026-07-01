@@ -607,6 +607,8 @@ footer a:hover{color:var(--accent);}
 /* Lab logo is a link to the SpotAI page */
 .lab-logo-link{display:inline-block;line-height:0;text-decoration:none;transition:opacity .15s ease;}
 .lab-logo-link:hover{opacity:.78;text-decoration:none;}
+/* Adherence brand dot (echoes the company wordmark) */
+.adh-dot{color:#006AD6;font-weight:800;font-size:1.05em;}
 
 /* ---------------------------------------------------------------------
    14. Publications table

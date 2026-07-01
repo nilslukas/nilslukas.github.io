@@ -12,6 +12,11 @@
   <!-- Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+  <!-- Top-bar wordmark font (the CV document itself uses self-hosted Computer Modern) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Source+Serif+4:opsz,wght@8..60,600&display=swap" rel="stylesheet">
+
   <!-- Computer Modern (LaTeX) web font — self-hosted, no external dependency -->
   <style>
     @font-face{font-family:'Computer Modern Serif';font-weight:normal;font-style:normal;
@@ -163,28 +168,32 @@
     /* Fixed top bar (nav + tools), injected by JS */
     #cv-bar{
       position:fixed;top:0;left:0;right:0;z-index:1000;
-      background:#425466;color:#fff;
+      background:#FAF9F5;                                   /* solid fallback */
+      background:rgba(250,249,245,.85);
+      -webkit-backdrop-filter:saturate(1.6) blur(8px);
+      backdrop-filter:saturate(1.6) blur(8px);
+      color:#141413;border-bottom:1px solid #E7E4DA;
       font-family:'Inter','Helvetica Neue',Arial,sans-serif;font-size:.85rem;
       display:flex;align-items:center;justify-content:space-between;
       padding:.55rem max(20px,calc((100% - 1120px)/2));
       gap:1rem;flex-wrap:wrap;
-      box-shadow:0 1px 8px rgba(0,0,0,.18);
     }
-    #cv-bar a{color:#fff;text-decoration:none;}
-    #cv-bar .brand{font-weight:600;font-size:1.08rem;letter-spacing:.01em;}
+    #cv-bar a{color:#141413;text-decoration:none;}
+    #cv-bar .brand{font-family:'Source Serif 4','Iowan Old Style',Georgia,serif;
+      font-weight:600;font-size:1.18rem;letter-spacing:-.01em;color:#141413;}
     #cv-bar .links{display:flex;align-items:center;gap:1.1rem;flex-wrap:wrap;}
-    #cv-bar .links a{opacity:.92;transition:color .15s,opacity .15s;}
-    #cv-bar .links a:hover{opacity:1;color:#FFD66B;}
-    #cv-bar .links a.active{color:#FFD66B;opacity:1;font-weight:600;}
+    #cv-bar .links a{color:#57554E;transition:color .15s;}
+    #cv-bar .links a:hover{color:#C15F3C;}
+    #cv-bar .links a.active{color:#9E4A2F;font-weight:600;}
     #cv-bar .tools{display:flex;gap:.4rem;align-items:center;}
     #cv-bar .tools a.btn{
       display:inline-flex;align-items:center;gap:.45rem;
-      background:#FFD66B;color:#2b3a47;border:none;border-radius:6px;
-      padding:.4rem .85rem;font-size:.82rem;font-weight:600;cursor:pointer;
+      background:#C15F3C;color:#FAF9F5;border:none;border-radius:999px;
+      padding:.42rem .95rem;font-size:.82rem;font-weight:600;cursor:pointer;
       font-family:'Inter','Helvetica Neue',Arial,sans-serif;text-decoration:none;
       transition:background .15s,transform .05s;
     }
-    #cv-bar .tools a.btn:hover{background:#ffe08a;}
+    #cv-bar .tools a.btn:hover{background:#a94f31;}
     #cv-bar .tools a.btn:active{transform:translateY(1px);}
     /* Center the fixed top bar's brand, links and button when they wrap on
        narrow screens. Placed after the base #cv-bar rules so it wins on

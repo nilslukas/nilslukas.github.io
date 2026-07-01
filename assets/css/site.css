@@ -1,0 +1,1112 @@
+/* =====================================================================
+   Nils Lukas — shared site stylesheet
+   "Warm Paper" — Anthropic/Claude design language meets print-academic
+   restraint (rasoulam.github.io calm, content-first minimalism).
+
+   Base direction : paper-academic   (won minimal-clean + feasibility a11y)
+   Grafts         : editorial-serif   (warm clay-tinted chips, sticky nav,
+                                        news bottom-align, focus-safe tooltips)
+                    minimal-app       (::selection, faint-tint award chips)
+
+   Display serif  : Source Serif 4    (closest free Tiempos/Copernicus)
+   Body / UI sans : Inter             (Styrene stand-in)
+
+   Drop-in: restyles the existing class names in place — no markup changes.
+   Applies to index / publications / talks / group / deadlines.
+   (cv.html is a self-contained, PDF-styled document — keep it standalone.)
+   ===================================================================== */
+
+/* ---------------------------------------------------------------------
+   1. Design tokens
+   --------------------------------------------------------------------- */
+:root{
+  /* Paper + surfaces */
+  --bg:#FAF9F5;            /* warm ivory paper                       */
+  --surface:#F0EEE6;       /* deeper cream                           */
+  --surface-soft:#F5F3EC;  /* faintest cream                         */
+  --chip-bg:#F3EBE6;       /* warm clay-tinted chip fill             */
+  --tint:#F3E6DF;          /* faint clay wash (awards / hovers)      */
+
+  /* Ink */
+  --ink:#141413;           /* headings / strongest                   */
+  --ink-2:#1F1E1D;         /* body strong                            */
+  --body:#26251F;          /* body text (>=13:1 on paper)            */
+  --muted:#6B6960;         /* secondary  (5.2:1)                     */
+  --muted-2:#73716B;       /* tertiary / dates (4.6:1)               */
+  --muted-strong:#57554E;  /* strong muted (7.1:1)                   */
+
+  /* Clay accent — ONE restrained signature */
+  --accent:#9E4A2F;        /* AA-safe clay for ALL small text/links (5.7:1) */
+  --accent-strong:#7A3A24; /* dark clay ink on chips (7.3:1)         */
+  --accent-bright:#C15F3C; /* clay — LARGE/decorative/hover/borders only (4:1) */
+  --accent-coral:#D97757;  /* bright coral — never small text        */
+  --accent-text:#7A3A24;   /* alias: chip text                       */
+
+  /* Hairlines */
+  --border:#E7E4DA;
+  --border-2:#DAD7CC;
+
+  /* Type */
+  --serif:'Source Serif 4','Iowan Old Style',Georgia,'Times New Roman',serif;
+  --sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+
+  /* Rhythm */
+  --measure:840px;
+  --sm-gap:.5rem;
+  --md-gap:1.5rem;
+  --lg-gap:2.75rem;
+  --radius:8px;
+  --radius-sm:5px;
+  --tap:40px;
+
+  /* ---- Legacy-token aliases (graceful fallback for any residual
+          inline var() references left in the markup) ---- */
+  --secondary-bg-color:var(--bg);
+  --accent-color:var(--accent);
+  --primary-color:var(--muted);
+  --neutral:var(--body);
+  --title-font:var(--ink);
+  --body-font:var(--sans);
+}
+
+/* ---------------------------------------------------------------------
+   2. Reset / base
+   --------------------------------------------------------------------- */
+*,*::before,*::after{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--body);
+  font-family:var(--sans);
+  font-size:15.5px;
+  line-height:1.65;
+  font-feature-settings:"kern","liga","calt";
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+}
+img{max-width:100%;}
+::selection{background:var(--tint);color:var(--ink);}
+
+/* ---------------------------------------------------------------------
+   3. Typography
+   --------------------------------------------------------------------- */
+h1,h2,h3,h4,h5,h6{
+  font-family:var(--serif);
+  color:var(--ink);
+  font-weight:500;                 /* light-weight, plain editorial headings */
+  line-height:1.25;
+  letter-spacing:-.005em;
+  margin:0 0 .6rem;
+}
+h1{font-size:2rem;font-weight:600;letter-spacing:-.015em;}
+h2{font-size:1.35rem;}
+h3{font-size:1.12rem;}
+h4{font-size:1rem;}
+
+p{margin:0 0 1rem;}
+strong,b{font-weight:600;color:var(--ink-2);}
+small{font-size:.82rem;}
+hr{border:none;border-top:1px solid var(--border);margin:var(--md-gap) 0;}
+
+a{
+  color:var(--accent);
+  text-decoration:none;
+  text-underline-offset:2px;
+  text-decoration-thickness:from-font;
+  transition:color .15s ease;
+}
+a:hover{color:var(--accent-bright);text-decoration:underline;}
+
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible,
+.filter-tag:focus-visible,
+.see-all:focus-visible,
+.show-toggle:focus-visible{
+  outline:2px solid var(--accent-bright);
+  outline-offset:2px;
+  border-radius:3px;
+}
+
+.muted{color:var(--muted);}
+.small{font-size:.86rem;}
+
+/* ---------------------------------------------------------------------
+   4. Layout
+   --------------------------------------------------------------------- */
+.main-container{
+  width:90%;
+  max-width:var(--measure);
+  margin-left:auto;
+  margin-right:auto;
+}
+section{padding:var(--lg-gap) 0;}
+
+/* ---------------------------------------------------------------------
+   5. Navigation — one unified light nav on ivory, sticky hairline bar
+   --------------------------------------------------------------------- */
+nav{
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:var(--bg);                                   /* solid fallback */
+  background:rgba(250,249,245,.82);                       /* translucent    */
+  border-bottom:1px solid var(--border);
+  -webkit-backdrop-filter:saturate(1.6) blur(8px);
+  backdrop-filter:saturate(1.6) blur(8px);
+}
+nav .main-container{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:1rem;
+  padding:.6rem 0;
+  min-height:54px;
+}
+/* Brand link (carries inline font-size/weight in markup) */
+nav .main-container > a{
+  font-family:var(--serif);
+  color:var(--ink);
+  font-weight:600;
+  letter-spacing:-.01em;
+  line-height:1.1;
+  white-space:nowrap;
+}
+nav .main-container > a:hover{color:var(--ink);text-decoration:none;opacity:.72;}
+
+nav .main-container > div{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:.1rem .3rem;
+}
+a.navbar-link{
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  margin-left:0;
+  padding:.4rem .65rem;
+  font-family:var(--sans);
+  font-size:.92rem;
+  font-weight:500;
+  color:var(--muted-strong);
+  border-radius:var(--radius-sm);
+  white-space:nowrap;
+  transition:color .15s ease,background-color .15s ease;
+}
+a.navbar-link:hover{color:var(--ink);background:var(--surface);text-decoration:none;}
+a.navbar-link.active{color:var(--accent);}          /* AA-safe clay text (5.7:1) */
+a.navbar-link.active::after{
+  content:'';
+  position:absolute;
+  left:.65rem;
+  right:.65rem;
+  bottom:.12rem;
+  height:1.5px;
+  background:var(--accent-bright);                    /* clay underline (decorative) */
+  border-radius:2px;
+}
+
+/* ---------------------------------------------------------------------
+   6. Home hero — about grid
+   --------------------------------------------------------------------- */
+#about{padding-top:var(--lg-gap);}
+#about .about-grid{
+  display:grid;
+  grid-template-columns:minmax(190px,235px) 1fr;
+  gap:2.25rem;
+  align-items:start;
+}
+
+/* Card class kept in markup; chrome removed (flat, no shadow) */
+.card{margin:0;padding:0;border:none;background:none;box-shadow:none;}
+#profile.card{
+  display:flex;
+  flex-direction:column;
+  gap:1.1rem;
+}
+#profile img{
+  width:100%;
+  display:block;
+  border-radius:var(--radius);
+  border:1px solid var(--border);
+}
+/* Profile column mini-labels ("Contact", "Bio") — quiet uppercase micro-labels */
+#profile h2{
+  font-family:var(--sans);
+  font-size:.72rem;
+  font-weight:600;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin:0 0 .4rem;
+}
+
+/* Contact block */
+.contact-info{margin-top:.15rem;}
+.contact-info p{
+  display:flex;
+  align-items:baseline;
+  gap:.4rem;
+  margin:.2rem 0;
+  font-size:.88rem;
+  font-style:normal;
+  color:var(--body);
+  line-height:1.5;
+}
+.contact-info p i{color:var(--muted-2);font-size:.85em;}
+
+/* Bio table */
+#profile .bio table,
+table.small{
+  border-collapse:collapse;
+  width:100%;
+  font-size:.86rem;
+}
+#profile .bio td,
+table.small td{
+  padding:.16rem .5rem .16rem 0;
+  vertical-align:top;
+}
+#profile .bio td.muted,
+table.small td.muted{color:var(--muted-2);white-space:nowrap;}
+#profile .bio i{color:var(--muted-strong);font-style:italic;}
+
+/* Info column */
+#info{display:flex;flex-direction:column;min-width:0;}
+#info > p:first-of-type{margin-top:0;}
+#info img{vertical-align:-0.2em;}
+
+/* Teaching block */
+.teaching{
+  font-size:.92rem;
+  color:var(--body);
+  margin:.25rem 0 1rem;
+}
+.teaching ul{margin:.35rem 0 .4rem;padding-left:1.2em;}
+.teaching li{margin:.12rem 0;}
+.teaching li::marker{color:var(--muted-2);}
+
+/* ---------------------------------------------------------------------
+   7. Buttons — quiet hairline pills (Scholar / GitHub / LinkedIn / CV)
+   --------------------------------------------------------------------- */
+.btn-list{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.5rem;
+  margin:.35rem 0 1rem;
+}
+.btn-list a{
+  display:inline-flex;
+  align-items:center;
+  gap:.45rem;
+  margin:0;
+  padding:.42rem .85rem;
+  min-height:36px;
+  border:1px solid var(--border-2);
+  border-radius:999px;
+  background:var(--bg);
+  color:var(--ink);
+  font-size:.85rem;
+  font-weight:500;
+  line-height:1.2;
+  transition:background-color .15s ease,border-color .15s ease,color .15s ease;
+}
+.btn-list a i{color:var(--accent);font-size:.95em;transition:color .15s ease;}
+.btn-list a:hover{
+  background:var(--tint);
+  border-color:var(--accent-bright);
+  color:var(--ink);
+  text-decoration:none;
+}
+.btn-list a:hover i{color:var(--accent-bright);}
+
+/* ---------------------------------------------------------------------
+   8. Announcement banner
+   --------------------------------------------------------------------- */
+.announcement{
+  display:flex;
+  align-items:flex-start;
+  gap:.6rem;
+  margin:var(--md-gap) 0 1rem;
+  padding:.72rem .95rem;
+  background:var(--surface-soft);
+  border:1px solid var(--border);
+  border-left:3px solid var(--accent-bright);
+  border-radius:0 var(--radius) var(--radius) 0;
+  font-size:.92rem;
+  font-weight:500;
+  color:var(--body);
+}
+.announcement i{color:var(--accent);margin-top:.2rem;}
+.announcement a{font-weight:600;}
+.announcement img{vertical-align:-0.2em;}
+
+/* ---------------------------------------------------------------------
+   9. News
+   --------------------------------------------------------------------- */
+.news-section{margin-top:auto;padding-top:.5rem;}   /* bottom-align in #info column */
+.news-section h2{
+  display:flex;
+  align-items:baseline;
+  gap:.5rem;
+  font-size:1.2rem;
+  padding-bottom:.5rem;
+  margin-bottom:.6rem;
+  border-bottom:1px solid var(--border);
+}
+.see-all{
+  font-family:var(--sans);
+  font-size:.78rem;
+  font-weight:500;
+  color:var(--accent);
+  cursor:pointer;
+}
+.see-all:hover{text-decoration:underline;}
+
+.news-container{
+  margin-top:.5rem;
+  padding-left:1rem;
+  border-left:1px solid var(--border-2);
+  background:none;
+}
+.news{
+  display:flex;
+  gap:.85rem;
+  align-items:baseline;
+  margin:0 0 .6rem;
+  font-size:.9rem;
+  line-height:1.55;
+}
+.news small{font-size:inherit;}
+.news small.muted,
+.news .muted{
+  flex:0 0 3.8rem;
+  color:var(--muted-2);
+  font-variant-numeric:tabular-nums;
+  white-space:nowrap;
+}
+.news.hidden{display:none;}
+
+/* Show-more toggle (circular, 40px tap target) */
+.show-toggle{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  width:var(--tap);
+  height:var(--tap);
+  margin:1rem auto 0;
+  border:1px solid var(--border-2);
+  border-radius:50%;
+  background:var(--bg);
+  color:var(--accent);
+  cursor:pointer;
+  font-size:1.1rem;
+  transition:background-color .15s ease,color .15s ease,border-color .15s ease;
+}
+.show-toggle:hover{border-color:var(--accent-bright);background:var(--tint);color:var(--accent-bright);}
+@keyframes bounceArrow{0%,100%{transform:translateY(0);}50%{transform:translateY(3px);}}
+.show-toggle i{animation:bounceArrow 1.1s infinite ease-in-out;}
+.show-toggle.expanded i{animation:none;}
+
+/* ---------------------------------------------------------------------
+   10. Venue chips — ONE uniform tonal treatment (kills the rainbow)
+   --------------------------------------------------------------------- */
+.venue,
+.pub-tag{
+  position:relative;
+  display:inline-block;
+  padding:.06em .5em;
+  border:1px solid var(--border-2);
+  border-radius:var(--radius-sm);
+  background:var(--chip-bg);
+  color:var(--accent-strong);            /* dark clay ink (7.3:1) */
+  font-family:var(--sans);
+  font-size:.78em;
+  font-weight:600;
+  line-height:1.5;
+  letter-spacing:.01em;
+  white-space:nowrap;
+  vertical-align:baseline;
+}
+/* Every conference modifier collapses onto the same quiet clay chip */
+.venue-icml,.venue-iclr,.venue-usenix,.venue-neurips,.venue-snp,
+.venue-acl,.venue-cvpr,.venue-eccv,.venue-emnlp,.venue-eacl{
+  background:var(--chip-bg);
+  border-color:var(--border-2);
+  color:var(--accent-strong);
+}
+/* Achievement chips — faint clay tint (quiet honor, still AA at 4.95:1) */
+.venue-oral,
+.venue-spotlight{
+  background:var(--tint);
+  border-color:#E6CDBF;
+  color:var(--accent);
+}
+.venue[data-tooltip]{cursor:help;}
+
+/* Award star (emoji link sitting on a chip) */
+.venue-star{
+  font-size:.85em;
+  margin-left:.18rem;
+  vertical-align:.05em;
+  text-decoration:none;
+  line-height:1;
+}
+a.venue-star:hover{text-decoration:none;opacity:.8;}
+
+/* Tooltip — warm ink, keyboard-accessible (:focus-within) */
+.venue[data-tooltip]:hover::after,
+.venue[data-tooltip]:focus-within::after{
+  content:attr(data-tooltip);
+  position:absolute;
+  left:50%;
+  bottom:calc(100% + 8px);
+  transform:translateX(-50%);
+  background:var(--ink);
+  color:var(--bg);
+  padding:.5rem .65rem;
+  border-radius:var(--radius-sm);
+  font-family:var(--sans);
+  font-size:11.5px;
+  font-weight:500;
+  line-height:1.45;
+  letter-spacing:0;
+  white-space:normal;
+  width:max-content;
+  max-width:250px;
+  text-align:left;
+  border:1px solid rgba(0,0,0,.15);
+  pointer-events:none;
+  z-index:60;
+}
+.venue[data-tooltip]:hover::before,
+.venue[data-tooltip]:focus-within::before{
+  content:'';
+  position:absolute;
+  left:50%;
+  bottom:calc(100% + 3px);
+  transform:translateX(-50%);
+  border:5px solid transparent;
+  border-top-color:var(--ink);
+  pointer-events:none;
+  z-index:60;
+}
+
+/* Venue summary strip */
+.venue-summary{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:.4rem;
+  margin:.5rem 0 1rem;
+  font-size:.8rem;
+}
+.venue-summary-label{color:var(--muted);font-weight:500;margin-right:.15rem;}
+
+/* Generic interest tag list */
+.tag-list{
+  margin:0;padding:0;list-style:none;
+  display:flex;flex-wrap:wrap;gap:.4rem;
+}
+.tag-list li{
+  background:var(--chip-bg);
+  border:1px solid var(--border-2);
+  border-radius:999px;
+  padding:.22rem .7rem;
+  font-size:.83rem;
+  color:var(--ink-2);
+  white-space:nowrap;
+}
+
+/* ---------------------------------------------------------------------
+   11. Quote banner
+   --------------------------------------------------------------------- */
+.quote-banner{
+  text-align:center;
+  padding:var(--lg-gap) 0;
+  border-top:1px solid var(--border);
+}
+.quote-banner blockquote{
+  margin:0 auto;
+  max-width:640px;
+  font-family:var(--serif);
+  font-size:1.15rem;
+  font-style:italic;
+  font-weight:400;
+  color:var(--muted-strong);
+  line-height:1.65;
+}
+.quote-banner .quote-attr{
+  margin-top:.75rem;
+  font-family:var(--sans);
+  font-size:.82rem;
+  font-style:normal;
+  letter-spacing:.02em;
+  color:var(--muted);
+}
+
+/* ---------------------------------------------------------------------
+   12. Footer
+   --------------------------------------------------------------------- */
+footer{
+  background:none;
+  border-top:1px solid var(--border);
+  text-align:center;
+  padding:var(--md-gap) 0;
+  margin-top:2rem;
+  font-size:.82rem;
+  color:var(--muted);
+}
+footer a{color:var(--muted-strong);}
+footer a:hover{color:var(--accent);}
+
+/* ---------------------------------------------------------------------
+   13. Page header (publications / talks / group / deadlines)
+   --------------------------------------------------------------------- */
+.page-header{margin-bottom:var(--lg-gap);}
+.page-header h1,
+.page-header h2{margin-bottom:.25rem;}
+.page-header p{
+  color:var(--muted);
+  font-size:.94rem;
+  margin:.35rem 0 0;
+  max-width:66ch;
+}
+.page-header .lab-logo,
+.lab-logo{height:1.25em;vertical-align:-0.22em;}
+
+/* ---------------------------------------------------------------------
+   14. Publications table
+   --------------------------------------------------------------------- */
+.pub-table{
+  width:100%;
+  max-width:none;
+  margin:.5rem auto var(--lg-gap);
+  border-collapse:collapse;
+  border-spacing:0;
+}
+.pub-table tr{
+  background:none;
+  border:none;
+  border-top:1px solid var(--border);
+}
+.pub-table tr:first-child{border-top:none;}
+.pub-table td{
+  padding:1rem .75rem 1rem 0;
+  vertical-align:top;
+  background:none;
+  border:none;
+}
+.pub-table .year{
+  width:3.4rem;
+  font-family:var(--serif);
+  font-size:1.05rem;
+  font-weight:500;
+  color:var(--muted);
+  font-variant-numeric:tabular-nums;
+  white-space:nowrap;
+}
+.pub-table .details{padding-right:0;min-width:0;}
+.title-row{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:baseline;
+  gap:.35rem .6rem;
+  margin-bottom:.2rem;
+}
+.pub-table .title,
+.pub-table .details .title,
+.title{
+  font-family:var(--serif);
+  font-weight:600;
+  font-size:1.02rem;
+  color:var(--ink);
+  line-height:1.35;
+}
+.link-tags{
+  display:inline-flex;
+  flex-wrap:wrap;
+  align-items:baseline;
+  gap:.5rem;
+  font-size:.8rem;
+}
+.link-tags a{
+  color:var(--accent);
+  font-weight:500;
+  white-space:nowrap;
+  margin-left:0;
+}
+.link-tags a:hover{color:var(--accent-bright);text-decoration:underline;}
+.pub-table .authors,
+.authors{
+  font-size:.88rem;
+  color:var(--muted-strong);
+  margin:.1rem 0;
+}
+.pub-table .authors strong,
+.authors strong{color:var(--ink-2);}
+/* IMPORTANT: on publications, .venue is a plain journal/booktitle line,
+   NOT a chip — override the global chip look. */
+.pub-table .venue{
+  display:block;
+  position:static;
+  margin-top:.3rem;
+  padding:0;
+  border:none;
+  background:none;
+  font-family:var(--sans);
+  font-size:.83rem;
+  font-weight:500;
+  color:var(--muted);
+  letter-spacing:0;
+  white-space:normal;
+}
+/* Legacy gold spotlight star (still cheap to theme) */
+.spotlight{color:var(--accent-bright);margin-left:6px;}
+
+/* Toast ("BibTeX copied to clipboard") */
+.toast{
+  position:fixed;
+  bottom:20px;
+  right:20px;
+  background:var(--ink);
+  color:var(--bg);
+  padding:.6rem .85rem;
+  border-radius:var(--radius-sm);
+  font-size:.85rem;
+  border:1px solid rgba(0,0,0,.15);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .3s ease;
+  z-index:1000;
+}
+.toast.show{opacity:1;}
+
+/* ---------------------------------------------------------------------
+   15. Group / people
+   --------------------------------------------------------------------- */
+.people-group{margin-bottom:var(--lg-gap);}
+.people-group h3{
+  font-size:1.12rem;
+  font-weight:500;
+  margin:0 0 .3rem;
+  padding-bottom:.35rem;
+  border-bottom:1px solid var(--border);
+}
+.people-group .group-note{
+  font-size:.84rem;
+  color:var(--muted);
+  margin:.1rem 0 .8rem;
+}
+.sub-label{
+  display:inline-block;
+  font-family:var(--sans);
+  font-size:.72rem;
+  font-weight:600;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin:.85rem 0 .4rem;
+}
+.people{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+  gap:.85rem 1.5rem;
+}
+.person{line-height:1.4;}
+.person .name{
+  font-weight:600;
+  color:var(--ink);
+  font-size:.98rem;
+}
+.person .name a{color:inherit;}
+.person .name a:hover{color:var(--accent);text-decoration:underline;}
+.person .meta{
+  display:block;
+  font-size:.82rem;
+  color:var(--muted-2);
+  margin-top:.05rem;
+}
+.person .meta a{color:var(--muted-strong);font-weight:500;}
+.person .meta a:hover{color:var(--accent);}
+
+/* Research-area labels — collapse ML/NLP/CV/Stats into the uniform clay chip */
+.area{
+  display:inline-block;
+  margin-left:.35rem;
+  padding:.03em .45em;
+  border:1px solid var(--border-2);
+  border-radius:var(--radius-sm);
+  background:var(--chip-bg);
+  color:var(--accent-strong);
+  font-family:var(--sans);
+  font-size:.66rem;
+  font-weight:600;
+  letter-spacing:.03em;
+  vertical-align:.1em;
+  white-space:nowrap;
+}
+.area-ml,.area-nlp,.area-cv,.area-stats{
+  background:var(--chip-bg);
+  border-color:var(--border-2);
+  color:var(--accent-strong);
+}
+
+/* ---------------------------------------------------------------------
+   16. Talks
+   --------------------------------------------------------------------- */
+.talk{
+  display:grid;
+  grid-template-columns:150px 1fr;
+  gap:1.75rem;
+  padding:1.4rem 0;
+  border-top:1px solid var(--border);
+  align-items:start;
+}
+.talk:first-of-type{border-top:none;}
+.talk-meta{
+  display:flex;
+  flex-direction:column;
+  gap:.12rem;
+  font-size:.84rem;
+  color:var(--muted);
+}
+.talk-meta .date{
+  font-family:var(--serif);
+  font-size:1rem;
+  font-weight:500;
+  color:var(--ink);
+  font-variant-numeric:tabular-nums;
+}
+.talk-meta .org{font-weight:600;color:var(--ink-2);}
+.talk-meta .loc{color:var(--muted-2);}
+.talk-body{min-width:0;}
+.talk-body h3{font-size:1.1rem;margin:0 0 .3rem;line-height:1.35;}
+/* On talks, p.venue is a long title paragraph — override the chip look. */
+.talk-body .venue,
+.talk .venue{
+  display:block;
+  position:static;
+  margin:.1rem 0 .45rem;
+  padding:0;
+  border:none;
+  background:none;
+  font-family:var(--sans);
+  font-size:.88rem;
+  font-weight:500;
+  color:var(--muted-strong);
+  letter-spacing:0;
+  white-space:normal;
+  line-height:1.5;
+}
+.talk-body .venue a,
+.talk .venue a{color:var(--accent);}
+.talk-body .venue a:hover{color:var(--accent-bright);}
+.talk-body p.summary,
+.talk-body .summary{
+  font-size:.92rem;
+  color:var(--body);
+  margin:.35rem 0 .6rem;
+  max-width:66ch;
+}
+.talk-actions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.5rem;
+  margin-top:.4rem;
+}
+.talk-actions a{
+  display:inline-flex;
+  align-items:center;
+  gap:.4rem;
+  padding:.32rem .75rem;
+  min-height:34px;
+  border:1px solid var(--border-2);
+  border-radius:999px;
+  font-size:.82rem;
+  font-weight:500;
+  color:var(--ink);
+}
+.talk-actions a i{color:var(--accent);}
+.talk-actions a:hover{
+  border-color:var(--accent-bright);
+  background:var(--tint);
+  color:var(--ink);
+  text-decoration:none;
+}
+
+/* ---------------------------------------------------------------------
+   17. Deadlines / conferences
+   --------------------------------------------------------------------- */
+.filter-bar{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.45rem;
+  margin-bottom:var(--md-gap);
+}
+.filter-tag{
+  display:inline-flex;
+  align-items:center;
+  padding:.35rem .8rem;
+  min-height:34px;
+  border:1px solid var(--border-2);
+  border-radius:999px;
+  background:var(--bg);
+  color:var(--muted-strong);
+  font-size:.82rem;
+  font-weight:500;
+  cursor:pointer;
+  user-select:none;
+  transition:background-color .15s ease,color .15s ease,border-color .15s ease;
+}
+.filter-tag:hover{border-color:var(--accent-bright);color:var(--ink);}
+.filter-tag.active{
+  background:var(--ink);                 /* high-contrast ink-on-ivory reversal */
+  border-color:var(--ink);
+  color:var(--bg);
+}
+
+/* Section divider ("Upcoming Deadlines" / "Past Deadlines") — JS-injected */
+.section-divider{
+  margin:var(--lg-gap) 0 var(--md-gap);
+  padding-bottom:.5rem;
+  border-bottom:1px solid var(--border);
+  font-family:var(--sans);
+  font-size:.74rem;
+  font-weight:600;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+.section-divider:first-child{margin-top:0;}
+
+/* Conference card — flat hairline card (no shadow) */
+.conf-card{
+  padding:1.1rem 1.25rem;
+  margin-bottom:.75rem;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  background:none;
+  transition:border-color .2s ease;
+}
+.conf-card.hidden{display:none;}                 /* required by JS filtering */
+.conf-card-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-start;
+  gap:.5rem .9rem;
+  margin-bottom:.15rem;
+}
+.conf-name{
+  font-family:var(--serif);
+  font-size:1.12rem;
+  font-weight:600;
+  color:var(--ink);
+}
+.conf-name a{color:inherit;}
+.conf-name a:hover{color:var(--accent);text-decoration:none;}
+.conf-full-name{
+  font-size:.83rem;
+  color:var(--muted);
+  margin-bottom:.35rem;
+}
+.conf-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.2rem 1.2rem;
+  font-size:.85rem;
+  color:var(--muted-strong);
+  margin-bottom:.6rem;
+}
+.conf-meta i{width:16px;text-align:center;margin-right:.2rem;color:var(--muted-2);}
+.conf-meta span{margin-right:0;}
+.conf-tags{
+  display:flex;
+  flex-wrap:wrap;
+  gap:.35rem;
+  flex-shrink:0;
+}
+/* Uniform quiet clay conf tags (kill the color coding) */
+.conf-tag,
+.conf-tag.ml,
+.conf-tag.security,
+.conf-tag.vision,
+.conf-tag.nlp,
+.conf-tag.privacy{
+  padding:.12rem .5rem;
+  border:1px solid var(--border-2);
+  border-radius:var(--radius-sm);
+  background:var(--chip-bg);
+  color:var(--accent-strong);
+  font-size:.72rem;
+  font-weight:600;
+  letter-spacing:.02em;
+  text-transform:uppercase;
+}
+
+.deadline-list{
+  display:flex;
+  flex-direction:column;
+  gap:.15rem;
+  margin-top:.5rem;
+}
+.deadline-row{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:.2rem .75rem;
+  font-size:.86rem;
+  padding:.35rem 0;
+}
+.deadline-row + .deadline-row{border-top:1px dashed var(--border);}
+.deadline-row.passed{color:var(--muted);}
+.deadline-label{font-weight:600;color:var(--ink-2);min-width:70px;}
+.deadline-date{color:var(--muted-strong);font-variant-numeric:tabular-nums;}
+.deadline-row.passed .deadline-label{color:var(--muted);}
+.deadline-row.passed .deadline-date{color:var(--muted);}
+/* AA fix: the JS injects an inline color:#999 (2.7:1) note here — lift it */
+.deadline-date span{color:var(--muted)!important;}
+
+.deadline-check{color:var(--muted-2);margin-right:.3rem;}
+.deadline-clock{color:var(--muted-strong);margin-right:.3rem;}
+.deadline-clock.imminent{color:var(--accent);}
+
+/* Countdown — calm by default; clay only for imminent (no red/green rainbow) */
+.countdown{
+  font-weight:600;
+  font-size:.8rem;
+  white-space:nowrap;
+  color:var(--muted-strong);
+  font-variant-numeric:tabular-nums;
+}
+.countdown.upcoming{color:var(--muted-strong);}
+.countdown.imminent{color:var(--accent);}
+.countdown.passed{color:var(--muted);}
+/* Past rows carry .countdown.imminent in the markup — keep them calm, not clay */
+.deadline-row.passed .countdown{color:var(--muted);}
+
+.tba-note{
+  font-size:.82rem;
+  color:var(--muted);
+  font-style:italic;
+  padding:.25rem .5rem;
+}
+.no-results{
+  text-align:center;
+  color:var(--muted);
+  padding:2rem 0;
+  font-size:.92rem;
+}
+
+/* Generic muted table cells */
+td.muted,th.muted{color:var(--muted);}
+table{border-collapse:collapse;}
+td,th{text-align:left;}
+
+/* ---------------------------------------------------------------------
+   18. Responsive
+   --------------------------------------------------------------------- */
+@media (max-width:900px){
+  #about .about-grid{
+    grid-template-columns:minmax(170px,205px) 1fr;
+    gap:1.75rem;
+  }
+  .talk{grid-template-columns:130px 1fr;gap:1.25rem;}
+}
+
+@media (max-width:720px){
+  body{font-size:15px;}
+  section{padding:var(--md-gap) 0;}
+
+  /* Nav stacks + centers cleanly, tap targets >=40px, no overflow */
+  nav .main-container{
+    flex-direction:column;
+    align-items:center;
+    gap:.35rem;
+    text-align:center;
+    padding:.6rem 0;
+  }
+  nav .main-container > div{
+    justify-content:center;
+    gap:.1rem .15rem;
+  }
+  a.navbar-link{
+    min-height:var(--tap);
+    padding:.55rem .7rem;
+  }
+  a.navbar-link.active::after{left:.7rem;right:.7rem;bottom:.3rem;}
+
+  /* Hero → single column */
+  #about{padding-top:var(--md-gap);}
+  #about .about-grid{
+    grid-template-columns:1fr;
+    gap:1.25rem;
+  }
+  #profile.card{align-items:center;text-align:center;gap:.75rem;}
+  #profile img{max-width:240px;margin:0 auto;}
+  #profile > div{width:100%;}
+  #profile h2{display:none;}          /* hide "Contact"/"Bio" labels on mobile */
+  #profile .bio{display:none;}
+  .contact-info p{justify-content:center;}
+
+  .btn-list{justify-content:center;}
+  .venue-summary{justify-content:flex-start;}
+  .quote-banner blockquote{font-size:1.02rem;}
+
+  /* Publications table → stacked rows */
+  .pub-table tr{display:block;padding:.9rem 0;}
+  .pub-table td{display:block;width:100%;padding:.1rem 0;}
+  .pub-table .year{font-size:.85rem;margin-bottom:.2rem;}
+
+  /* Talks stack */
+  .talk{grid-template-columns:1fr;gap:.5rem;padding:1.25rem 0;}
+  .talk-meta{flex-direction:row;flex-wrap:wrap;gap:.1rem .8rem;}
+
+  /* People single column */
+  .people{grid-template-columns:1fr;gap:.7rem 1.5rem;}
+
+  /* Conference header stacks */
+  .conf-card-header{flex-direction:column;gap:.35rem;}
+  .conf-meta{gap:.15rem;}
+  .conf-meta span{display:block;}
+  .deadline-row{gap:.2rem .5rem;}
+}
+
+@media (max-width:430px){
+  .main-container{width:92%;}
+  .venue-summary{font-size:.76rem;}
+  .btn-list a{padding:.42rem .75rem;}
+}
+
+/* ---------------------------------------------------------------------
+   19. Reduced motion
+   --------------------------------------------------------------------- */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{
+    animation-duration:.001ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;
+    scroll-behavior:auto !important;
+  }
+  .show-toggle i{animation:none !important;}
+}
+
+/* ---------------------------------------------------------------------
+   20. Print
+   --------------------------------------------------------------------- */
+@media print{
+  nav,footer,.btn-list,.talk-actions,.filter-bar,.see-all,.show-toggle,.toast{
+    display:none !important;
+  }
+  body{background:#fff;color:#000;font-size:11pt;}
+  a{color:#000;text-decoration:underline;}
+  .main-container{width:100%;max-width:none;}
+  .venue,.pub-tag,.area,.conf-tag{
+    background:none;border:1px solid #bbb;color:#000;
+  }
+  .conf-card{border:1px solid #bbb;}
+}

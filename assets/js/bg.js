@@ -29,6 +29,7 @@
 
     var EDGE = '158, 74, 47';   /* --accent  (clay)        */
     var GLOW = '193, 95, 60';   /* --accent-bright (clay)  */
+    var PARALLAX = 0.4;         /* backdrop scrolls at 40% of page speed */
 
     function docHeight() {
       var b = document.body, e = document.documentElement;
@@ -50,10 +51,11 @@
 
     function build() {
       nodes = []; edges = []; walkers = [];
-      var count = Math.max(14, Math.min(130, Math.round((W * DOC) / 44000)));
-      var cols = Math.max(3, Math.round(Math.sqrt(count * W / DOC)));
+      var LH = PARALLAX * Math.max(0, DOC - VH) + VH;   /* span the graph must cover under parallax */
+      var count = Math.max(14, Math.min(130, Math.round((W * LH) / 44000)));
+      var cols = Math.max(3, Math.round(Math.sqrt(count * W / LH)));
       var rows = Math.max(3, Math.ceil(count / cols));
-      var cw = W / cols, ch = DOC / rows;
+      var cw = W / cols, ch = LH / rows;
       for (var r = 0; r < rows; r++) {
         for (var c = 0; c < cols && nodes.length < count; c++) {
           nodes.push({
@@ -117,12 +119,12 @@
     function frame(ts) {
       var dt = Math.min(0.05, (ts - lastT) / 1000 || 0); lastT = ts;
       var s = ts / 1000;
-      var sy = scrollY();
-      var top = sy - 60, bot = sy + VH + 60;
+      var off = scrollY() * PARALLAX;
+      var top = off - 60, bot = off + VH + 60;
 
       ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
       ctx.clearRect(0, 0, W, VH);
-      ctx.setTransform(DPR, 0, 0, DPR, 0, -sy * DPR);
+      ctx.setTransform(DPR, 0, 0, DPR, 0, -off * DPR);
 
       for (var n = 0; n < nodes.length; n++) {
         var nd = nodes[n];
@@ -168,10 +170,10 @@
     }
 
     function drawStatic() {
-      var sy = scrollY(), top = sy - 60, bot = sy + VH + 60;
+      var off = scrollY() * PARALLAX, top = off - 60, bot = off + VH + 60;
       ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
       ctx.clearRect(0, 0, W, VH);
-      ctx.setTransform(DPR, 0, 0, DPR, 0, -sy * DPR);
+      ctx.setTransform(DPR, 0, 0, DPR, 0, -off * DPR);
       for (var i = 0; i < edges.length; i++) {
         var e = edges[i], a = nodes[e.a], b = nodes[e.b];
         if ((a.by < top && b.by < top) || (a.by > bot && b.by > bot)) continue;

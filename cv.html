@@ -185,6 +185,20 @@
     #cv-bar .links a{color:#57554E;transition:color .15s;}
     #cv-bar .links a:hover{color:#C15F3C;}
     #cv-bar .links a.active{color:#9E4A2F;font-weight:600;}
+    /* Overflow drawer ("More ▾") inside the CV top bar */
+    #cv-bar .nav-drawer{position:relative;display:inline-flex;}
+    #cv-bar .nav-drawer > summary{list-style:none;cursor:pointer;color:#57554E;transition:color .15s;}
+    #cv-bar .nav-drawer > summary::-webkit-details-marker{display:none;}
+    #cv-bar .nav-drawer > summary::after{content:'\25BE';margin-left:.28rem;font-size:.75em;}
+    #cv-bar .nav-drawer[open] > summary::after{content:'\25B4';}
+    #cv-bar .nav-drawer > summary:hover{color:#C15F3C;}
+    #cv-bar .nav-drawer-menu{
+      position:absolute;top:calc(100% + .4rem);right:0;
+      display:flex;flex-direction:column;min-width:9rem;gap:.15rem;
+      background:#FAF9F5;border:1px solid #DAD7CC;border-radius:5px;
+      padding:.35rem;box-shadow:0 8px 24px rgba(20,20,19,.10);z-index:1001;
+    }
+    #cv-bar .nav-drawer-menu a{padding:.15rem .25rem;}
     #cv-bar .tools{display:flex;gap:.4rem;align-items:center;}
     #cv-bar .tools a.btn{
       display:inline-flex;align-items:center;gap:.45rem;
@@ -1011,14 +1025,24 @@
             '<a href="index.html">About</a>' +
             '<a href="publications.html">Publications</a>' +
             '<a href="talks.html">Talks</a>' +
-            '<a href="group.html">Group</a>' +
+            '<a href="group.html">SpotAI</a>' +
             '<a class="active" href="cv.html">CV</a>' +
-            '<a href="deadlines.html">Conferences</a>' +
+            '<details class="nav-drawer">' +
+              '<summary>More</summary>' +
+              '<div class="nav-drawer-menu">' +
+                '<a href="deadlines.html">Conferences</a>' +
+              '</div>' +
+            '</details>' +
           '</div>' +
           '<div class="tools">' +
             '<a class="btn" href="assets/pdfs/cv_nils_lukas.pdf" download><i class="fa fa-download"></i> Download PDF</a>' +
           '</div>';
         document.body.appendChild(bar);
+        // Close the "More" drawer when clicking outside it.
+        document.addEventListener('click', function (ev) {
+          var d = document.querySelector('#cv-bar details.nav-drawer[open]');
+          if (d && !d.contains(ev.target)) d.removeAttribute('open');
+        });
         // Push the sheet below the fixed bar (matters when the bar wraps on
         // narrow screens).
         var setH = function () {

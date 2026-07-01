@@ -28,9 +28,14 @@
       <a class="navbar-link" href="index.html">About</a>
       <a class="navbar-link active" href="publications.html">Publications</a>
       <a class="navbar-link" href="talks.html">Talks</a>
-      <a class="navbar-link" href="group.html">Group</a>
+      <a class="navbar-link" href="group.html">SpotAI</a>
       <a class="navbar-link" href="cv.html">CV</a>
-      <a class="navbar-link" href="deadlines.html">Conferences</a>
+      <details class="nav-drawer">
+        <summary class="navbar-link">More</summary>
+        <div class="nav-drawer-menu">
+          <a class="navbar-link" href="deadlines.html">Conferences</a>
+        </div>
+      </details>
     </div>
   </div>
 </nav>
@@ -40,6 +45,7 @@
 <section id="publications" style="background:var(--secondary-bg-color);">
   <div class="main-container">
     <h2>Publications</h2>
+    <p class="pub-legend small">Authors <span class="advisee">underlined</span> are members of my group (<a href="group.html">SPOT&nbsp;Lab</a>) whom I primarily advise; <strong>bold</strong> marks me.</p>
     <p id="pub-loading" class="small" style="margin-bottom:1rem;">Loading publications…</p>
     <table id="pub-table" class="pub-table"></table>
   </div>
@@ -317,6 +323,13 @@ function copyBib(key){
   return false;
 }
 
+/* -------- SPOT Lab advisees (names as they appear in author lists) -------- */
+const ADVISEES = [
+  'Samuele Poppi','Kshitij Mishra','Dushyant Chauhan','Yuhan Liu',
+  'Fabian Zhang','Rushil Thareja','Toluwani Aremu','Tameem Bakr'
+];
+const escapeRe = s => s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
+
 /* -------- renderer -------- */
 function renderPublications(list){
   const table=document.getElementById('pub-table');
@@ -335,7 +348,14 @@ function renderPublications(list){
       (e.note||'') + ' ' + (e.journal||'') + ' ' + (e.booktitle||'')
     );
     // Bold “Nils Lukas” in the author list
-    const authorsHtml = (e.author||'')
+    let authorsHtml = (e.author||'');
+    ADVISEES.forEach(n=>{
+      authorsHtml = authorsHtml.replace(
+        new RegExp(escapeRe(n),'g'),
+        `<span class="advisee" title="SPOT Lab member I primarily advise">${n}</span>`
+      );
+    });
+    authorsHtml = authorsHtml
       .replace(/Nils Lukas/gi,'<strong>Nils Lukas</strong>');
 
     row.innerHTML = `

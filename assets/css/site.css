@@ -209,6 +209,29 @@ a.navbar-link.active::after{
   border-radius:2px;
 }
 
+/* Nav overflow drawer ("More ▾") — tucks secondary links out of the way */
+.nav-drawer{position:relative;display:inline-flex;}
+.nav-drawer > summary{list-style:none;cursor:pointer;}
+.nav-drawer > summary::-webkit-details-marker{display:none;}
+.nav-drawer > summary::after{
+  content:'\25BE';                                    /* ▾ */
+  margin-left:.3rem;font-size:.7em;color:var(--muted);
+}
+.nav-drawer[open] > summary::after{content:'\25B4';}  /* ▴ */
+.nav-drawer > summary.active{color:var(--accent);font-weight:600;}
+.nav-drawer-menu{
+  position:absolute;top:calc(100% + .35rem);right:0;
+  min-width:9.5rem;
+  display:flex;flex-direction:column;gap:.1rem;
+  padding:.35rem;
+  background:var(--bg);
+  border:1px solid var(--border-2);
+  border-radius:var(--radius-sm);
+  box-shadow:0 8px 24px rgba(20,20,19,.10);
+  z-index:1000;
+}
+.nav-drawer-menu .navbar-link{width:100%;}
+
 /* ---------------------------------------------------------------------
    6. Home hero — about grid
    --------------------------------------------------------------------- */
@@ -648,6 +671,20 @@ footer a:hover{color:var(--accent);}
 }
 .pub-table .authors strong,
 .authors strong{color:var(--ink-2);}
+/* SPOT Lab advisees — subtle dotted underline in the author lists */
+.pub-table .authors .advisee,
+.authors .advisee{
+  text-decoration:none;
+  border-bottom:1px dotted var(--accent-bright);
+  padding-bottom:.5px;
+  cursor:help;
+}
+.pub-legend{
+  margin:-.15rem 0 1.25rem;
+  color:var(--muted);
+}
+.pub-legend .advisee{border-bottom:1px dotted var(--accent-bright);}
+.pub-legend strong{color:var(--ink-2);}
 /* IMPORTANT: on publications, .venue is a plain journal/booktitle line,
    NOT a chip — override the global chip look. */
 .pub-table .venue{

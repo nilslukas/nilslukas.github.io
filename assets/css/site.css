@@ -182,7 +182,8 @@ nav .main-container > div{
   align-items:center;
   gap:.1rem .3rem;
 }
-a.navbar-link{
+a.navbar-link,
+.nav-drawer > summary.navbar-link{
   position:relative;
   display:inline-flex;
   align-items:center;
@@ -196,7 +197,8 @@ a.navbar-link{
   white-space:nowrap;
   transition:color .15s ease,background-color .15s ease;
 }
-a.navbar-link:hover{color:var(--ink);background:var(--surface);text-decoration:none;}
+a.navbar-link:hover,
+.nav-drawer > summary.navbar-link:hover{color:var(--ink);background:var(--surface);text-decoration:none;}
 a.navbar-link.active{color:var(--accent);}          /* AA-safe clay text (5.7:1) */
 a.navbar-link.active::after{
   content:'';
@@ -1068,14 +1070,18 @@ td,th{text-align:left;}
     padding:.6rem 0;
   }
   nav .main-container > div{
+    width:100%;
     justify-content:center;
-    gap:.1rem .15rem;
+    flex-wrap:nowrap;               /* keep the links on a single row */
+    gap:.1rem .1rem;
   }
-  a.navbar-link{
+  a.navbar-link,
+  .nav-drawer > summary.navbar-link{
     min-height:var(--tap);
-    padding:.55rem .7rem;
+    padding:.5rem .34rem;
+    font-size:.8rem;
   }
-  a.navbar-link.active::after{left:.7rem;right:.7rem;bottom:.3rem;}
+  a.navbar-link.active::after{left:.34rem;right:.34rem;bottom:.3rem;}
 
   /* Hero → single column */
   #about{padding-top:var(--md-gap);}

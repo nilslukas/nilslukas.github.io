@@ -1,7 +1,11 @@
 /* Subtle animated CS backdrop: a proximity graph with slow "walkers" that
    trace paths across it (evokes graph traversal / pointer chasing). Very low
    opacity, warm-clay palette, respects prefers-reduced-motion, pauses when the
-   tab is hidden. Sits behind all content (z-index:-1, pointer-events:none). */
+   tab is hidden.
+
+   The graph is laid out over the FULL document height and the drawing is
+   offset by the scroll position each frame, so the backdrop scrolls with the
+   page while the canvas itself stays viewport-sized (cheap to redraw). */
 (function () {
   'use strict';
   if (!document.body && document.readyState === 'loading') {
@@ -19,29 +23,37 @@
     document.body.insertBefore(canvas, document.body.firstChild);
 
     var ctx = canvas.getContext('2d');
-    var W = 0, H = 0, DPR = 1;
+    var W = 0, VH = 0, DOC = 0, DPR = 1;
     var nodes = [], edges = [], walkers = [];
     var raf = null, lastT = 0;
 
     var EDGE = '158, 74, 47';   /* --accent  (clay)        */
     var GLOW = '193, 95, 60';   /* --accent-bright (clay)  */
 
+    function docHeight() {
+      var b = document.body, e = document.documentElement;
+      return Math.max(b ? b.scrollHeight : 0, e ? e.scrollHeight : 0,
+                      b ? b.offsetHeight : 0, e ? e.offsetHeight : 0, window.innerHeight);
+    }
+    function scrollY() {
+      return window.pageYOffset || document.documentElement.scrollTop || 0;
+    }
+
     function resize() {
       DPR = Math.min(window.devicePixelRatio || 1, 2);
-      W = window.innerWidth; H = window.innerHeight;
+      W = window.innerWidth; VH = window.innerHeight; DOC = docHeight();
       canvas.width = Math.floor(W * DPR);
-      canvas.height = Math.floor(H * DPR);
-      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+      canvas.height = Math.floor(VH * DPR);
       build();
       if (reduce) drawStatic();
     }
 
     function build() {
       nodes = []; edges = []; walkers = [];
-      var count = Math.max(12, Math.min(44, Math.round((W * H) / 44000)));
-      var cols = Math.max(3, Math.round(Math.sqrt(count * W / H)));
+      var count = Math.max(14, Math.min(130, Math.round((W * DOC) / 44000)));
+      var cols = Math.max(3, Math.round(Math.sqrt(count * W / DOC)));
       var rows = Math.max(3, Math.ceil(count / cols));
-      var cw = W / cols, ch = H / rows;
+      var cw = W / cols, ch = DOC / rows;
       for (var r = 0; r < rows; r++) {
         for (var c = 0; c < cols && nodes.length < count; c++) {
           nodes.push({
@@ -68,7 +80,7 @@
         nodes[e.a].adj.push({ node: e.b, edge: idx });
         nodes[e.b].adj.push({ node: e.a, edge: idx });
       });
-      var wc = Math.max(2, Math.min(4, Math.round(nodes.length / 12)));
+      var wc = Math.max(2, Math.min(7, Math.round(nodes.length / 13)));
       for (var w = 0; w < wc; w++) spawnWalker();
     }
 
@@ -105,7 +117,12 @@
     function frame(ts) {
       var dt = Math.min(0.05, (ts - lastT) / 1000 || 0); lastT = ts;
       var s = ts / 1000;
-      ctx.clearRect(0, 0, W, H);
+      var sy = scrollY();
+      var top = sy - 60, bot = sy + VH + 60;
+
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+      ctx.clearRect(0, 0, W, VH);
+      ctx.setTransform(DPR, 0, 0, DPR, 0, -sy * DPR);
 
       for (var n = 0; n < nodes.length; n++) {
         var nd = nodes[n];
@@ -114,6 +131,10 @@
       }
       for (var i = 0; i < edges.length; i++) {
         var e = edges[i], a = nodes[e.a], b = nodes[e.b];
+        if ((a.by < top && b.by < top) || (a.by > bot && b.by > bot)) {
+          if (e.heat > 0.01) e.heat = Math.max(0, e.heat - dt * 0.35);
+          continue;
+        }
         ctx.strokeStyle = 'rgba(' + EDGE + ',0.05)'; ctx.lineWidth = 1;
         ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
         if (e.heat > 0.01) {
@@ -124,14 +145,18 @@
       }
       for (var m = 0; m < nodes.length; m++) {
         var p = nodes[m];
-        ctx.fillStyle = 'rgba(' + EDGE + ',' + (0.10 + p.heat * 0.45) + ')';
-        ctx.beginPath(); ctx.arc(p.x, p.y, 1.6 + p.heat * 1.5, 0, Math.PI * 2); ctx.fill();
+        if (p.by >= top && p.by <= bot) {
+          ctx.fillStyle = 'rgba(' + EDGE + ',' + (0.10 + p.heat * 0.45) + ')';
+          ctx.beginPath(); ctx.arc(p.x, p.y, 1.6 + p.heat * 1.5, 0, Math.PI * 2); ctx.fill();
+        }
         if (p.heat > 0.01) p.heat = Math.max(0, p.heat - dt * 0.5);
       }
       for (var w = 0; w < walkers.length; w++) {
         var wk = walkers[w]; step(wk, dt);
         var fa = nodes[wk.from], tb = nodes[wk.to];
         if (!fa || !tb) continue;
+        var wy0 = fa.by + (tb.by - fa.by) * wk.t;
+        if (wy0 < top || wy0 > bot) continue;
         var wx = fa.x + (tb.x - fa.x) * wk.t, wy = fa.y + (tb.y - fa.y) * wk.t;
         var g = ctx.createRadialGradient(wx, wy, 0, wx, wy, 6);
         g.addColorStop(0, 'rgba(' + GLOW + ',0.42)');
@@ -143,15 +168,21 @@
     }
 
     function drawStatic() {
-      ctx.clearRect(0, 0, W, H);
+      var sy = scrollY(), top = sy - 60, bot = sy + VH + 60;
+      ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+      ctx.clearRect(0, 0, W, VH);
+      ctx.setTransform(DPR, 0, 0, DPR, 0, -sy * DPR);
       for (var i = 0; i < edges.length; i++) {
         var e = edges[i], a = nodes[e.a], b = nodes[e.b];
+        if ((a.by < top && b.by < top) || (a.by > bot && b.by > bot)) continue;
         ctx.strokeStyle = 'rgba(' + EDGE + ',0.05)'; ctx.lineWidth = 1;
         ctx.beginPath(); ctx.moveTo(a.bx, a.by); ctx.lineTo(b.bx, b.by); ctx.stroke();
       }
       for (var n = 0; n < nodes.length; n++) {
+        var p = nodes[n];
+        if (p.by < top || p.by > bot) continue;
         ctx.fillStyle = 'rgba(' + EDGE + ',0.10)';
-        ctx.beginPath(); ctx.arc(nodes[n].bx, nodes[n].by, 1.6, 0, Math.PI * 2); ctx.fill();
+        ctx.beginPath(); ctx.arc(p.bx, p.by, 1.6, 0, Math.PI * 2); ctx.fill();
       }
     }
 
@@ -162,7 +193,16 @@
     if (reduce) drawStatic(); else start();
 
     var rt;
-    window.addEventListener('resize', function () { clearTimeout(rt); rt = setTimeout(resize, 200); });
+    function onResize() { clearTimeout(rt); rt = setTimeout(resize, 200); }
+    window.addEventListener('resize', onResize);
+    window.addEventListener('load', onResize);
+    // In reduced-motion mode nothing redraws on its own, so keep the static
+    // backdrop aligned with the page as it scrolls.
+    window.addEventListener('scroll', function () {
+      if (reduce) drawStatic();
+      // If the document grew (lazy content), rebuild to cover the new height.
+      else if (Math.abs(docHeight() - DOC) > VH) onResize();
+    }, { passive: true });
     document.addEventListener('visibilitychange', function () { if (document.hidden) stop(); else start(); });
     if (mq && mq.addEventListener) {
       mq.addEventListener('change', function (ev) {

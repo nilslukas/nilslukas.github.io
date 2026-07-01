@@ -61,7 +61,7 @@
 
   /* ---- Legacy-token aliases (graceful fallback for any residual
           inline var() references left in the markup) ---- */
-  --secondary-bg-color:var(--bg);
+  --secondary-bg-color:transparent;   /* was ivory; now lets the animated backdrop show */
   --accent-color:var(--accent);
   --primary-color:var(--muted);
   --neutral:var(--body);
@@ -73,10 +73,10 @@
    2. Reset / base
    --------------------------------------------------------------------- */
 *,*::before,*::after{box-sizing:border-box;}
-html{-webkit-text-size-adjust:100%;}
+html{-webkit-text-size-adjust:100%;background:var(--bg);}
 body{
   margin:0;
-  background:var(--bg);
+  background:transparent;
   color:var(--body);
   font-family:var(--sans);
   font-size:15.5px;
@@ -1150,10 +1150,10 @@ td,th{text-align:left;}
    20. Print
    --------------------------------------------------------------------- */
 @media print{
-  nav,footer,.btn-list,.talk-actions,.filter-bar,.see-all,.show-toggle,.toast{
+  nav,footer,.btn-list,.talk-actions,.filter-bar,.see-all,.show-toggle,.toast,.cs-bg{
     display:none !important;
   }
-  body{background:#fff;color:#000;font-size:11pt;}
+  html,body{background:#fff;color:#000;font-size:11pt;}
   a{color:#000;text-decoration:underline;}
   .main-container{width:100%;max-width:none;}
   .venue,.pub-tag,.area,.conf-tag{

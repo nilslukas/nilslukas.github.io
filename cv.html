@@ -138,6 +138,15 @@
     .pub-note{font-size:7.5pt;font-weight:700;color:#7a4b00;line-height:1.2;margin-top:1.5pt;}
     .pub-title{color:var(--link);}
     strong.me{font-weight:700;}
+    /* Students/postdocs I advise as primary supervisor, underlined in author lists. */
+    .advisee{text-decoration:underline;text-underline-offset:1.5px;text-decoration-thickness:.4pt;}
+    .sec-note{font-size:7.5pt;color:var(--muted);line-height:1.3;margin-bottom:5pt;}
+    /* Typography: never leave a single dangling word on a wrapped line. */
+    .sec-body,.ul > li,.ol > li,.pub > div,.pub-authors,.line > span,.grant-meta,
+    .grant-main{text-wrap:pretty;}
+    .hd,.sec-note{text-wrap:balance;}
+    /* Keep hyphenated compounds from splitting across lines. */
+    .grant-title,.pub-title{hyphens:manual;}
 
     /* Grouped sub-headers (grants, students) */
     .ghd{font-weight:700;margin-bottom:.05rem;}
@@ -365,22 +374,22 @@
       <div class="subtitle">Assistant Professor &bull; MBZUAI &bull; Abu Dhabi, UAE</div>
       <div class="contact">
         <span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg></span><a href="mailto:nils.lukas@mbzuai.ac.ae">nils.lukas@mbzuai.ac.ae</a> &bull;
-        <span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg></span><a href="https://nilslukas.github.io">nilslukas.github.io</a> &bull;
-        <span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg></span><a href="https://scholar.google.com/citations?user=fmlEab4AAAAJ&hl=en&oi=ao">Google Scholar</a>
+        <span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg></span><a href="https://nilslukas.github.io" target="_blank" rel="noopener">nilslukas.github.io</a> &bull;
+        <span class="ci"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.42 10.922a1 1 0 0 0-.019-1.838L12.83 5.18a2 2 0 0 0-1.66 0L2.6 9.08a1 1 0 0 0 0 1.832l8.57 3.908a2 2 0 0 0 1.66 0z"/><path d="M22 10v6"/><path d="M6 12.5V16a6 3 0 0 0 12 0v-3.5"/></svg></span><a href="https://scholar.google.com/citations?user=fmlEab4AAAAJ&hl=en&oi=ao" target="_blank" rel="noopener">Google Scholar</a>
       </div>
-      <div class="updated">Updated on May 31, 2026</div>
+      <div class="updated">Updated on July 26, 2026</div>
     </header>
 
     <!-- Research Interests -->
     <section class="sec">
       <div class="sec-label">Research Interests</div>
       <div class="sec-body">
-        <div>Design secure and private Machine Learning systems in the presence of untrustworthy</div>
+        <div>Design secure and private AI agents in the presence of untrustworthy <strong>providers</strong>, <strong>data</strong>, <strong>models</strong>, and <strong>users</strong>.</div>
         <ol class="ol">
-          <li><strong>Providers</strong>: Confidential computing via Homomorphic Encryption &amp; Secret Sharing.</li>
-          <li><strong>Data</strong>: Mitigate data poisoning during training &amp; prompt injection during inference.</li>
-          <li><strong>Models</strong>: Protect training data privacy through PII scrubbing &amp; differential privacy.</li>
-          <li><strong>Users</strong>: Control misuse by detecting generated (mis)information with watermarking.</li>
+          <li><strong>Providers</strong>: Confidential computing &amp; encrypted inference.</li>
+          <li><strong>Data</strong>: Poisoning, prompt injection &amp; training-data privacy.</li>
+          <li><strong>Models</strong>: Scalable oversight &amp; differentially private inference.</li>
+          <li><strong>Users</strong>: Detect misuse via watermarking &amp; safety monitoring.</li>
         </ol>
       </div>
     </section>
@@ -393,9 +402,9 @@
         <div class="sub">
           Ph.D. in Computer Science
           <ul class="ul">
-            <li>Advisor: <a href="https://cs.uwaterloo.ca/~fkerschb/">Florian Kerschbaum</a></li>
+            <li>Advisor: <a href="https://cs.uwaterloo.ca/~fkerschb/" target="_blank" rel="noopener">Florian Kerschbaum</a></li>
             <li>Thesis: Analyzing Threats of Large-Scale Machine Learning Systems</li>
-            <li>Thesis Awards: <a href="https://cs.uwaterloo.ca/news/nils-lukas-receives-2024-mathematics-doctoral-prizes-top-honour">Top Mathematics Doctoral Prize</a> &amp; <a href="https://cs.uwaterloo.ca/news/nils-lukas-receives-waterloos-2024-alumni-gold-medal">Alumni Gold Medal</a></li>
+            <li>Thesis Awards: <a href="https://cs.uwaterloo.ca/news/nils-lukas-receives-2024-mathematics-doctoral-prizes-top-honour" target="_blank" rel="noopener">Top Mathematics Doctoral Prize</a> &amp; <a href="https://cs.uwaterloo.ca/news/nils-lukas-receives-waterloos-2024-alumni-gold-medal" target="_blank" rel="noopener">Alumni Gold Medal</a></li>
           </ul>
         </div>
         <div class="line"><span><span class="hd">RWTH-Aachen</span>, Germany</span></div>
@@ -408,11 +417,11 @@
     <section class="sec">
       <div class="sec-label">Honors &amp; Awards</div>
       <div class="sec-body">
-        <div class="line"><span><a href="https://www.linkedin.com/feed/update/urn:li:activity:7407701184796573697/">Amazon Research Award</a> <span class="award-amt">[100,000 USD]</span></span><span class="dt">2025</span></div>
-        <div class="line"><span>First Place at the NeurIPS'24 Watermarking Competition <span class="award-amt">[4,400 USD]</span></span><span class="dt">2024</span></div>
+        <div class="line"><span><a href="https://www.linkedin.com/feed/update/urn:li:activity:7407701184796573697/" target="_blank" rel="noopener">Amazon Research Award</a> <span class="award-amt">[100,000 USD]</span></span><span class="dt">2025</span></div>
+        <div class="line"><span>First Place at the <a href="https://erasinginvisible.github.io/" target="_blank" rel="noopener">NeurIPS'24 Watermarking Competition</a> <span class="award-amt">[4,400 USD]</span></span><span class="dt">2024</span></div>
         <div class="line"><span>First Place at DGE Elite Hackathon, GITEX'24 <span class="award-amt">[10,900 USD]</span></span><span class="dt">2024</span></div>
-        <div class="line"><span>Top Mathematics Doctoral Thesis, University of Waterloo <span class="award-amt">[1,080 USD]</span></span><span class="dt">2024</span></div>
-        <div class="line"><span>Alumni Gold Medal, One PhD Award Yearly, University of Waterloo</span><span class="dt">2024</span></div>
+        <div class="line"><span><a href="https://cs.uwaterloo.ca/news/nils-lukas-receives-2024-mathematics-doctoral-prizes-top-honour" target="_blank" rel="noopener">Top Mathematics Doctoral Thesis</a>, University of Waterloo <span class="award-amt">[1,080 USD]</span></span><span class="dt">2024</span></div>
+        <div class="line"><span><a href="https://cs.uwaterloo.ca/news/nils-lukas-receives-waterloos-2024-alumni-gold-medal" target="_blank" rel="noopener">Alumni Gold Medal</a>, One PhD Award Yearly, University of Waterloo</span><span class="dt">2024</span></div>
         <div class="line"><span>Best Poster Award, Sponsored by David R. Cheriton <span class="award-amt">[220 USD]</span></span><span class="dt">2023</span></div>
         <div class="line"><span>Distinguished Contribution Award, Microsoft MLADS conference</span><span class="dt">2023</span></div>
         <div class="line"><span>David R. Cheriton Scholarship, University of Waterloo <span class="award-amt">[14,400 USD]</span></span><span class="dt">2022, 2023</span></div>
@@ -432,42 +441,42 @@
               <div class="grant-main"><span class="grant-funder">United Al-Saqer Group</span> <span class="grant-title">MedBoard: Privacy-preserving Multi-Agent AI for Healthcare</span></div>
               <span class="grant-amt">$136,000 <span class="yr">&middot; 2026</span></span>
             </div>
-            <div class="grant-meta">PI: <strong class="me">Nils Lukas</strong> &middot; Co-PIs: <a href="https://sites.mit.edu/praneeth/">Praneeth Vepakomma</a>, <a href="https://mbzuai.ac.ae/study/faculty/preslav-nakov/">Preslav Nakov</a></div>
+            <div class="grant-meta">PI: <strong class="me">Nils Lukas</strong> &middot; Co-PIs: <a href="https://sites.mit.edu/praneeth/" target="_blank" rel="noopener">Praneeth Vepakomma</a>, <a href="https://mbzuai.ac.ae/study/faculty/preslav-nakov/" target="_blank" rel="noopener">Preslav Nakov</a></div>
           </div>
           <div class="grant">
             <div class="grant-head">
               <div class="grant-main"><span class="grant-funder">IAAI Research Program</span> <span class="grant-title">Trust Layer for Safe Smallholder Advisory</span></div>
               <span class="grant-amt">$500,000 <span class="yr">&middot; 2026</span></span>
             </div>
-            <div class="grant-meta">PI: <a href="https://lahlou.org/">Salem Lahlou</a> &middot; Co-PIs: <strong class="me">Nils Lukas</strong>, <a href="https://mtakac.com/">Martin Tak&aacute;&#269;</a></div>
+            <div class="grant-meta">PI: <a href="https://lahlou.org/" target="_blank" rel="noopener">Salem Lahlou</a> &middot; Co-PIs: <strong class="me">Nils Lukas</strong>, <a href="https://mtakac.com/" target="_blank" rel="noopener">Martin Tak&aacute;&#269;</a></div>
           </div>
           <div class="grant">
             <div class="grant-head">
               <div class="grant-main"><span class="grant-funder">Amazon Research Awards &ndash; Special Call</span> <span class="grant-title">AdvSim2Real: Robustifying Agents in Simulated Adversarial Environments</span></div>
               <span class="grant-amt">$100,000 <span class="yr">&middot; 2025</span></span>
             </div>
-            <div class="grant-meta">PI: <strong class="me">Nils Lukas</strong> &middot; Co-PI: <a href="https://sites.mit.edu/praneeth/">Praneeth Vepakomma</a></div>
+            <div class="grant-meta">PI: <strong class="me">Nils Lukas</strong> &middot; Co-PI: <a href="https://sites.mit.edu/praneeth/" target="_blank" rel="noopener">Praneeth Vepakomma</a></div>
           </div>
           <div class="grant">
             <div class="grant-head">
               <div class="grant-main"><span class="grant-funder">Etihad Airways</span> <span class="grant-title">Conversational Booking Agents</span></div>
               <span class="grant-amt">$450,000 <span class="yr">&middot; 2025</span></span>
             </div>
-            <div class="grant-meta">PI: <strong class="me">Nils Lukas</strong> &middot; Co-PIs: <a href="https://lahlou.org/">Salem Lahlou</a>, <a href="https://afaji.github.io/">Alham Fikri Aji</a>, <a href="https://mtakac.com/">Martin Tak&aacute;&#269;</a>, <a href="https://mingming-gong.github.io/">Mingming Gong</a></div>
+            <div class="grant-meta">PI: <strong class="me">Nils Lukas</strong> &middot; Co-PIs: <a href="https://lahlou.org/" target="_blank" rel="noopener">Salem Lahlou</a>, <a href="https://afaji.github.io/" target="_blank" rel="noopener">Alham Fikri Aji</a>, <a href="https://mtakac.com/" target="_blank" rel="noopener">Martin Tak&aacute;&#269;</a>, <a href="https://mingming-gong.github.io/" target="_blank" rel="noopener">Mingming Gong</a></div>
           </div>
           <div class="grant">
             <div class="grant-head">
               <div class="grant-main"><span class="grant-funder">United Al-Saqer Group</span> <span class="grant-title">Privacy-preserving Brain&ndash;Computer Interfaces</span></div>
               <span class="grant-amt">$136,000 <span class="yr">&middot; 2025</span></span>
             </div>
-            <div class="grant-meta">PI: <a href="https://ma3mool.github.io/">Abdulrahman Mahmoud</a> &middot; Co-PIs: <strong class="me">Nils Lukas</strong>, <a href="https://elizabethchurchill.com/">Elizabeth Churchill</a></div>
+            <div class="grant-meta">PI: <a href="https://ma3mool.github.io/" target="_blank" rel="noopener">Abdulrahman Mahmoud</a> &middot; Co-PIs: <strong class="me">Nils Lukas</strong>, <a href="https://elizabethchurchill.com/" target="_blank" rel="noopener">Elizabeth Churchill</a></div>
           </div>
           <div class="grant">
             <div class="grant-head">
               <div class="grant-main"><span class="grant-funder">TII Funding</span> <span class="grant-title">GFlowNets for Fuzzing of Agentic Applications</span></div>
               <span class="grant-amt">$136,000 <span class="yr">&middot; 2025</span></span>
             </div>
-            <div class="grant-meta">PIs: <a href="https://lahlou.org/">Salem Lahlou</a> &amp; <strong class="me">Nils Lukas</strong></div>
+            <div class="grant-meta">PIs: <a href="https://lahlou.org/" target="_blank" rel="noopener">Salem Lahlou</a> &amp; <strong class="me">Nils Lukas</strong></div>
           </div>        </div>
       </div>
     </section>
@@ -476,75 +485,76 @@
     <section class="sec">
       <div class="sec-label">Conference Publications</div>
       <div class="sec-body">
+        <div class="sec-note"><span class="advisee">Underlined</span> authors are students and postdocs I supervise as primary advisor.</div>
 
         <div class="pub">
           <div class="pub-meta"><div class="pub-tag">[ECCV'26]</div></div>
           <div>
-            <a class="pub-title" href="https://arxiv.org/abs/2511.19558">SPQR: A Multi-Dimensional Benchmark for Safety Alignment under Benign Model Adaptation</a>
-            <div class="pub-authors">Mohammed Talha Alam, Nada Saadi, Fahad Shamshad, <strong class="me">Nils Lukas</strong>, Karthik Nandakumar, Fakhri Karray, Samuele Poppi. European Conference on Computer Vision, 2026.</div>
+            <a class="pub-title" href="https://arxiv.org/abs/2511.19558" target="_blank" rel="noopener">SPQR: A Multi-Dimensional Benchmark for Safety Alignment under Benign Model Adaptation</a>
+            <div class="pub-authors">Mohammed Talha Alam, Nada Saadi, Fahad Shamshad, <strong class="me">Nils Lukas</strong>, Karthik Nandakumar, Fakhri Karray, <span class="advisee">Samuele Poppi</span>. European Conference on Computer Vision, 2026.</div>
           </div>
         </div>
 
         <div class="pub">
-          <div class="pub-meta"><div class="pub-tag">[CVPR'26]</div><div class="pub-note">&#127942; Oral (top 0.8%)</div></div>
+          <div class="pub-meta"><div class="pub-tag">[CVPR'26]</div><div class="pub-ar">AR: 25.4% (4,090/16,092)</div><div class="pub-note">&#127942; Oral (top 0.8%)</div></div>
           <div>
-            <a class="pub-title" href="https://arxiv.org/abs/2601.08832">RAVEN: Erasing Invisible Watermarks via Novel View Synthesis</a>
+            <a class="pub-title" href="https://arxiv.org/abs/2601.08832" target="_blank" rel="noopener">RAVEN: Erasing Invisible Watermarks via Novel View Synthesis</a>
             <div class="pub-authors">Fahad Shamshad, <strong class="me">Nils Lukas</strong>, Karthik Nandakumar. IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2026.</div>
           </div>
         </div>
 
         <div class="pub">
-          <div class="pub-meta"><div class="pub-tag">[ICML'26]</div></div>
+          <div class="pub-meta"><div class="pub-tag">[ICML'26]</div><div class="pub-ar">AR: 26.6% (6,352/23,918)</div></div>
           <div>
-            <a class="pub-title" href="https://arxiv.org/abs/2602.10765">Collaborative Threshold Watermarking</a>
-            <div class="pub-authors">Tameem Bakr, Anish Ambreth, <strong class="me">Nils Lukas</strong>. The Forty-Third International Conference on Machine Learning, 2026.</div>
+            <a class="pub-title" href="https://arxiv.org/abs/2602.10765" target="_blank" rel="noopener">Collaborative Threshold Watermarking</a>
+            <div class="pub-authors"><span class="advisee">Tameem Bakr</span>, Anish Ambreth, <strong class="me">Nils Lukas</strong>. The Forty-Third International Conference on Machine Learning, 2026.</div>
           </div>
         </div>
 
         <div class="pub">
-          <div class="pub-meta"><div class="pub-tag">[ICML'26]</div></div>
+          <div class="pub-meta"><div class="pub-tag">[ICML'26]</div><div class="pub-ar">AR: 26.6% (6,352/23,918)</div></div>
           <div>
-            <a class="pub-title" href="https://arxiv.org/abs/2601.21600">CoRe: Collaborative Reasoning via Cross Teaching</a>
-            <div class="pub-authors">Kshitij Mishra, Mirat Aubakirov, Martin Tak&aacute;&#269;, <strong class="me">Nils Lukas</strong>, Salem Lahlou. The Forty-Third International Conference on Machine Learning, 2026.</div>
+            <a class="pub-title" href="https://arxiv.org/abs/2601.21600" target="_blank" rel="noopener">CoRe: Collaborative Reasoning via Cross Teaching</a>
+            <div class="pub-authors"><span class="advisee">Kshitij Mishra</span>, Mirat Aubakirov, Martin Tak&aacute;&#269;, <strong class="me">Nils Lukas</strong>, Salem Lahlou. The Forty-Third International Conference on Machine Learning, 2026.</div>
           </div>
         </div>
 
         <div class="pub">
-          <div class="pub-meta"><div class="pub-tag">[ACL'26]</div><div class="pub-ar">Main Conference</div></div>
+          <div class="pub-meta"><div class="pub-tag">[ACL'26]</div><div class="pub-ar">Main Conference</div><div class="pub-ar">AR: 18.9% (2,296/12,148)</div></div>
           <div>
-            <span class="pub-title">Forest Before Trees: Latent Superposition for Efficient Visual Reasoning</span>
-            <div class="pub-authors">Yubo Wang, Juntian Zhang, Yichen Wu, Yankai Lin, <strong class="me">Nils Lukas</strong>, Yuhan Liu. The 64th Annual Meeting of the Association for Computational Linguistics, 2026.</div>
+            <a class="pub-title" href="https://arxiv.org/abs/2601.06803" target="_blank" rel="noopener">Forest Before Trees: Latent Superposition for Efficient Visual Reasoning</a>
+            <div class="pub-authors">Yubo Wang, Juntian Zhang, Yichen Wu, Yankai Lin, <strong class="me">Nils Lukas</strong>, <span class="advisee">Yuhan Liu</span>. The 64th Annual Meeting of the Association for Computational Linguistics, 2026.</div>
           </div>
         </div>
 
         <div class="pub">
-          <div class="pub-meta"><div class="pub-tag">[ACL'26]</div><div class="pub-ar">Findings</div></div>
+          <div class="pub-meta"><div class="pub-tag">[ACL'26]</div><div class="pub-ar">Findings</div><div class="pub-ar">AR: 17.8% (2,163/12,148)</div></div>
           <div>
-            <span class="pub-title">Detecting AI-Generated Video: A Vision-Language Dual-View Survey</span>
-            <div class="pub-authors">Dylan Xinming Hou, Juntian Zhang, Xu Gu, Yichen Wu, <strong class="me">Nils Lukas</strong>, Gus Xia, Xiuying Chen, Yuhan Liu. Findings of the Association for Computational Linguistics, 2026.</div>
+            <a class="pub-title" href="https://arxiv.org/abs/2607.10787" target="_blank" rel="noopener">Detecting AI-Generated Video: A Vision-Language Dual-View Survey</a>
+            <div class="pub-authors">Dylan Xinming Hou, Juntian Zhang, Xu Gu, Yichen Wu, <strong class="me">Nils Lukas</strong>, Gus Xia, Xiuying Chen, <span class="advisee">Yuhan Liu</span>. Findings of the Association for Computational Linguistics, 2026.</div>
           </div>
         </div>
 
         <div class="pub">
-          <div class="pub-meta"><div class="pub-tag">[ICLR'26]</div></div>
+          <div class="pub-meta"><div class="pub-tag">[ICLR'26]</div><div class="pub-ar">AR: 27.4% (5,355/19,525)</div></div>
           <div>
-            <a class="pub-title" href="https://arxiv.org/pdf/2507.04531">DP-Fusion: Token-Level Differentially Private Inference for Large Language Models</a>
-            <div class="pub-authors">Rushil Thareja, Preslav Nakov, <a href="https://sites.mit.edu/praneeth/">Praneeth Vepakomma</a>, <strong class="me">Nils Lukas</strong>. The Fourteenth International Conference on Learning Representations, 2026.</div>
+            <a class="pub-title" href="https://arxiv.org/pdf/2507.04531" target="_blank" rel="noopener">DP-Fusion: Token-Level Differentially Private Inference for Large Language Models</a>
+            <div class="pub-authors"><span class="advisee">Rushil Thareja</span>, Preslav Nakov, <a href="https://sites.mit.edu/praneeth/" target="_blank" rel="noopener">Praneeth Vepakomma</a>, <strong class="me">Nils Lukas</strong>. The Fourteenth International Conference on Learning Representations, 2026.</div>
           </div>
         </div>
 
         <div class="pub">
           <div class="pub-meta"><div class="pub-tag">[EACL'26]</div><div class="pub-ar">Findings</div></div>
           <div>
-            <a class="pub-title" href="https://arxiv.org/pdf/2601.17982">SD-E&sup2;: Semantic Exploration for Reasoning Under Token Budgets</a>
-            <div class="pub-authors">Kshitij Mishra, <strong class="me">Nils Lukas</strong>, Salem Lahlou. Findings of the European Chapter of the Association for Computational Linguistics, 2026.</div>
+            <a class="pub-title" href="https://arxiv.org/pdf/2601.17982" target="_blank" rel="noopener">SD-E&sup2;: Semantic Exploration for Reasoning Under Token Budgets</a>
+            <div class="pub-authors"><span class="advisee">Kshitij Mishra</span>, <strong class="me">Nils Lukas</strong>, Salem Lahlou. Findings of the European Chapter of the Association for Computational Linguistics, 2026.</div>
           </div>
         </div>
 
         <div class="pub">
           <div class="pub-meta"><div class="pub-tag">[NeurIPS'25]</div><div class="pub-ar">AR: 24.5% (5,290/21,575)</div></div>
           <div>
-            <a class="pub-title" href="https://arxiv.org/pdf/2504.12739">Mask Image Watermarking</a>
+            <a class="pub-title" href="https://arxiv.org/pdf/2504.12739" target="_blank" rel="noopener">Mask Image Watermarking</a>
             <div class="pub-authors">Runyi Hu, Jie Zhang, Shiqian Zhao, <strong class="me">Nils Lukas</strong>, Jiwei Li, Qing Guo, Han Qiu, Tianwei Zhang. The Thirty-Ninth Annual Conference on Neural Information Processing Systems, 2025.</div>
           </div>
         </div>
@@ -552,7 +562,7 @@
         <div class="pub">
           <div class="pub-meta"><div class="pub-tag">[EMNLP'25]</div><div class="pub-ar">AR: 22.2% (1,811/8,172)</div></div>
           <div>
-            <a class="pub-title" href="https://arxiv.org/abs/2505.13541">SPIRIT: Patching Speech Language Models against Jailbreak Attacks</a>
+            <a class="pub-title" href="https://arxiv.org/abs/2505.13541" target="_blank" rel="noopener">SPIRIT: Patching Speech Language Models against Jailbreak Attacks</a>
             <div class="pub-authors">Amir Djanibekov, Nurdaulet Mukhituly, Kentaro Inui, Hanan Aldarmaki, <strong class="me">Nils Lukas</strong>. Empirical Methods in Natural Language Processing (Main Conference), 2025.</div>
           </div>
         </div>
@@ -560,15 +570,15 @@
         <div class="pub">
           <div class="pub-meta"><div class="pub-tag">[ICML'25]</div><div class="pub-ar">AR: 26.9% (3,260/12,107)</div><div class="pub-note">&#9733; Spotlight (Top 2.6%)</div></div>
           <div>
-            <a class="pub-title" href="https://arxiv.org/abs/2410.02440">Optimizing Adaptive Attacks against Content Watermarks for Language Models</a>
-            <div class="pub-authors">Abdulrahman Diaa, Toluwani Aremu, <strong class="me">Nils Lukas</strong>. The Forty-Second International Conference on Machine Learning, 2025.</div>
+            <a class="pub-title" href="https://arxiv.org/abs/2410.02440" target="_blank" rel="noopener">Optimizing Adaptive Attacks against Content Watermarks for Language Models</a>
+            <div class="pub-authors">Abdulrahman Diaa, <span class="advisee">Toluwani Aremu</span>, <strong class="me">Nils Lukas</strong>. The Forty-Second International Conference on Machine Learning, 2025.</div>
           </div>
         </div>
 
         <div class="pub">
           <div class="pub-meta"><div class="pub-tag">[ICML'25]</div><div class="pub-ar">AR: 26.9% (3,260/12,107)</div></div>
           <div>
-            <a class="pub-title" href="https://icml.cc/virtual/2025/poster/46436">Cowpox: Towards the Immunity of VLM-based Multi-Agent Systems</a>
+            <a class="pub-title" href="https://icml.cc/virtual/2025/poster/46436" target="_blank" rel="noopener">Cowpox: Towards the Immunity of VLM-based Multi-Agent Systems</a>
             <div class="pub-authors">Yutong Wu, Jie Zhang, Yiming Li, Chao Zhang, Qing Guo, Han Qiu, <strong class="me">Nils Lukas</strong>, Tianwei Zhang. The Forty-Second International Conference on Machine Learning, 2025.</div>
           </div>
         </div>
@@ -576,7 +586,7 @@
         <div class="pub">
           <div class="pub-meta"><div class="pub-tag">[USENIX'24]</div><div class="pub-ar">AR: 19.1% (417/2,176)</div></div>
           <div>
-            <a class="pub-title" href="https://arxiv.org/abs/2310.14565">PEPSI: Practically Efficient Private Set Intersection in the Unbalanced Setting</a>
+            <a class="pub-title" href="https://arxiv.org/abs/2310.14565" target="_blank" rel="noopener">PEPSI: Practically Efficient Private Set Intersection in the Unbalanced Setting</a>
             <div class="pub-authors">Rasoul Mahdavi, <strong class="me">Nils Lukas</strong>, Faezeh Ebrahimianghazani, Thomas Humphries, Bailey Kacsmar, John Premkumar, Xinda Li, Simon Oya, Ehsan Amjadian, Florian Kerschbaum. In the 33rd USENIX Security Symposium, 2024.</div>
           </div>
         </div>
@@ -584,7 +594,7 @@
         <div class="pub">
           <div class="pub-meta"><div class="pub-tag">[USENIX'24]</div><div class="pub-ar">AR: 19.1% (417/2,176)</div></div>
           <div>
-            <a class="pub-title" href="https://arxiv.org/abs/2306.08538">Fast and Private Inference of Deep Neural Networks by Co-designing Activation Functions</a>
+            <a class="pub-title" href="https://arxiv.org/abs/2306.08538" target="_blank" rel="noopener">Fast and Private Inference of Deep Neural Networks by Co-designing Activation Functions</a>
             <div class="pub-authors">Abdulrahman Diaa, Lucas Fenaux, Thomas Humphries, Marian Dietz, Faezeh Ebrahimianghazani, Bailey Kacsmar, Xinda Li, <strong class="me">Nils Lukas</strong>, Rasoul Akhavan Mahdavi, Simon Oya, Ehsan Amjadian, Florian Kerschbaum. In the 33rd USENIX Security Symposium, 2024.</div>
           </div>
         </div>
@@ -592,7 +602,7 @@
         <div class="pub">
           <div class="pub-meta"><div class="pub-tag">[ICLR'24]</div><div class="pub-ar">AR: 30.8% (2,250/7,262)</div></div>
           <div>
-            <a class="pub-title" href="https://arxiv.org/abs/2309.16952">Leveraging Optimization for Adaptive Attacks on Image Watermarks</a>
+            <a class="pub-title" href="https://arxiv.org/abs/2309.16952" target="_blank" rel="noopener">Leveraging Optimization for Adaptive Attacks on Image Watermarks</a>
             <div class="pub-authors"><strong class="me">Nils Lukas</strong>, Abdulrahman Diaa, Lucas Fenaux, Florian Kerschbaum. In the Twelfth International Conference on Learning Representations, 2024.</div>
           </div>
         </div>
@@ -600,7 +610,7 @@
         <div class="pub">
           <div class="pub-meta"><div class="pub-tag">[ICLR'24]</div><div class="pub-ar">AR: 30.8% (2,250/7,262)</div><div class="pub-note">&#9673; Media Coverage</div></div>
           <div>
-            <a class="pub-title" href="https://arxiv.org/abs/2312.00157">Universal Backdoor Attacks</a>
+            <a class="pub-title" href="https://arxiv.org/abs/2312.00157" target="_blank" rel="noopener">Universal Backdoor Attacks</a>
             <div class="pub-authors">Benjamin Schneider, <strong class="me">Nils Lukas</strong>, Florian Kerschbaum. In the Twelfth International Conference on Learning Representations, 2024.</div>
           </div>
         </div>
@@ -608,7 +618,7 @@
         <div class="pub">
           <div class="pub-meta"><div class="pub-tag">[USENIX'23]</div><div class="pub-ar">AR: 29.2% (422/1,444)</div></div>
           <div>
-            <a class="pub-title" href="https://arxiv.org/pdf/2304.07361">PTW: Pivotal Tuning Watermarking for Pre-Trained Image Generators</a>
+            <a class="pub-title" href="https://arxiv.org/pdf/2304.07361" target="_blank" rel="noopener">PTW: Pivotal Tuning Watermarking for Pre-Trained Image Generators</a>
             <div class="pub-authors"><strong class="me">Nils Lukas</strong> and Florian Kerschbaum. In the 32nd USENIX Security Symposium, 2023.</div>
           </div>
         </div>
@@ -616,7 +626,7 @@
         <div class="pub">
           <div class="pub-meta"><div class="pub-tag">[S&amp;P'23]</div><div class="pub-ar">AR: 17.0% (195/1,147)</div><div class="pub-note">&#9733; Distinguished Contribution Award at Microsoft MLADS</div></div>
           <div>
-            <a class="pub-title" href="https://arxiv.org/abs/2302.00539">Analyzing Leakage of Personally Identifiable Information in Language Models</a>
+            <a class="pub-title" href="https://arxiv.org/abs/2302.00539" target="_blank" rel="noopener">Analyzing Leakage of Personally Identifiable Information in Language Models</a>
             <div class="pub-authors"><strong class="me">Nils Lukas</strong>, Ahmed Salem, Robert Sim, Shruti Tople, Lukas Wutschitz, Santiago Zanella-B&eacute;guelin. In the 44th IEEE Symposium on Security and Privacy, 2023.</div>
           </div>
         </div>
@@ -624,7 +634,7 @@
         <div class="pub">
           <div class="pub-meta"><div class="pub-tag">[S&amp;P'22]</div><div class="pub-ar">AR: 14.5% (147/1,012)</div></div>
           <div>
-            <a class="pub-title" href="https://arxiv.org/abs/2108.04974">SoK: How Robust is Image Classification Deep Neural Network Watermarking?</a>
+            <a class="pub-title" href="https://arxiv.org/abs/2108.04974" target="_blank" rel="noopener">SoK: How Robust is Image Classification Deep Neural Network Watermarking?</a>
             <div class="pub-authors"><strong class="me">Nils Lukas</strong>, Edward Jiang, Xinda Li, Florian Kerschbaum. In the 43rd IEEE Symposium on Security and Privacy, 2022.</div>
           </div>
         </div>
@@ -632,7 +642,7 @@
         <div class="pub">
           <div class="pub-meta"><div class="pub-tag">[ICLR'21]</div><div class="pub-ar">AR: 28.7% (860/2,997)</div><div class="pub-note">&#9733; Spotlight (Top 5%)</div></div>
           <div>
-            <a class="pub-title" href="https://arxiv.org/abs/1912.00888">Deep Neural Network Fingerprinting by Conferrable Adversarial Examples</a>
+            <a class="pub-title" href="https://arxiv.org/abs/1912.00888" target="_blank" rel="noopener">Deep Neural Network Fingerprinting by Conferrable Adversarial Examples</a>
             <div class="pub-authors"><strong class="me">Nils Lukas</strong>, Yuxuan Zhang, Florian Kerschbaum. The Ninth International Conference on Learning Representations, 2021.</div>
           </div>
         </div>
@@ -640,7 +650,7 @@
         <div class="pub">
           <div class="pub-meta"><div class="pub-tag">[IH&amp;MMSEC'21]</div><div class="pub-ar">AR: 40.3% (128/318)</div></div>
           <div>
-            <a class="pub-title" href="https://arxiv.org/abs/1906.07745">On the Robustness of Backdoor-based Watermarking in Deep Neural Networks</a>
+            <a class="pub-title" href="https://arxiv.org/abs/1906.07745" target="_blank" rel="noopener">On the Robustness of Backdoor-based Watermarking in Deep Neural Networks</a>
             <div class="pub-authors">Masoumeh Shafieinejad, <strong class="me">Nils Lukas</strong>, Jiaqi Wang, Xinda Li, Florian Kerschbaum. Proceedings of the 2021 ACM Workshop on Information Hiding and Multimedia Security, 2021.</div>
           </div>
         </div>
@@ -648,7 +658,7 @@
         <div class="pub">
           <div class="pub-meta"><div class="pub-tag">[ACSAC'20]</div><div class="pub-ar">AR: 20.9% (104/497)</div></div>
           <div>
-            <a class="pub-title" href="https://nilslukas.github.io/assets/pdfs/mahdavi_tpsi_paper.pdf">Practical Over-Threshold Multi-Party Private Set Intersection</a>
+            <a class="pub-title" href="https://nilslukas.github.io/assets/pdfs/mahdavi_tpsi_paper.pdf" target="_blank" rel="noopener">Practical Over-Threshold Multi-Party Private Set Intersection</a>
             <div class="pub-authors">Rasoul Mahdavi, Thomas Humphries, Bailey Kacsmar, Simeon Krastnikov, <strong class="me">Nils Lukas</strong>, John Premkumar, Masoumeh Shafieinejad, Simon Oya, Florian Kerschbaum, Erik-Oliver Blass. Annual Computer Security Applications Conference (ACSAC), 2020.</div>
           </div>
         </div>
@@ -656,7 +666,7 @@
         <div class="pub">
           <div class="pub-meta"><div class="pub-tag">[EuroS&amp;P'20]</div><div class="pub-ar">AR: 20.9% (39/187)</div></div>
           <div>
-            <a class="pub-title" href="https://nilslukas.github.io/assets/pdfs/kacsmar_dipsi_paper.pdf">Differentially Private Two-Party Set Operations</a>
+            <a class="pub-title" href="https://nilslukas.github.io/assets/pdfs/kacsmar_dipsi_paper.pdf" target="_blank" rel="noopener">Differentially Private Two-Party Set Operations</a>
             <div class="pub-authors">Bailey Kacsmar, Basit Khurram, <strong class="me">Nils Lukas</strong>, Alexander Norton, Masoumeh Shafieinejad, Zhiwei Shang, Yaser Baseri, Maryam Sepehri, Simon Oya, Florian Kerschbaum. IEEE European Symposium on Security and Privacy (EuroS&amp;P), 2020.</div>
           </div>
         </div>
@@ -671,14 +681,14 @@
         <div class="pub">
           <div class="pub-meta"><div class="pub-tag">[IEEE S&amp;P'23]</div></div>
           <div>
-            <a class="pub-title" href="https://ieeexplore.ieee.org/document/10315769">Privacy-Preserving Machine Learning [Cryptography]</a>
+            <a class="pub-title" href="https://ieeexplore.ieee.org/document/10315769" target="_blank" rel="noopener">Privacy-Preserving Machine Learning [Cryptography]</a>
             <div class="pub-authors">Florian Kerschbaum, <strong class="me">Nils Lukas</strong>. IEEE Security &amp; Privacy, Volume 21, Issue 6, 2023.</div>
           </div>
         </div>
         <div class="pub">
           <div class="pub-meta"><div class="pub-tag">[AIP'18]</div></div>
           <div>
-            <span class="pub-title">SunFlower: A new Solar Tower Simulation Method for use in Field Layout Optimization</span>
+            <a class="pub-title" href="https://doi.org/10.1063/1.5067217" target="_blank" rel="noopener">SunFlower: A new Solar Tower Simulation Method for use in Field Layout Optimization</a>
             <div class="pub-authors">Pascal Richter, Gregor Heiming, <strong class="me">Nils Lukas</strong>, Martin Frank. AIP Conference Proceedings, Volume 2033, Issue 1, 2018.</div>
           </div>
         </div>
@@ -694,14 +704,14 @@
           <div class="pub-meta"><div class="pub-tag">[GenAI4Health]</div></div>
           <div>
             <span class="pub-title">Sanitizing Medical Documents with Differential Privacy using Large Language Models</span>
-            <div class="pub-authors">Rushil Thareja, Gautam Gupta, Preslav Nakov, <a href="https://sites.mit.edu/praneeth/">Praneeth Vepakomma</a>, <strong class="me">Nils Lukas</strong>. 2025.</div>
+            <div class="pub-authors">Rushil Thareja, Gautam Gupta, Preslav Nakov, <a href="https://sites.mit.edu/praneeth/" target="_blank" rel="noopener">Praneeth Vepakomma</a>, <strong class="me">Nils Lukas</strong>. 2025.</div>
           </div>
         </div>
 
         <div class="pub">
           <div class="pub-meta"><div class="pub-tag">[WMARK'25]</div></div>
           <div>
-            <a class="pub-title" href="https://openreview.net/forum?id=wLaP37BrhE">First-Place Solution to NeurIPS 2024 Invisible Watermark Removal Challenge</a>
+            <a class="pub-title" href="https://openreview.net/forum?id=wLaP37BrhE" target="_blank" rel="noopener">First-Place Solution to NeurIPS 2024 Invisible Watermark Removal Challenge</a>
             <div class="pub-authors">Fahad Shamshad, Tameem Bakr, Yahia Salaheldin Shaaban, Noor Hazim Hussein, Karthik Nandakumar and <strong class="me">Nils Lukas</strong>. The 1st Workshop on GenAI Watermarking, 2025.</div>
           </div>
         </div>
@@ -709,7 +719,7 @@
         <div class="pub">
           <div class="pub-meta"><div class="pub-tag">[WMARK'25]</div><div class="pub-note">&#9733; Oral Presentation</div></div>
           <div>
-            <a class="pub-title" href="https://arxiv.org/abs/2410.02440">Optimizing Adaptive Attacks against Content Watermarks for Language Models</a>
+            <a class="pub-title" href="https://arxiv.org/abs/2410.02440" target="_blank" rel="noopener">Optimizing Adaptive Attacks against Content Watermarks for Language Models</a>
             <div class="pub-authors">Abdulrahman Diaa, Toluwani Aremu, <strong class="me">Nils Lukas</strong>. The 1st Workshop on GenAI Watermarking, 2025.</div>
           </div>
         </div>
@@ -724,14 +734,14 @@
         <div class="pub">
           <div class="pub-meta"></div>
           <div>
-            <span class="pub-title">Mitigating Watermark Forgery in Generative Models via Randomized Key Selection</span>, Submitted.
+            <a class="pub-title" href="https://arxiv.org/abs/2507.07871" target="_blank" rel="noopener">Mitigating Watermark Forgery in Generative Models via Randomized Key Selection</a>, Submitted.
             <div class="pub-authors">Toluwani Aremu, Noor Hazim Hussein, Munachiso S Nwadike, Samuele Poppi, Jie Zhang, Karthik Nandakumar, Neil Zhenqiang Gong, <strong class="me">Nils Lukas</strong>. 2025.</div>
           </div>
         </div>
         <div class="pub">
           <div class="pub-meta"></div>
           <div>
-            <span class="pub-title">Robust and Calibrated Detection of Authentic Multimedia Content</span>, Submitted.
+            <a class="pub-title" href="https://arxiv.org/abs/2512.15182" target="_blank" rel="noopener">Robust and Calibrated Detection of Authentic Multimedia Content</a>, Submitted.
             <div class="pub-authors">Sarim Hashmi, Abdelrahman Elsayed, Mohammed Talha Alam, Samuele Poppi, <strong class="me">Nils Lukas</strong>. 2025.</div>
           </div>
         </div>
@@ -742,25 +752,29 @@
     <section class="sec">
       <div class="sec-label">Research Talks</div>
       <div class="sec-body">
+        <div class="hd">AI Safety Workshop: Alignment, Oversight and Deception</div>
+        <ul class="ul">
+          <li class="line"><span><a href="https://www.adialab.ae/summerschool-2026-rai" target="_blank" rel="noopener">ADIA Lab &amp; UGR Summer School</a>, Granada</span><span class="dt">2026</span></li>
+        </ul>
         <div class="hd">Adaptively Robust and Forgery-Resistant Watermarking</div>
         <ul class="ul">
-          <li class="line"><span>Meta (FAIR), hosted by <a href="https://www.hadyelsahar.io/">Hady Elsahar</a></span><span class="dt">2025</span></li>
+          <li class="line"><span>Meta (FAIR), hosted by <a href="https://www.hadyelsahar.io/" target="_blank" rel="noopener">Hady Elsahar</a></span><span class="dt">2025</span></li>
         </ul>
         <div class="hd">Optimizing Adaptive Attacks against Content Watermarks</div>
         <ul class="ul">
-          <li class="line"><span>DeepMind, hosted by David Stutz</span><span class="dt">2024</span></li>
-          <li class="line"><span>University of California, Berkeley, hosted by <a href="https://dawnsong.io/">Dawn Song</a></span><span class="dt">2024</span></li>
+          <li class="line"><span>DeepMind, hosted by <a href="https://davidstutz.de/" target="_blank" rel="noopener">David Stutz</a></span><span class="dt">2024</span></li>
+          <li class="line"><span>University of California, Berkeley, hosted by <a href="https://dawnsong.io/" target="_blank" rel="noopener">Dawn Song</a></span><span class="dt">2024</span></li>
         </ul>
         <div class="hd">Analyzing Leakage of Personal Information in Language Models</div>
         <ul class="ul">
-          <li class="line"><span>Microsoft M365, hosted by Robert Sim</span><span class="dt">2024</span></li>
-          <li class="line"><span>Meta, hosted by Will Bullock</span><span class="dt">2023</span></li>
-          <li class="line"><span>MongoDB, hosted by Marilyn George and Archita Agarwal</span><span class="dt">2023</span></li>
+          <li class="line"><span>Microsoft M365, hosted by <a href="https://www.microsoft.com/en-us/research/people/rsim/" target="_blank" rel="noopener">Robert Sim</a></span><span class="dt">2024</span></li>
+          <li class="line"><span>Meta, hosted by <a href="https://scholar.google.com/citations?user=8Dv0d58AAAAJ&amp;hl=en" target="_blank" rel="noopener">Will Bullock</a></span><span class="dt">2023</span></li>
+          <li class="line"><span>MongoDB, hosted by <a href="https://marilyngeorge.com/" target="_blank" rel="noopener">Marilyn George</a> and <a href="http://architaagarwal.com/" target="_blank" rel="noopener">Archita Agarwal</a></span><span class="dt">2023</span></li>
         </ul>
         <div class="hd">How Reliable is Watermarking for Image Generators?</div>
         <ul class="ul">
-          <li class="line"><span>Google, hosted by Somesh Jha</span><span class="dt">2023</span></li>
-          <li class="line"><span>University of California, Berkeley, hosted by <a href="https://dawnsong.io/">Dawn Song</a></span><span class="dt">2023</span></li>
+          <li class="line"><span>Google, hosted by <a href="https://pages.cs.wisc.edu/~jha/" target="_blank" rel="noopener">Somesh Jha</a></span><span class="dt">2023</span></li>
+          <li class="line"><span>University of California, Berkeley, hosted by <a href="https://dawnsong.io/" target="_blank" rel="noopener">Dawn Song</a></span><span class="dt">2023</span></li>
         </ul>
       </div>
     </section>
@@ -780,9 +794,9 @@
       <div class="sec-body">
         <div class="line"><span><span class="hd">Assistant Professor</span>, MBZUAI, Abu Dhabi, UAE</span><span class="dt">since 08/2024</span></div>
         <div class="line"><span><span class="hd">Research Intern</span>, Royal Bank of Canada, Borealis AI, Toronto</span><span class="dt">2024</span></div>
-        <ul class="ul"><li>Vertical Federated Learning, hosted by Kevin Wilson</li></ul>
+        <ul class="ul"><li>Vertical Federated Learning, hosted by <a href="https://kevinhayeswilson.com/" target="_blank" rel="noopener">Kevin Wilson</a></li></ul>
         <div class="line"><span><span class="hd">Research Intern</span>, Microsoft Research, Cambridge, UK</span><span class="dt">2022</span></div>
-        <ul class="ul"><li>Privacy for Language Models, hosted by Shruti Tople &amp; Lukas Wutschitz</li></ul>
+        <ul class="ul"><li>Privacy for Language Models, hosted by <a href="https://www.microsoft.com/en-us/research/people/shtople/" target="_blank" rel="noopener">Shruti Tople</a> &amp; <a href="https://scholar.google.com/citations?user=2kPveDIAAAAJ&amp;hl=en" target="_blank" rel="noopener">Lukas Wutschitz</a></li></ul>
         <div class="line"><span><span class="hd">Research Assistant</span>, RWTH-Aachen, Aachen</span><span class="dt">2014 &ndash; 2018</span></div>
         <div class="line"><span><span class="hd">Student Researcher</span>, DSA Daten- und Systemtechnik GmbH, Aachen</span><span class="dt">2016</span></div>
         <div class="line"><span><span class="hd">Software Engineer Intern</span>, A.R. Bayer DSP Systeme GmbH, D&uuml;sseldorf</span><span class="dt">2012</span></div>
@@ -818,13 +832,15 @@
       <div class="sec-body">
         <div class="hd">Area Chair</div>
         <ul class="ul">
+          <li class="line"><span>AAAI Conference on Artificial Intelligence (AAAI), Senior Program Committee</span><span class="dt">2027</span></li>
+          <li class="line"><span>Neural Information Processing Systems (NeurIPS)</span><span class="dt">2026</span></li>
           <li class="line"><span>International Conference on Learning Representations (ICLR)</span><span class="dt">2026</span></li>
           <li class="line"><span>International Conference on Machine Learning (ICML)</span><span class="dt">2026</span></li>
         </ul>
         <div class="hd">Program Committee</div>
         <ul class="ul">
           <li class="line"><span>ACM Conference on Computer and Communications Security (CCS)</span><span class="dt">2025</span></li>
-          <li class="line"><span>IEEE Symposium on Security and Privacy (IEEE S&amp;P)</span><span class="dt">2025, 2026</span></li>
+          <li class="line"><span>IEEE Symposium on Security and Privacy (IEEE S&amp;P)</span><span class="dt">2025&ndash;2027</span></li>
           <li class="line"><span>Recent Advances in Intrusion Detection (RAID)</span><span class="dt">2024</span></li>
         </ul>
         <div class="hd">Artifact Evaluation Committee</div>
@@ -833,6 +849,11 @@
         </ul>
         <div class="hd">Reviewer</div>
         <ul class="ul">
+          <li class="line"><span>European Conference on Computer Vision (ECCV)</span><span class="dt">2026</span></li>
+          <li class="line"><span>Conference on Language Modeling (COLM)</span><span class="dt">2026</span></li>
+          <li class="line"><span>British Machine Vision Conference (BMVC)</span><span class="dt">2026</span></li>
+          <li class="line"><span>FAGEN Workshop @ ICML</span><span class="dt">2026</span></li>
+          <li class="line"><span>Workshop on GenAI Watermarking (WMark @ ICLR)</span><span class="dt">2025</span></li>
           <li class="line"><span>NETYS</span><span class="dt">2025</span></li>
           <li class="line"><span>ACM TheWebConf (WWW)</span><span class="dt">2025</span></li>
           <li class="line"><span>International Conference on Learning Representations (ICLR)</span><span class="dt">2024, 2025</span></li>
@@ -842,17 +863,22 @@
           <li class="line"><span>International Conference on Machine Learning (ICML)</span><span class="dt">2022, 2025</span></li>
           <li class="line"><span>The Conference on Information and Knowledge Management (CIKM)</span><span class="dt">2020</span></li>
         </ul>
+        <div class="hd">Journal Reviewer</div>
+        <ul class="ul">
+          <li class="line"><span>Communications of the ACM (CACM)</span><span class="dt">2025</span></li>
+        </ul>
         <div class="hd">Other</div>
         <ul class="ul">
-          <li class="line"><span>Sub-Reviewer, Proceedings on Privacy Enhancing Technologies (PETS)</span><span class="dt">2021&ndash;2023</span></li>
-          <li class="line"><span>Session Chair, IEEE Symposium on Security and Privacy (S&amp;P)</span><span class="dt">2023</span></li>
-          <li class="line"><span>Organization, Workshop on Semantic Web Solutions for Large-Scale Biomedical Data Analytics (SeWeBMeDA)</span><span class="dt">2018</span></li>
+          <li class="line"><span>External Examiner, PhD Dissertation, CISPA Helmholtz Center for Information Security</span><span class="dt">2026</span></li>
+          <li class="line"><span>Faculty Search Committee, Machine Learning Department at MBZUAI</span><span class="dt">2025&ndash;2026</span></li>
           <li class="line"><span>Chair for the invited faculty talk program, International Symposium on Trustworthy Foundation Models at MBZUAI</span><span class="dt">2025</span></li>
-          <li class="line"><span>Faculty Search Committee, Machine Learning Department at MBZUAI</span><span class="dt">2025</span></li>
           <li class="line"><span>Admission's Committee, MBZUAI Machine Learning Department</span><span class="dt">2025</span></li>
+          <li class="line"><span>Student Board Member, Cybersecurity and Privacy Institute</span><span class="dt">2022&ndash;2024</span></li>
+          <li class="line"><span>Session Chair, IEEE Symposium on Security and Privacy (S&amp;P)</span><span class="dt">2023</span></li>
+          <li class="line"><span>Sub-Reviewer, Proceedings on Privacy Enhancing Technologies (PETS)</span><span class="dt">2021&ndash;2023</span></li>
+          <li class="line"><span>School Advisory Committee on Appointments Liaison, CrySP Lab</span><span class="dt">2022</span></li>
+          <li class="line"><span>Organization, Workshop on Semantic Web Solutions for Large-Scale Biomedical Data Analytics (SeWeBMeDA)</span><span class="dt">2018</span></li>
         </ul>
-        <div class="line"><span><span class="hd">Student Board Member</span>, Cybersecurity and Privacy Institute</span><span class="dt">2022&ndash;2024</span></div>
-        <div class="line"><span><span class="hd">School Advisory Committee on Appointments Liaison</span>, CrySP Lab</span><span class="dt">2022</span></div>
       </div>
     </section>
 
@@ -862,29 +888,33 @@
       <div class="sec-body">
         <div class="hd">Postdoctoral Researchers</div>
         <ul class="ul">
-          <li class="line"><span>Samuele Poppi <span class="it">[primary]</span></span><span class="dt">since 2025</span></li>
-          <li class="line"><span>Kshitij Mishra <span class="it">[secondary] (w/ Martin Tak&aacute;&#269; &amp; Salem Lahlou)</span></span><span class="dt">since 2025</span></li>
-          <li class="line"><span>Dushyant Chauhan <span class="it">[secondary] (w/ Martin Tak&aacute;&#269; &amp; Salem Lahlou)</span></span><span class="dt">since 2025</span></li>
-          <li class="line"><span>Yuhan Liu <span class="it">[secondary] (w/ Martin Tak&aacute;&#269; &amp; Salem Lahlou)</span></span><span class="dt">since 2025</span></li>
+          <li class="line"><span><a href="https://scholar.google.com/citations?user=EBLQPgcAAAAJ&amp;hl=en" target="_blank" rel="noopener">Samuele Poppi</a></span><span class="dt">since 2025</span></li>
+          <li class="line"><span><a href="https://scholar.google.com/citations?user=jfTVBUQAAAAJ&amp;hl=en" target="_blank" rel="noopener">Kshitij Mishra</a> <span class="it">(secondary: <a href="https://mtakac.com/" target="_blank" rel="noopener">Martin Tak&aacute;&#269;</a> &amp; <a href="https://lahlou.org/" target="_blank" rel="noopener">Salem Lahlou</a>)</span></span><span class="dt">since 2025</span></li>
+          <li class="line"><span><a href="https://scholar.google.com/citations?user=Gs8MoW4AAAAJ&amp;hl=en" target="_blank" rel="noopener">Dushyant Chauhan</a> <span class="it">(secondary: <a href="https://mtakac.com/" target="_blank" rel="noopener">Martin Tak&aacute;&#269;</a> &amp; <a href="https://lahlou.org/" target="_blank" rel="noopener">Salem Lahlou</a>)</span></span><span class="dt">since 2025</span></li>
+          <li class="line"><span><a href="https://scholar.google.com/citations?user=b3Q1oxIAAAAJ" target="_blank" rel="noopener">Yuhan Liu</a> <span class="it">(secondary: <a href="https://mtakac.com/" target="_blank" rel="noopener">Martin Tak&aacute;&#269;</a> &amp; <a href="https://lahlou.org/" target="_blank" rel="noopener">Salem Lahlou</a>)</span></span><span class="dt">since 2025</span></li>
+        </ul>
+        <div class="hd">Research Engineers</div>
+        <ul class="ul">
+          <li class="line"><span><a href="https://sarim-mbzuai.github.io/" target="_blank" rel="noopener">Sarim Hashmi</a></span><span class="dt">since 2025</span></li>
         </ul>
         <div class="hd">PhD Students</div>
         <ul class="ul">
-          <li class="line"><span>Fabian Zhang (ML)</span><span class="dt">since 2025</span></li>
-          <li class="line"><span>Tair Djanibekov (NLP)</span><span class="dt">since 2025</span></li>
-          <li class="line"><span>Rushil Thareja (NLP) <span class="it">[primary] (w/ <a href="https://sites.mit.edu/praneeth/">Praneeth Vepakomma</a>)</span></span><span class="dt">since 2024</span></li>
-          <li class="line"><span>Toluwani Aremu (ML)</span><span class="dt">since 2023</span></li>
+          <li class="line"><span><a href="https://scholar.google.com/citations?user=N0aisycAAAAJ&amp;hl=de" target="_blank" rel="noopener">Fabian Zhang</a> (ML)</span><span class="dt">since 2025</span></li>
+          <li class="line"><span><a href="https://scholar.google.com/citations?user=kDTvB5TKTm0C&amp;hl=en" target="_blank" rel="noopener">Tair Djanibekov</a> (NLP)</span><span class="dt">since 2025</span></li>
+          <li class="line"><span><a href="https://scholar.google.com/citations?user=_bKiafcAAAAJ&amp;hl=en" target="_blank" rel="noopener">Rushil Thareja</a> (NLP) <span class="it">(secondary: <a href="https://sites.mit.edu/praneeth/" target="_blank" rel="noopener">Praneeth Vepakomma</a>)</span></span><span class="dt">since 2024</span></li>
+          <li class="line"><span><a href="https://scholar.google.com/citations?user=Ji8fnw0AAAAJ&amp;hl=en" target="_blank" rel="noopener">Toluwani Aremu</a> (ML)</span><span class="dt">since 2023</span></li>
         </ul>
         <div class="hd">MSc Students</div>
         <ul class="ul">
           <li class="line"><span>Juan Nicolas Sepulveda Arias (CV)</span><span class="dt">since 2025</span></li>
-          <li class="line"><span>Mohamed Mahmoud Mohamed Hendy (ML)</span><span class="dt">since 2025</span></li>
+          <li class="line"><span><a href="https://www.linkedin.com/in/mhendy25/" target="_blank" rel="noopener">Mohamed Mahmoud Mohamed Hendy</a> (ML)</span><span class="dt">since 2025</span></li>
           <li class="line"><span>Majid Mohamed Mohamed Sulaiman Ibrahim (ML)</span><span class="dt">since 2025</span></li>
-          <li class="line"><span>Prince Jha (ML) <span class="it">[secondary] (w/ Salem Lahlou)</span></span><span class="dt">since 2025</span></li>
-          <li class="line"><span>Muhammad Mohideen (CV) <span class="it">(w/ <a href="https://sites.google.com/view/samuelhorvath">Samuel Horvath</a>)</span></span><span class="dt">since 2025</span></li>
+          <li class="line"><span><a href="https://scholar.google.com/citations?user=KywmeyUAAAAJ&amp;hl=en" target="_blank" rel="noopener">Prince Jha</a> (ML) <span class="it">(primary: <a href="https://lahlou.org/" target="_blank" rel="noopener">Salem Lahlou</a>)</span></span><span class="dt">since 2025</span></li>
+          <li class="line"><span>Muhammad Mohideen (CV) <span class="it">(secondary: <a href="https://sites.google.com/view/samuelhorvath" target="_blank" rel="noopener">Samuel Horvath</a>)</span></span><span class="dt">since 2025</span></li>
         </ul>
         <div class="hd">Alumni</div>
         <ul class="ul">
-          <li class="line"><span>Tameem Bakr (ML)</span><span class="dt">MSc &middot; Mar 2026</span></li>
+          <li class="line"><span><a href="https://scholar.google.com/citations?user=Atik3-QAAAAJ&amp;hl=en" target="_blank" rel="noopener">Tameem Bakr</a> (ML)</span><span class="dt">MSc &middot; Mar 2026</span></li>
           <li class="line"><span>Shaikha Jasem Mohamed Ismail Alhosani (ML)</span><span class="dt">MSc &middot; Mar 2026</span></li>
           <li class="line"><span>Maryam Abdulla Rashed Abdulla Alshamsi (ML)</span><span class="dt">MSc &middot; Mar 2026</span></li>
           <li class="line"><span>Maryam Alshehyari (ML)</span><span class="dt">MSc &middot; Mar 2026</span></li>
@@ -956,16 +986,21 @@
         'leveraging optimization':{arxiv:'2309.16952',code:'nilslukas/adaptive-watermark-attacks'},
         'universal backdoor':{arxiv:'2312.00157',code:'Ben-Schneider-code/Universal-Backdoor-Attacks'},
         'ptw:':{arxiv:'2304.07361',code:'nilslukas/gan-watermark'},
-        'analyzing leakage':{arxiv:'2302.00539'},
+        'analyzing leakage':{arxiv:'2302.00539',code:'microsoft/analysing_pii_leakage'},
         'sok: how robust':{arxiv:'2108.04974',code:'dnn-security/Watermark-Robustness-Toolbox'},
         'conferrable adversarial':{arxiv:'1912.00888'},
         'on the robustness of backdoor':{arxiv:'1906.07745'},
-        'collaborative threshold':{arxiv:'2602.10765'},
+        'collaborative threshold':{arxiv:'2602.10765',code:'tameemalaa/collaborative-threshold-watermark'},
         'core: collaborative':{arxiv:'2601.21600'},
         'raven':{arxiv:'2601.08832'},
         'spqr':{arxiv:'2511.19558'},
-        'dp-fusion':{arxiv:'2507.04531'},
+        'dp-fusion':{arxiv:'2507.04531',code:'rushil-thareja/dp-fusion-lib'},
         'sd-e':{arxiv:'2601.17982'},
+        'forest before trees':{arxiv:'2601.06803'},
+        'detecting ai-generated video':{arxiv:'2607.10787'},
+        'mitigating watermark forgery':{arxiv:'2507.07871'},
+        'robust and calibrated':{arxiv:'2512.15182'},
+        'sunflower':{pdf:'https://doi.org/10.1063/1.5067217'},
         'practical over-threshold':{pdf:'https://nilslukas.github.io/assets/pdfs/mahdavi_tpsi_paper.pdf'},
         'differentially private two-party':{pdf:'https://nilslukas.github.io/assets/pdfs/kacsmar_dipsi_paper.pdf'},
         'privacy-preserving machine learning':{pdf:'https://ieeexplore.ieee.org/document/10315769'},
@@ -1057,7 +1092,7 @@
             '</details>' +
           '</div>' +
           '<div class="tools">' +
-            '<a class="btn" href="assets/pdfs/cv_nils_lukas.pdf" download><i class="fa fa-download"></i> Download PDF</a>' +
+            '<a class="btn" href="assets/pdfs/cv_nils_lukas.pdf" download target="_blank" rel="noopener"><i class="fa fa-download"></i> Download PDF</a>' +
           '</div>';
         document.body.appendChild(bar);
         // Close the "More" drawer when clicking outside it.

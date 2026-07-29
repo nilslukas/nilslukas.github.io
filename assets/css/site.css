@@ -1048,6 +1048,92 @@ footer a:hover{color:var(--accent);}
   font-size:.92rem;
 }
 
+/* ---------------------------------------------------------------------
+   17b. Floating deadline rail — compact "name + countdown" list that sits
+        in the right margin on wide screens. Hidden below 1280px, where the
+        margin is too narrow to clear the 840px measure.
+   --------------------------------------------------------------------- */
+#deadline-rail{
+  display:none;                       /* opt-in via the wide-screen query */
+  position:fixed;
+  top:88px;
+  right:20px;
+  width:176px;
+  max-height:calc(100vh - 132px);
+  overflow-y:auto;
+  overscroll-behavior:contain;
+  padding:.7rem .75rem .5rem;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  background:rgba(250,249,245,.86);
+  -webkit-backdrop-filter:saturate(1.6) blur(8px);
+  backdrop-filter:saturate(1.6) blur(8px);
+  z-index:40;
+}
+.rail-head{
+  font-family:var(--sans);
+  font-size:.66rem;
+  font-weight:600;
+  letter-spacing:.1em;
+  text-transform:uppercase;
+  color:var(--muted);
+  padding-bottom:.4rem;
+  margin-bottom:.15rem;
+  border-bottom:1px solid var(--border);
+}
+.rail-item{
+  display:block;
+  padding:.42rem .1rem;
+  color:inherit;
+  text-decoration:none;
+  border-radius:var(--radius-sm);
+}
+.rail-item + .rail-item{border-top:1px dashed var(--border);}
+.rail-item:hover{text-decoration:none;background:var(--surface-soft);}
+.rail-item:hover .rail-name{color:var(--accent);}
+.rail-top{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:.4rem;
+}
+.rail-name{
+  font-size:.79rem;
+  font-weight:600;
+  color:var(--ink);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.rail-days{
+  font-size:.75rem;
+  font-weight:600;
+  white-space:nowrap;
+  color:var(--muted-strong);
+  font-variant-numeric:tabular-nums;
+}
+.rail-item.imminent .rail-days{color:var(--accent);}
+.rail-what{
+  display:block;
+  font-size:.67rem;
+  color:var(--muted);
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis;
+}
+.rail-more{
+  padding:.45rem .1rem .1rem;
+  border-top:1px solid var(--border);
+  font-size:.67rem;
+  color:var(--muted);
+}
+.conf-card{scroll-margin-top:88px;}
+.conf-card.flash{border-color:var(--accent-bright);}
+
+@media (min-width:1280px){
+  #deadline-rail{display:block;}
+}
+
 /* Generic muted table cells */
 td.muted,th.muted{color:var(--muted);}
 table{border-collapse:collapse;}

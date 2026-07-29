@@ -49,7 +49,8 @@
   <div class="main-container">
     <div class="page-header">
       <h2>Conference Deadlines</h2>
-      <p>Submission deadlines for top ML and security conferences. All deadlines are AoE (Anywhere on Earth).</p>
+      <p>Submission deadlines for top ML and security conferences. All deadlines are AoE (Anywhere on Earth).
+      Dates prefixed with <strong>~</strong> are projected from the previous edition — the official call for papers is not out yet.</p>
     </div>
 
     <!-- Filters -->
@@ -68,6 +69,13 @@
   </div>
 </section>
 
+<!-- Compact countdown rail — right margin on wide screens, rendered by JS -->
+<aside id="deadline-rail" aria-label="Next deadlines">
+  <div class="rail-head">Next up</div>
+  <div id="rail-list"></div>
+  <div id="rail-more" class="rail-more"></div>
+</aside>
+
 <footer>
   <div class="main-container" id="last-updated">
     Nils Lukas – Last updated 30 May 2026
@@ -77,122 +85,32 @@
 <script src="assets/js/bg.js"></script>
 
 <script>
+// Verified 29 Jul 2026 against official calls for papers. Entries whose
+// deadlines have all passed are dropped and rolled to the next edition.
+// `note: "Expected"` = projected from the previous edition; no official CfP yet.
 const CONFERENCES = [
-  // ——— Imminent deadlines ———
+  // ——— Confirmed: official call for papers published ———
   {
-    id: "eccv2026",
-    name: "ECCV 2026",
-    fullName: "European Conference on Computer Vision",
-    tags: ["vision", "ml"],
-    link: "https://eccv.ecva.net/",
-    location: "Malmo, Sweden",
-    dates: "Sep 8–13, 2026",
-    deadlines: [
-      { label: "Registration", date: "2026-02-26" },
-      { label: "Paper", date: "2026-03-05" }
-    ]
-  },
-  {
-    id: "pets2027",
-    name: "PETS 2027",
-    fullName: "Privacy Enhancing Technologies Symposium",
-    tags: ["privacy", "security"],
-    link: "https://petsymposium.org/cfp27.php",
-    location: "Europe (TBA)",
-    dates: "TBD, 2027",
-    deadlines: [
-      { label: "Issue 1", date: "2026-05-31" },
-      { label: "Issue 2", date: "2026-08-31" },
-      { label: "Issue 3", date: "2026-11-30" },
-      { label: "Issue 4", date: "2027-02-28" }
-    ]
-  },
-  // ——— 2027 editions (with known/estimated deadlines) ———
-  {
-    id: "aaai2027",
-    name: "AAAI 2027",
-    fullName: "AAAI Conference on Artificial Intelligence",
-    tags: ["ml"],
-    link: "https://aaai.org/conference/aaai/",
-    location: "Montreal, Canada",
-    dates: "Feb 16–23, 2027",
-    deadlines: [
-      { label: "Abstract", date: "2026-07-21" },
-      { label: "Paper", date: "2026-07-28" }
-    ]
-  },
-  {
-    id: "aistats2027",
-    name: "AISTATS 2027",
-    fullName: "International Conference on AI and Statistics",
-    tags: ["ml"],
-    link: "https://aistats.org/",
-    location: "Toronto, Canada",
-    dates: "May 16–21, 2027",
-    deadlines: [
-      { label: "Paper", date: "2026-10-02", note: "Expected, TBA" }
-    ]
-  },
-  {
-    id: "emnlp2026",
-    name: "EMNLP 2026",
-    fullName: "Conference on Empirical Methods in Natural Language Processing",
+    id: "eacl2027",
+    name: "EACL 2027",
+    short: "EACL '27",
+    fullName: "European Chapter of the Association for Computational Linguistics",
     tags: ["nlp", "ml"],
-    link: "https://2026.emnlp.org/",
-    location: "Budapest, Hungary",
-    dates: "Oct 24–29, 2026",
+    link: "https://2027.eacl.org/",
+    location: "Athens, Greece",
+    dates: "Mar 9–14, 2027",
     deadlines: [
-      { label: "ARR Submission", date: "2026-05-25" },
-      { label: "Demos", date: "2026-07-04" }
-    ]
-  },
-  {
-    id: "acsac2026",
-    name: "ACSAC 2026",
-    fullName: "Annual Computer Security Applications Conference",
-    tags: ["security"],
-    link: "https://www.acsac.org/",
-    location: "Los Angeles, CA, USA",
-    dates: "Dec 7–11, 2026",
-    deadlines: [
-      { label: "Paper", date: "2026-05-26" }
-    ]
-  },
-  // ——— 2027 editions (with known deadlines) ———
-  {
-    id: "sp2027",
-    name: "IEEE S&P 2027",
-    fullName: "IEEE Symposium on Security and Privacy",
-    tags: ["security"],
-    link: "https://sp2027.ieee-security.org/",
-    location: "Montreal, Canada",
-    dates: "~May 2027",
-    deadlines: [
-      { label: "Cycle 1 Abstract", date: "2026-06-04" },
-      { label: "Cycle 1 Paper", date: "2026-06-11" },
-      { label: "Cycle 2 Abstract", date: "2026-11-10" },
-      { label: "Cycle 2 Paper", date: "2026-11-17" }
-    ]
-  },
-  {
-    id: "ndss2027",
-    name: "NDSS 2027",
-    fullName: "Network and Distributed System Security Symposium",
-    tags: ["security"],
-    link: "https://www.ndss-symposium.org/ndss2027/",
-    location: "Seoul, Republic of Korea",
-    dates: "Mar 22–26, 2027",
-    deadlines: [
-      { label: "Summer Paper", date: "2026-05-06" },
-      { label: "Fall Paper", date: "2026-08-19" }
+      { label: "ARR Submission", date: "2026-08-03" },
+      { label: "ARR Commitment", date: "2026-10-11" }
     ]
   },
   {
     id: "usenix2027",
     name: "USENIX Security 2027",
+    short: "USENIX '27",
     fullName: "USENIX Security Symposium",
     tags: ["security"],
-    link: "https://www.usenix.org/conference/usenixsecurity27",
+    link: "https://www.usenix.org/conference/usenixsecurity27/call-for-papers",
     location: "Denver, CO, USA",
     dates: "Aug 11–13, 2027",
     deadlines: [
@@ -202,80 +120,70 @@ const CONFERENCES = [
       { label: "Cycle 2 Paper", date: "2027-01-26" }
     ]
   },
-  // ——— 2026 editions ———
   {
-    id: "colm2026",
-    name: "COLM 2026",
-    fullName: "Conference on Language Modeling",
-    tags: ["ml"],
-    link: "https://colmweb.org/",
-    location: "San Francisco, CA, USA",
-    dates: "Oct 6–9, 2026",
-    deadlines: [
-      { label: "Abstract", date: "2026-03-26" },
-      { label: "Paper", date: "2026-03-31" }
-    ]
-  },
-  {
-    id: "ccs2026",
-    name: "CCS 2026",
-    fullName: "ACM Conference on Computer and Communications Security",
+    id: "ndss2027",
+    name: "NDSS 2027",
+    short: "NDSS '27",
+    fullName: "Network and Distributed System Security Symposium",
     tags: ["security"],
-    link: "https://www.sigsac.org/ccs/CCS2026/",
-    location: "The Hague, Netherlands",
-    dates: "Nov 15–19, 2026",
+    link: "https://www.ndss-symposium.org/ndss2027/submissions/call-for-papers/",
+    location: "Seoul, Republic of Korea",
+    dates: "Mar 22–26, 2027",
     deadlines: [
-      { label: "Cycle 1 Abstract", date: "2026-01-07" },
-      { label: "Cycle 1 Paper", date: "2026-01-14" },
-      { label: "Cycle 2 Abstract", date: "2026-04-22" },
-      { label: "Cycle 2 Paper", date: "2026-04-29" }
+      { label: "Fall Paper", date: "2026-08-19" }
     ]
   },
   {
-    id: "neurips2026",
-    name: "NeurIPS 2026",
-    fullName: "Conference on Neural Information Processing Systems",
-    tags: ["ml"],
-    link: "https://neurips.cc/",
-    location: "Sydney, Australia",
-    dates: "Dec 6–12, 2026",
+    id: "pets2027",
+    name: "PETS 2027",
+    short: "PETS '27",
+    fullName: "Privacy Enhancing Technologies Symposium",
+    tags: ["privacy", "security"],
+    link: "https://petsymposium.org/cfp27.php",
+    location: "Delft, Netherlands",
+    dates: "Jul 19–24, 2027",
     deadlines: [
-      { label: "Abstract", date: "2026-05-04" },
-      { label: "Paper", date: "2026-05-06" }
+      { label: "Issue 2", date: "2026-08-31" },
+      { label: "Issue 3", date: "2026-11-30" },
+      { label: "Issue 4", date: "2027-02-28" }
     ]
   },
   {
-    id: "icml2026",
-    name: "ICML 2026",
-    fullName: "International Conference on Machine Learning",
-    tags: ["ml"],
-    link: "https://icml.cc/Conferences/2026",
-    location: "Seoul, South Korea",
-    dates: "Jul 6–11, 2026",
+    id: "satml2027",
+    name: "SaTML 2027",
+    short: "SaTML '27",
+    fullName: "IEEE Conference on Secure and Trustworthy Machine Learning",
+    tags: ["security", "ml"],
+    link: "https://satml.org/",
+    location: "Reykjavik, Iceland",
+    dates: "Early May 2027",
     deadlines: [
-      { label: "Abstract", date: "2026-01-23" },
-      { label: "Paper", date: "2026-01-28" }
+      { label: "Paper", date: "2026-09-29" }
     ]
   },
   {
-    id: "cvpr2026",
-    name: "CVPR 2026",
-    fullName: "IEEE/CVF Conference on Computer Vision and Pattern Recognition",
-    tags: ["vision", "ml"],
-    link: "https://cvpr.thecvf.com/Conferences/2026",
-    location: "Denver, CO, USA",
-    dates: "Jun 3–7, 2026",
+    id: "sp2027",
+    name: "IEEE S&P 2027",
+    short: "IEEE S&P '27",
+    fullName: "IEEE Symposium on Security and Privacy",
+    tags: ["security"],
+    link: "https://sp2027.ieee-security.org/cfpapers.html",
+    location: "Montreal, Canada",
+    dates: "May 2027 (TBA)",
     deadlines: [
-      { label: "Abstract", date: "2025-11-07" },
-      { label: "Paper", date: "2025-11-13" }
+      { label: "Cycle 2 Abstract", date: "2026-11-10" },
+      { label: "Cycle 2 Paper", date: "2026-11-17" }
     ]
   },
+
+  // ——— Projected: no official CfP yet, dates shifted from the last edition ———
   {
     id: "iclr2027",
     name: "ICLR 2027",
+    short: "ICLR '27",
     fullName: "International Conference on Learning Representations",
     tags: ["ml"],
-    link: "https://iclr.cc/",
+    link: "https://iclr.cc/Conferences/2027/CallForPapers",
     location: "TBA",
     dates: "~Apr 2027",
     deadlines: [
@@ -284,15 +192,141 @@ const CONFERENCES = [
     ]
   },
   {
-    id: "satml2027",
-    name: "SaTML 2027",
-    fullName: "IEEE Conference on Secure and Trustworthy Machine Learning",
-    tags: ["security", "ml"],
-    link: "https://satml.org/",
+    id: "aistats2027",
+    name: "AISTATS 2027",
+    short: "AISTATS '27",
+    fullName: "International Conference on AI and Statistics",
+    tags: ["ml"],
+    link: "https://aistats.org/",
     location: "TBA",
-    dates: "~Mar 2027",
+    dates: "~Apr–May 2027",
     deadlines: [
-      { label: "Paper", date: "2026-09-23", note: "Expected, TBA" }
+      { label: "Paper", date: "2026-10-08", note: "Expected, TBA" }
+    ]
+  },
+  {
+    id: "cvpr2027",
+    name: "CVPR 2027",
+    short: "CVPR '27",
+    fullName: "IEEE/CVF Conference on Computer Vision and Pattern Recognition",
+    tags: ["vision", "ml"],
+    link: "https://cvpr.thecvf.com/",
+    location: "TBA, USA",
+    dates: "~Jun 2027",
+    deadlines: [
+      { label: "Abstract", date: "2026-11-06", note: "Expected, TBA" },
+      { label: "Paper", date: "2026-11-12", note: "Expected, TBA" }
+    ]
+  },
+  {
+    id: "ccs2027",
+    name: "CCS 2027",
+    short: "CCS '27",
+    fullName: "ACM Conference on Computer and Communications Security",
+    tags: ["security"],
+    link: "https://www.sigsac.org/ccs/CCS2027/",
+    location: "Atlanta, GA, USA",
+    dates: "Oct 2027",
+    deadlines: [
+      { label: "Cycle 1 Abstract", date: "2027-01-06", note: "Expected, TBA" },
+      { label: "Cycle 1 Paper", date: "2027-01-13", note: "Expected, TBA" },
+      { label: "Cycle 2 Abstract", date: "2027-04-21", note: "Expected, TBA" },
+      { label: "Cycle 2 Paper", date: "2027-04-28", note: "Expected, TBA" }
+    ]
+  },
+  {
+    id: "acl2027",
+    name: "ACL 2027",
+    short: "ACL '27",
+    fullName: "Annual Meeting of the Association for Computational Linguistics",
+    tags: ["nlp", "ml"],
+    link: "https://aclrollingreview.org/dates",
+    location: "TBA",
+    dates: "~Jul 2027",
+    deadlines: [
+      { label: "ARR Submission", date: "2027-01-18", note: "Jan cycle, TBA" }
+    ]
+  },
+  {
+    id: "icml2027",
+    name: "ICML 2027",
+    short: "ICML '27",
+    fullName: "International Conference on Machine Learning",
+    tags: ["ml"],
+    link: "https://icml.cc/",
+    location: "TBA",
+    dates: "~Jul 2027",
+    deadlines: [
+      { label: "Abstract", date: "2027-01-22", note: "Expected, TBA" },
+      { label: "Paper", date: "2027-01-28", note: "Expected, TBA" }
+    ]
+  },
+  {
+    id: "iccv2027",
+    name: "ICCV 2027",
+    short: "ICCV '27",
+    fullName: "IEEE/CVF International Conference on Computer Vision",
+    tags: ["vision", "ml"],
+    link: "https://iccv.thecvf.com/",
+    location: "TBA",
+    dates: "~Oct 2027",
+    deadlines: [
+      { label: "Paper", date: "2027-03-05", note: "Expected, TBA" }
+    ]
+  },
+  {
+    id: "colm2027",
+    name: "COLM 2027",
+    short: "COLM '27",
+    fullName: "Conference on Language Modeling",
+    tags: ["ml", "nlp"],
+    link: "https://colmweb.org/",
+    location: "TBA",
+    dates: "~Oct 2027",
+    deadlines: [
+      { label: "Abstract", date: "2027-03-25", note: "Expected, TBA" },
+      { label: "Paper", date: "2027-03-30", note: "Expected, TBA" }
+    ]
+  },
+  {
+    id: "neurips2027",
+    name: "NeurIPS 2027",
+    short: "NeurIPS '27",
+    fullName: "Conference on Neural Information Processing Systems",
+    tags: ["ml"],
+    link: "https://neurips.cc/",
+    location: "TBA",
+    dates: "~Dec 2027",
+    deadlines: [
+      { label: "Abstract", date: "2027-05-03", note: "Expected, TBA" },
+      { label: "Paper", date: "2027-05-05", note: "Expected, TBA" }
+    ]
+  },
+  {
+    id: "acsac2027",
+    name: "ACSAC 2027",
+    short: "ACSAC '27",
+    fullName: "Annual Computer Security Applications Conference",
+    tags: ["security"],
+    link: "https://www.acsac.org/",
+    location: "TBA",
+    dates: "~Dec 2027",
+    deadlines: [
+      { label: "Paper", date: "2027-05-25", note: "Expected, TBA" }
+    ]
+  },
+  {
+    id: "aaai2028",
+    name: "AAAI 2028",
+    short: "AAAI '28",
+    fullName: "AAAI Conference on Artificial Intelligence",
+    tags: ["ml"],
+    link: "https://aaai.org/conference/aaai/",
+    location: "TBA",
+    dates: "~Feb 2028",
+    deadlines: [
+      { label: "Abstract", date: "2027-07-20", note: "Expected, TBA" },
+      { label: "Paper", date: "2027-07-27", note: "Expected, TBA" }
     ]
   },
 ];
@@ -398,10 +432,67 @@ function renderConferences(filter) {
   });
 
   noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+  renderRail(filter);
+}
+
+/* ----- floating side rail: conference name + countdown to its next deadline ----- */
+const RAIL_MAX = 10;                                // keep the rail short
+
+function railCountdown(days) {
+  if (days <= 0) return 'today';
+  if (days === 1) return '1 day';
+  return days + ' days';
+}
+
+function renderRail(filter) {
+  const railList = document.getElementById('rail-list');
+  if (!railList) return;
+
+  const now = new Date();
+  railList.innerHTML = '';
+
+  const all = sortConferences(CONFERENCES).filter(conf =>
+    getNextDeadline(conf) && (filter === 'all' || conf.tags.includes(filter))
+  );
+  const items = all.slice(0, RAIL_MAX);
+
+  items.forEach(conf => {
+    const dl = getNextDeadline(conf);
+    const days = daysBetween(now, parseAoE(dl.date));
+    const tilde = dl.note ? '~' : '';
+
+    const item = document.createElement('a');
+    item.className = 'rail-item' + (days <= 14 ? ' imminent' : '');
+    item.href = '#' + conf.id;
+    item.title = `${conf.name} — ${dl.label}: ${tilde}${formatDate(dl.date)}`;
+    item.innerHTML = `
+      <span class="rail-top">
+        <span class="rail-name">${conf.short || conf.name}</span>
+        <span class="rail-days">${railCountdown(days)}</span>
+      </span>
+      <span class="rail-what">${dl.label}${tilde ? ' (est.)' : ''}</span>`;
+
+    item.addEventListener('click', () => {
+      const card = document.getElementById(conf.id);
+      if (!card) return;
+      card.classList.add('flash');
+      setTimeout(() => card.classList.remove('flash'), 1200);
+    });
+
+    railList.appendChild(item);
+  });
+
+  const rest = all.length - items.length;
+  const more = document.getElementById('rail-more');
+  if (more) {
+    more.textContent = rest > 0 ? `+${rest} more below` : '';
+    more.style.display = rest > 0 ? 'block' : 'none';
+  }
 }
 
 function renderCard(conf, now, visible) {
   const card = document.createElement('div');
+  card.id = conf.id;                                // anchor target for the rail
   card.className = 'conf-card' + (visible ? '' : ' hidden');
 
   const tagsHtml = conf.tags.map(t =>

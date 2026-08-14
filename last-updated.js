@@ -1,7 +1,7 @@
 // Single source of truth for the site-wide "Last updated" footer.
 // Edit the date here and every page updates automatically.
 (function () {
-  var LAST_UPDATED = '29 July 2026';
+  var LAST_UPDATED = '14 August 2026';
   document.addEventListener('DOMContentLoaded', function () {
     var el = document.getElementById('last-updated');
     if (el) el.textContent = 'Nils Lukas – Last updated ' + LAST_UPDATED;
@@ -22,7 +22,7 @@
   });
 
   /* ---- Copyable short bio popup ------------------------------------- */
-  var BIO = "Nils Lukas is an Assistant Professor of Machine Learning at MBZUAI in Abu Dhabi, where he leads the SPOT (Secure, Private, Open and Trustworthy) AI Lab. His research builds secure and private machine learning that millions can use responsibly, with a focus on content watermarking, privacy-preserving inference, and AI safety and security. He holds a Ph.D. from the University of Waterloo — awarded its Top Mathematics Doctoral Prize and Alumni Gold Medal — and has worked with Microsoft Research and Borealis AI. His work appears at top venues including ICML, ICLR, NeurIPS, IEEE S&P, and USENIX Security, and has been recognized with a 2025 Amazon Research Award and supported by funding from Etihad Airways, the United Al-Saqer Group, and TII.";
+  var BIO = "Nils Lukas is an Assistant Professor of Machine Learning at MBZUAI in Abu Dhabi, where he leads the SPOT (Secure, Private, Open and Trustworthy) AI Lab. His research builds secure and private machine learning that millions can use responsibly, with a focus on content watermarking, privacy-preserving inference, and AI safety and security. He holds a Ph.D. from the University of Waterloo — awarded its Top Mathematics Doctoral Prize and Alumni Gold Medal — and has worked with Microsoft Research and Borealis AI. His work appears at top venues including ICML, ICLR, NeurIPS, IEEE S&P, and USENIX Security, and has been recognized with a 2025 Amazon Research Award and supported by funding from Etihad Airways, the United Al-Saqer Group, and TII. He recently founded Adherence, delivering enterprise AI agents.";
 
   function injectBioStyle() {
     if (document.getElementById('bio-style')) return;
@@ -37,6 +37,7 @@
       + '.bio-close{border:none;background:none;cursor:pointer;font-size:1.5rem;line-height:1;color:#6B6960;padding:.05rem .35rem;border-radius:5px;}'
       + '.bio-close:hover{color:#141413;background:#F0EEE6;}'
       + '.bio-text{font-size:.95rem;line-height:1.6;color:#26251F;margin:0 0 1.15rem;}'
+      + '.bio-adh{color:#00509F;font-weight:600;}'
       + '.bio-actions{display:flex;justify-content:flex-end;}'
       + '.bio-copy{font-family:inherit;font-size:.9rem;font-weight:600;cursor:pointer;color:#FAF9F5;'
       + 'background:#9E4A2F;border:none;border-radius:999px;padding:.5rem 1.15rem;transition:background .15s ease;}'
@@ -64,7 +65,20 @@
       + '<button type="button" class="bio-close" aria-label="Close">×</button></div>'
       + '<p class="bio-text"></p>'
       + '<div class="bio-actions"><button type="button" class="bio-copy">Copy bio</button></div>';
-    dlg.querySelector('.bio-text').textContent = BIO;
+    // Show "Adherence" in the company blue, but keep BIO plain text so the
+    // copy button still yields something pasteable anywhere.
+    (function (el, text) {
+      var parts = text.split('Adherence');
+      for (var i = 0; i < parts.length; i++) {
+        if (i) {
+          var s = document.createElement('span');
+          s.className = 'bio-adh';
+          s.textContent = 'Adherence';
+          el.appendChild(s);
+        }
+        el.appendChild(document.createTextNode(parts[i]));
+      }
+    })(dlg.querySelector('.bio-text'), BIO);
     document.body.appendChild(dlg);
     dlg.querySelector('.bio-close').addEventListener('click', function () {
       if (dlg.close) dlg.close(); else dlg.removeAttribute('open');
@@ -116,5 +130,79 @@
       menu.insertBefore(b, menu.firstChild);
     }
   }
-  document.addEventListener('DOMContentLoaded', injectBioNav);
+  /* ---- Mobile slide-in menu ------------------------------------------
+     Keeps the bar to a single line on narrow screens: the brand stays put
+     and every link moves into a panel behind a burger button. Built from
+     the existing nav markup, so pages need no extra tags. */
+  function buildMobileNav() {
+    var nav = document.querySelector('nav');
+    var bar = nav && nav.querySelector('.main-container');
+    var links = bar && bar.querySelector(':scope > div');
+    if (!links || nav.classList.contains('has-burger')) return;
+
+    var panel = document.createElement('div');
+    panel.className = 'nav-panel';
+    panel.id = 'nav-panel';
+
+    var seen = {};
+    links.querySelectorAll('a.navbar-link').forEach(function (a) {
+      if (a.classList.contains('bio-mobile')) return;          // duplicate of "Bio"
+      var key = a.getAttribute('href') + '|' + a.textContent;
+      if (seen[key]) return;
+      seen[key] = true;
+      var c = a.cloneNode(true);
+      c.classList.remove('bio-desktop', 'bio-mobile');
+      panel.appendChild(c);
+    });
+
+    var scrim = document.createElement('div');
+    scrim.className = 'nav-scrim';
+
+    var burger = document.createElement('button');
+    burger.type = 'button';
+    burger.className = 'nav-burger';
+    burger.setAttribute('aria-label', 'Menu');
+    burger.setAttribute('aria-expanded', 'false');
+    burger.setAttribute('aria-controls', 'nav-panel');
+    burger.innerHTML = '<span></span><span></span><span></span>';
+
+    function setOpen(open) {
+      panel.classList.toggle('open', open);
+      scrim.classList.toggle('open', open);
+      document.body.classList.toggle('nav-open', open);
+      burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+      if (open) {
+        var first = panel.querySelector('.navbar-link');
+        if (first) first.focus();
+      }
+    }
+
+    burger.addEventListener('click', function () {
+      setOpen(!panel.classList.contains('open'));
+    });
+    scrim.addEventListener('click', function () { setOpen(false); });
+    panel.addEventListener('click', function (e) {
+      if (e.target.closest('a')) setOpen(false);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && panel.classList.contains('open')) {
+        setOpen(false);
+        burger.focus();
+      }
+    });
+    window.matchMedia('(max-width:720px)').addEventListener('change', function (m) {
+      if (!m.matches) setOpen(false);
+    });
+
+    links.classList.add('nav-links');
+    bar.appendChild(burger);
+    document.body.appendChild(scrim);
+    document.body.appendChild(panel);
+    nav.classList.add('has-burger');
+  }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    injectBioNav();
+    buildMobileNav();
+  });
 })();

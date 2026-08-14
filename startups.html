@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Startups – Nils Lukas</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Favicon: circular SPOT AI Lab emblem -->
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta property="og:title" content="Startups – Nils Lukas">
+  <meta property="og:description" content="Adherence builds enterprise AI agents that reliably follow specifications. Enterprise requests: nlukas@adherence.ae.">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <!-- Fonts + shared "Warm Paper" stylesheet -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+  <div class="main-container">
+    <a style="font-size:1.45rem;font-weight:600;" href="https://nilslukas.github.io/">Nils Lukas</a>
+    <div>
+      <a class="navbar-link" href="index.html">About</a>
+      <a class="navbar-link" href="publications.html">Publications</a>
+      <a class="navbar-link" href="talks.html">Talks</a>
+      <a class="navbar-link" href="group.html">SpotAI</a>
+      <a class="navbar-link active" href="startups.html">Startups</a>
+      <a class="navbar-link" href="cv.html">CV</a>
+      <details class="nav-drawer">
+        <summary class="navbar-link">More</summary>
+        <div class="nav-drawer-menu">
+          <a class="navbar-link" href="deadlines.html">Conferences</a>
+        </div>
+      </details>
+    </div>
+  </div>
+</nav>
+
+<section>
+  <div class="main-container">
+
+    <!-- Hero -->
+    <div class="startup-hero reveal">
+      <div class="hero-copy">
+        <h1>Startups</h1>
+        <p class="lede">Recently I founded
+          <a class="adh-wordmark" href="https://adherence.ae/">Adherence<span class="dot" aria-hidden="true">.</span></a>
+          — enterprise AI agents, trained on your rules and tested before they go live.</p>
+        <!-- Tooltip lives on the wrapper: .cta already owns its ::after for
+             the sheen sweep and clips with overflow:hidden. -->
+        <span class="tip cta-wrap"
+              data-tooltip="Adherence address — all startup and company business: enterprise inquiries, pilots, partnerships, consulting.">
+          <a class="cta" href="mailto:nlukas@adherence.ae">
+            <i class="fa fa-paper-plane-o" aria-hidden="true"></i>nlukas@adherence.ae
+          </a>
+        </span>
+        <p class="cta-note">All startup and enterprise inquiries must go to this address. Academic mail goes to my
+          <a class="tip acad-link" href="mailto:nils.lukas@mbzuai.ac.ae"
+             data-tooltip="University address — academic matters only: research, teaching, PhD and intern applications, reviewing, talks.">university address</a>.</p>
+      </div>
+      <!-- Agent orbit (same animation as adherence.ae) -->
+      <div class="orbit-wrap">
+        <div id="agent-orbit" role="img"
+             aria-label="Named AI agents drifting on curving paths inside a circle."></div>
+        <p class="orbit-note">
+          <a class="orbit-link" href="https://adherence.ae/">
+            <span class="live" aria-hidden="true"></span>adherence.ae<i class="fa fa-long-arrow-right" aria-hidden="true"></i>
+          </a>
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="main-container" id="last-updated">
+    Nils Lukas – Last updated 14 August 2026
+  </div>
+</footer>
+
+<script>
+  /* Scroll reveal. Arms only when the browser supports it, so the page
+     stays fully readable without JS. */
+  (function () {
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!('IntersectionObserver' in window) || reduce) {
+      document.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('in'); });
+      return;
+    }
+    document.documentElement.classList.add('has-reveal');
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+    document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+  })();
+</script>
+<script src="last-updated.js"></script>
+<script src="assets/js/bg.js"></script>
+<script src="assets/js/agents-orbit.js"></script>
+</body>
+</html>

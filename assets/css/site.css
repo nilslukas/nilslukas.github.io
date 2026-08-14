@@ -42,6 +42,11 @@
   --accent-coral:#D97757;  /* bright coral — never small text        */
   --accent-text:#7A3A24;   /* alias: chip text                       */
 
+  /* Adherence brand blue — startups page only */
+  --adh:#006AD6;
+  --adh-ink:#00509F;       /* AA-safe blue for text (5.4:1)          */
+  --adh-soft:#EAF2FC;      /* faint blue wash                        */
+
   /* Hairlines */
   --border:#E7E4DA;
   --border-2:#DAD7CC;
@@ -76,6 +81,14 @@
 html{-webkit-text-size-adjust:100%;background:var(--bg);}
 body{
   margin:0;
+  /* Sticky footer: the page always fills the viewport, so "Last updated"
+     sits on the bottom edge on short pages instead of floating mid-screen.
+     Safe here — sections space themselves with padding, not margins, so
+     nothing depends on margin collapsing between body children. */
+  min-height:100vh;
+  min-height:100dvh;
+  display:flex;
+  flex-direction:column;
   background:transparent;
   color:var(--body);
   font-family:var(--sans);
@@ -200,6 +213,11 @@ a.navbar-link,
 a.navbar-link:hover,
 .nav-drawer > summary.navbar-link:hover{color:var(--ink);background:var(--surface);text-decoration:none;}
 a.navbar-link.active{color:var(--accent);}          /* AA-safe clay text (5.7:1) */
+/* Startups belongs to the company, so it wears the Adherence blue in every
+   nav — on every page, active or not. */
+a.navbar-link[href="startups.html"]{color:var(--adh-ink);}
+a.navbar-link[href="startups.html"]:hover{color:var(--adh);background:var(--adh-soft);}
+a.navbar-link.active[href="startups.html"]::after{background:var(--adh);}
 a.navbar-link.active::after{
   content:'';
   position:absolute;
@@ -235,6 +253,62 @@ a.navbar-link.active::after{
 .nav-drawer-menu .navbar-link{width:100%;}
 /* "Bio" trigger: shown top-level on desktop, folded into "More" on mobile */
 .nav-drawer-menu .bio-mobile{display:none;}
+
+/* --- Mobile slide-in menu (built by JS; desktop never sees it) -------- */
+.nav-burger,
+.nav-panel,
+.nav-scrim{display:none;}
+.nav-burger{
+  align-items:center;justify-content:center;
+  flex-direction:column;gap:4px;
+  width:var(--tap);height:var(--tap);
+  padding:0;margin:0;
+  border:none;background:none;cursor:pointer;
+}
+.nav-burger span{
+  display:block;width:19px;height:1.6px;border-radius:2px;
+  background:var(--muted-strong);
+  transition:transform .25s ease,opacity .2s ease;
+}
+.nav-burger[aria-expanded="true"] span:nth-child(1){transform:translateY(5.6px) rotate(45deg);}
+.nav-burger[aria-expanded="true"] span:nth-child(2){opacity:0;}
+.nav-burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-5.6px) rotate(-45deg);}
+.nav-panel{
+  position:fixed;top:0;right:0;z-index:120;
+  width:min(74vw,265px);height:100%;height:100dvh;
+  padding:4.25rem 1rem 1.25rem;
+  flex-direction:column;gap:.15rem;
+  background:var(--bg);
+  border-left:1px solid var(--border-2);
+  box-shadow:-14px 0 40px rgba(20,20,19,.14);
+  transform:translateX(102%);
+  transition:transform .3s cubic-bezier(.3,.8,.35,1);
+  overflow-y:auto;
+}
+.nav-panel.open{transform:none;}
+.nav-panel .navbar-link{
+  width:100%;font-size:1rem;padding:.62rem .7rem;
+  opacity:0;transform:translateX(14px);
+  transition:opacity .3s ease,transform .3s ease;
+}
+.nav-panel.open .navbar-link{opacity:1;transform:none;}
+.nav-panel .navbar-link:nth-child(1){transition-delay:.05s;}
+.nav-panel .navbar-link:nth-child(2){transition-delay:.08s;}
+.nav-panel .navbar-link:nth-child(3){transition-delay:.11s;}
+.nav-panel .navbar-link:nth-child(4){transition-delay:.14s;}
+.nav-panel .navbar-link:nth-child(5){transition-delay:.17s;}
+.nav-panel .navbar-link:nth-child(6){transition-delay:.20s;}
+.nav-panel .navbar-link:nth-child(7){transition-delay:.23s;}
+.nav-panel .navbar-link:nth-child(8){transition-delay:.26s;}
+.nav-panel .navbar-link.active::after{left:.7rem;right:auto;width:1.1rem;bottom:.35rem;}
+.nav-scrim{
+  position:fixed;inset:0;z-index:110;
+  background:rgba(20,20,19,.34);
+  opacity:0;pointer-events:none;
+  transition:opacity .28s ease;
+}
+.nav-scrim.open{opacity:1;pointer-events:auto;}
+body.nav-open{overflow:hidden;}
 
 /* ---------------------------------------------------------------------
    6. Home hero — about grid
@@ -284,6 +358,38 @@ a.navbar-link.active::after{
   line-height:1.5;
 }
 .contact-info p i{color:var(--muted-2);font-size:.85em;}
+/* Routing badges — blue for Adherence business, clay for academic. The badge
+   labels the block; its addresses sit underneath, which keeps the narrow
+   profile column from wrapping mid-address. */
+.contact-info p{flex-wrap:wrap;}
+.contact-group{margin-top:.55rem;}
+.contact-group:first-child{margin-top:.1rem;}
+.contact-group > p{margin:.12rem 0 0;padding-left:.1rem;}
+.tag{
+  display:inline-block;
+  font-family:var(--sans);
+  font-size:.6rem;
+  font-weight:600;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  line-height:1.5;
+  padding:.05em .42em;
+  border-radius:4px;
+  border:1px solid;
+  white-space:nowrap;
+}
+.tag-startup{color:var(--adh-ink);background:var(--adh-soft);border-color:#CBE0F8;}
+.tag-academic{color:var(--accent-strong);background:var(--tint);border-color:#E6CDBF;}
+
+/* Routing note under the addresses — prose, so it wraps instead of flexing */
+.contact-info p.contact-note{
+  display:block;
+  margin-top:.5rem;
+  font-size:.78rem;
+  line-height:1.45;
+  color:var(--muted);
+}
+.contact-info p.contact-note strong{color:var(--muted-strong);font-weight:600;}
 
 /* Bio table */
 #profile .bio table,
@@ -368,6 +474,9 @@ table.small td.muted{color:var(--muted-2);white-space:nowrap;}
   color:var(--body);
 }
 .announcement i{color:var(--accent);margin-top:.2rem;}
+/* Two-project list inside an announcement — each on its own indented line */
+.ann-list{display:block;margin:.4rem 0 .5rem;}
+.ann-list > span{display:block;padding-left:.9rem;text-indent:-.9rem;margin:.15rem 0;}
 .announcement a{font-weight:600;}
 .announcement img{vertical-align:-0.2em;}
 
@@ -484,9 +593,17 @@ table.small td.muted{color:var(--muted-2);white-space:nowrap;}
 }
 a.venue-star:hover{text-decoration:none;opacity:.8;}
 
+/* Generic tooltip host — same look as the venue chips, usable on any inline
+   element (e.g. the contact addresses). Never put .tip on an element that
+   already uses ::after or clips its overflow; wrap it instead. */
+.tip[data-tooltip]{position:relative;cursor:help;}
+.cta-wrap{display:inline-block;}
+
 /* Tooltip — warm ink, keyboard-accessible (:focus-within) */
 .venue[data-tooltip]:hover::after,
-.venue[data-tooltip]:focus-within::after{
+.venue[data-tooltip]:focus-within::after,
+.tip[data-tooltip]:hover::after,
+.tip[data-tooltip]:focus-within::after{
   content:attr(data-tooltip);
   position:absolute;
   left:50%;
@@ -494,6 +611,12 @@ a.venue-star:hover{text-decoration:none;opacity:.8;}
   transform:translateX(-50%);
   background:var(--ink);
   color:var(--bg);
+  /* A .tip may also carry .sheen, whose transparent text fill and text-clipped
+     background are inherited here — undo both or the bubble renders as a
+     solid black box with invisible text. */
+  -webkit-text-fill-color:var(--bg);
+  -webkit-background-clip:border-box;
+  background-clip:border-box;
   padding:.5rem .65rem;
   border-radius:var(--radius-sm);
   font-family:var(--sans);
@@ -510,7 +633,9 @@ a.venue-star:hover{text-decoration:none;opacity:.8;}
   z-index:60;
 }
 .venue[data-tooltip]:hover::before,
-.venue[data-tooltip]:focus-within::before{
+.venue[data-tooltip]:focus-within::before,
+.tip[data-tooltip]:hover::before,
+.tip[data-tooltip]:focus-within::before{
   content:'';
   position:absolute;
   left:50%;
@@ -518,8 +643,24 @@ a.venue-star:hover{text-decoration:none;opacity:.8;}
   transform:translateX(-50%);
   border:5px solid transparent;
   border-top-color:var(--ink);
+  -webkit-background-clip:border-box;
+  background-clip:border-box;
   pointer-events:none;
   z-index:60;
+}
+
+/* Contact addresses sit in a narrow column — pin their tooltips to the left
+   edge of the link so a 240px bubble cannot run off the page. */
+.contact-info .tip[data-tooltip]:hover::after,
+.contact-info .tip[data-tooltip]:focus-within::after{
+  left:0;
+  transform:none;
+  max-width:240px;
+}
+.contact-info .tip[data-tooltip]:hover::before,
+.contact-info .tip[data-tooltip]:focus-within::before{
+  left:14px;
+  transform:none;
 }
 
 /* Venue summary strip */
@@ -583,7 +724,7 @@ footer{
   border-top:1px solid var(--border);
   text-align:center;
   padding:var(--md-gap) 0;
-  margin-top:2rem;
+  margin-top:auto;            /* pinned to the bottom of short pages */
   font-size:.82rem;
   color:var(--muted);
 }
@@ -607,8 +748,77 @@ footer a:hover{color:var(--accent);}
 /* Lab logo is a link to the SpotAI page */
 .lab-logo-link{display:inline-block;line-height:0;text-decoration:none;transition:opacity .15s ease;}
 .lab-logo-link:hover{opacity:.78;text-decoration:none;}
-/* Adherence brand dot (echoes the company wordmark) */
-.adh-dot{display:inline-block;width:.24em;height:.24em;border-radius:50%;background:#006AD6;opacity:.82;margin-left:.08em;vertical-align:baseline;}
+/* Silver sheen — a slow highlight drifts across the letters every few
+   seconds, then rests. The base colour is baked into the gradient (NOT
+   currentColor: the text fill is transparent while the clip is active).
+
+   The gradient is 3x the box, so background-position MUST stay inside
+   0%–100%: any value outside that leaves part of the text uncovered by the
+   image, which — with a transparent fill — renders those letters invisible.
+   Both keyframe endpoints show only the flat base band, so at rest the text
+   is a solid colour. */
+.sheen{
+  --adh-base:var(--ink);
+  background-image:linear-gradient(100deg,
+      var(--adh-base) 0%,
+      var(--adh-base) 44%,
+      #8C8F98 47.5%,
+      #B6BAC3 50%,
+      #8C8F98 52.5%,
+      var(--adh-base) 56%,
+      var(--adh-base) 100%);
+  background-size:300% 100%;
+  background-repeat:no-repeat;
+  background-position:0% 0;
+  text-decoration:none;
+}
+a.sheen:hover{text-decoration:underline;}
+
+/* Adherence wordmark — the company's own lockup, copied from adherence.ae:
+   bold sans, tight tracking, their ink, and the blue period that pulses. */
+.adh-wordmark{
+  font-family:var(--sans);
+  font-weight:700;
+  letter-spacing:-.03em;
+  color:#15171C;
+  text-decoration:none;
+}
+a.adh-wordmark:hover{color:#15171C;text-decoration:underline;}
+.adh-wordmark .dot{
+  display:inline-block;
+  color:#1F5ED6;
+  transform-origin:50% 78%;
+  animation:dotpulse 2.6s ease-in-out infinite;
+}
+@keyframes dotpulse{
+  0%,100%{transform:scale(1);opacity:.72;text-shadow:0 0 0 rgba(31,94,214,0);}
+  50%    {transform:scale(1.3);opacity:1;text-shadow:0 0 13px rgba(31,94,214,.7);}
+}
+
+/* Tone: everything Adherence reads brand blue, everything academic clay. */
+.tone-adh{--adh-base:var(--adh-ink);}
+.tone-acad{--adh-base:var(--accent);}
+a.adh-link{color:var(--adh-ink);}          /* plain links to company pages */
+a.acad-link{color:var(--accent);}          /* plain links to academic ones */
+
+@supports ((-webkit-background-clip:text) or (background-clip:text)){
+  .sheen{
+    -webkit-background-clip:text;
+    background-clip:text;
+    -webkit-text-fill-color:transparent;
+    color:transparent;
+    animation:adhSheen 13s cubic-bezier(.45,0,.25,1) infinite;
+  }
+}
+/* Stagger, so several sheens on one page never sweep in lockstep */
+.sheen.delay-1{animation-delay:4.2s;}
+.sheen.delay-2{animation-delay:8.4s;}
+/* A slow drift across the letters, then a long rest at the base colour. */
+@keyframes adhSheen{
+  0%   {background-position:100% 0;}
+  32%  {background-position:0% 0;}
+  100% {background-position:0% 0;}
+}
 
 /* ---------------------------------------------------------------------
    14. Publications table
@@ -1139,6 +1349,290 @@ td.muted,th.muted{color:var(--muted);}
 table{border-collapse:collapse;}
 td,th{text-align:left;}
 
+/* =====================================================================
+   17b. Startups page — ventures, diagrams, motion
+   ===================================================================== */
+
+/* --- Scroll reveal (only armed once JS confirms support) ------------- */
+.has-reveal .reveal{
+  opacity:0;
+  transform:translateY(16px);
+  transition:opacity .65s cubic-bezier(.22,.7,.3,1),transform .65s cubic-bezier(.22,.7,.3,1);
+}
+.has-reveal .reveal.in{opacity:1;transform:none;}
+
+/* --- Hero ------------------------------------------------------------ */
+.startup-hero{
+  padding-bottom:.5rem;
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,420px);
+  align-items:center;
+  gap:1.5rem;
+}
+.startup-hero h1{font-size:2.15rem;margin-bottom:.35rem;}
+
+/* Agent orbit — canvas fills a square box, labels live inside the padding */
+.orbit-wrap{justify-self:end;width:100%;max-width:420px;}
+#agent-orbit{
+  width:100%;
+  aspect-ratio:1/1;
+  /* Fallback for browsers without aspect-ratio */
+  min-height:300px;
+}
+@supports (aspect-ratio:1/1){ #agent-orbit{min-height:0;} }
+.orbit-note{margin:.6rem 0 0;text-align:center;}
+
+/* Company link under the orbit — a brand-blue pill with a live dot */
+.orbit-link{
+  display:inline-flex;
+  align-items:center;
+  gap:.45rem;
+  padding:.34rem .85rem;
+  border-radius:999px;
+  background:var(--adh-soft);
+  border:1px solid #CBE0F8;
+  color:var(--adh-ink);
+  font-family:var(--sans);
+  font-size:.82rem;
+  font-weight:600;
+  letter-spacing:.01em;
+  text-decoration:none;
+  transition:background .18s ease,border-color .18s ease,
+             transform .18s ease,box-shadow .18s ease;
+}
+.orbit-link:hover{
+  background:#DDEBFB;
+  border-color:#A9CDF3;
+  color:var(--adh-ink);
+  text-decoration:none;
+  transform:translateY(-1px);
+  box-shadow:0 5px 16px rgba(0,80,159,.14);
+}
+.orbit-link .live{
+  width:.42rem;height:.42rem;border-radius:50%;
+  background:var(--adh);
+  animation:orbitLive 2.8s ease-out infinite;
+}
+.orbit-link .fa{font-size:.85em;transition:transform .18s ease;}
+.orbit-link:hover .fa{transform:translateX(3px);}
+@keyframes orbitLive{
+  0%  {box-shadow:0 0 0 0 rgba(0,106,214,.45);}
+  70% {box-shadow:0 0 0 .42rem rgba(0,106,214,0);}
+  100%{box-shadow:0 0 0 0 rgba(0,106,214,0);}
+}
+.startup-hero .lede{
+  font-family:var(--serif);
+  font-size:1.2rem;
+  line-height:1.5;
+  color:var(--muted-strong);
+  max-width:36ch;
+  margin:0 0 1.25rem;
+}
+
+/* Primary call to action */
+.cta{
+  position:relative;
+  display:inline-flex;
+  align-items:center;
+  gap:.55rem;
+  padding:.7rem 1.35rem;
+  border-radius:999px;
+  background:var(--adh);           /* company business → brand blue        */
+  color:#FAF9F5;
+  font-weight:600;
+  font-size:.95rem;
+  overflow:hidden;
+  box-shadow:0 2px 10px rgba(0,80,159,.20);
+  transition:transform .2s ease,box-shadow .2s ease,background-color .2s ease;
+}
+.cta:hover{
+  background:var(--adh-ink);
+  color:#FAF9F5;
+  text-decoration:none;
+  transform:translateY(-2px);
+  box-shadow:0 8px 22px rgba(0,80,159,.26);
+}
+.cta i{font-size:.95em;}
+.cta::after{                       /* slow sheen sweep */
+  content:'';
+  position:absolute;inset:0;
+  background:linear-gradient(105deg,transparent 35%,rgba(255,255,255,.28) 50%,transparent 65%);
+  transform:translateX(-120%);
+  animation:sheen 4.5s ease-in-out infinite;
+}
+@keyframes sheen{0%,55%{transform:translateX(-120%);}85%,100%{transform:translateX(120%);}}
+.cta-note{font-size:.83rem;color:var(--muted);margin:.7rem 0 0;}
+
+/* --- Venture card ---------------------------------------------------- */
+.venture-card{
+  position:relative;
+  padding:1.5rem 1.6rem;
+  margin-bottom:var(--lg-gap);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  background:var(--surface-soft);
+  overflow:hidden;
+}
+.venture-card::before{           /* brand hairline that draws itself in */
+  content:'';
+  position:absolute;top:0;left:0;right:0;height:2px;
+  background:linear-gradient(90deg,var(--adh),var(--accent-coral));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform 1.1s cubic-bezier(.22,.7,.3,1) .15s;
+}
+.venture-card.in::before,
+.has-reveal .venture-card.in::before{transform:scaleX(1);}
+.venture-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  flex-wrap:wrap;
+  gap:.1rem 1rem;
+}
+.venture-head h2{margin:0;font-size:1.55rem;font-weight:600;}
+.venture-meta{font-size:.83rem;color:var(--muted);}
+.venture-tagline{
+  font-family:var(--serif);
+  font-size:1.1rem;
+  color:var(--muted-strong);
+  margin:.2rem 0 1.15rem;
+}
+.venture-card > p{margin-bottom:.85rem;}
+
+
+/* Three positioning points */
+.points{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin:1.25rem 0;}
+.points > div{
+  padding:.85rem .95rem;
+  border:1px solid var(--border-2);
+  border-radius:var(--radius-sm);
+  background:var(--bg);
+  font-size:.88rem;
+  color:var(--muted-strong);
+  transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease;
+}
+.points > div:hover{
+  transform:translateY(-3px);
+  border-color:var(--adh);
+  box-shadow:0 6px 18px rgba(20,20,19,.07);
+}
+.points strong{display:block;color:var(--ink);margin-bottom:.2rem;}
+
+/* --- Diagrams -------------------------------------------------------- */
+.diagram{margin:1.75rem 0 1.25rem;}
+.diagram-title{
+  font-family:var(--sans);
+  font-size:.72rem;
+  font-weight:600;
+  letter-spacing:.13em;
+  text-transform:uppercase;
+  color:var(--muted-2);
+  margin:0 0 .8rem;
+}
+
+/* Loop: five stages that light up in sequence */
+.flow{
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  gap:.9rem;
+}
+.flow-node{
+  position:relative;
+  padding:.75rem .5rem;
+  border:1px solid var(--border-2);
+  border-radius:var(--radius-sm);
+  background:var(--bg);
+  text-align:center;
+  animation:flowStep 5s ease-in-out infinite;
+  animation-delay:calc(var(--i) * 1s);
+}
+.flow-node .n{
+  display:block;font-size:.66rem;letter-spacing:.1em;
+  color:var(--muted-2);margin-bottom:.15rem;
+}
+.flow-node .t{
+  display:block;font-family:var(--serif);font-size:.98rem;color:var(--ink);
+}
+.flow-node .d{display:block;font-size:.76rem;color:var(--muted);line-height:1.4;}
+.flow-node:not(:last-child)::after{     /* connector arrow */
+  content:'';
+  position:absolute;top:50%;right:-.62rem;
+  transform:translateY(-50%);
+  width:0;height:0;
+  border-left:6px solid var(--border-2);
+  border-top:4.5px solid transparent;
+  border-bottom:4.5px solid transparent;
+}
+@keyframes flowStep{
+  0%,15%{
+    border-color:var(--adh);background:var(--adh-soft);
+    transform:translateY(-3px);box-shadow:0 6px 16px rgba(0,106,214,.12);
+  }
+  28%,100%{
+    border-color:var(--border-2);background:var(--bg);
+    transform:none;box-shadow:none;
+  }
+}
+.flow-return{position:relative;height:26px;margin-top:.15rem;}
+.flow-return::before{
+  content:'';
+  position:absolute;left:9%;right:9%;top:0;bottom:8px;
+  border:1.5px dashed var(--border-2);
+  border-top:none;
+  border-radius:0 0 12px 12px;
+}
+.flow-caption{
+  text-align:center;font-size:.78rem;color:var(--muted);margin:.1rem 0 0;
+}
+
+/* Stack diagram (inline SVG) */
+.stack-svg{display:block;width:100%;max-width:480px;margin:0 auto;height:auto;}
+.stack-svg .layer{fill:var(--bg);stroke:var(--border-2);stroke-width:1.2;}
+.stack-svg .layer-key{fill:var(--adh-soft);stroke:var(--adh);stroke-width:1.6;}
+.stack-svg .lbl{font-family:var(--sans);font-size:15px;fill:var(--ink-2);}
+.stack-svg .lbl-key{font-family:var(--serif);font-size:20px;font-weight:600;fill:var(--adh-ink);}
+.stack-svg .sub{font-family:var(--sans);font-size:12.5px;fill:var(--muted);}
+.stack-svg .tiny{font-family:var(--sans);font-size:11.5px;fill:var(--muted-2);letter-spacing:.06em;}
+.stack-svg .wire{
+  fill:none;stroke:var(--adh);stroke-width:1.8;
+  stroke-dasharray:6 6;
+  animation:wireFlow 1.1s linear infinite;
+}
+.stack-svg .wire-back{stroke:var(--accent-bright);animation-direction:reverse;}
+@keyframes wireFlow{to{stroke-dashoffset:-12;}}
+
+/* --- Engagements ----------------------------------------------------- */
+.eng-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:.8rem;}
+.eng-card{
+  padding:1rem 1.1rem;
+  border:1px solid var(--border);
+  border-radius:var(--radius-sm);
+  background:var(--bg);
+  transition:transform .2s ease,border-color .2s ease,box-shadow .2s ease;
+}
+.eng-card:hover{
+  transform:translateY(-3px);
+  border-color:var(--accent-bright);
+  box-shadow:0 8px 20px rgba(20,20,19,.07);
+}
+.eng-card h3{margin:0 0 .2rem;font-size:1.02rem;}
+.eng-card h3 i{color:var(--accent);margin-right:.45rem;font-size:.9em;}
+.eng-card p{margin:0;font-size:.88rem;color:var(--muted-strong);}
+
+/* --- Closing band ---------------------------------------------------- */
+.cta-band{
+  text-align:center;
+  padding:2rem 1.25rem;
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  background:var(--tint);
+  margin-top:var(--lg-gap);
+}
+.cta-band p{
+  font-family:var(--serif);font-size:1.15rem;
+  color:var(--ink);margin:0 0 1.1rem;
+}
+
 /* ---------------------------------------------------------------------
    18. Responsive
    --------------------------------------------------------------------- */
@@ -1154,7 +1648,23 @@ td,th{text-align:left;}
   body{font-size:15px;}
   section{padding:var(--md-gap) 0;}
 
-  /* Nav stacks + centers cleanly, tap targets >=40px, no overflow */
+  /* With JS: brand + burger stay on ONE line, links live in the panel */
+  nav.has-burger .main-container{
+    flex-direction:row;
+    justify-content:space-between;
+    align-items:center;
+    text-align:left;
+    gap:.5rem;
+    padding:.4rem 0;
+    min-height:52px;
+  }
+  nav.has-burger{z-index:130;}          /* bar stays above the panel + scrim */
+  nav.has-burger .nav-links{display:none;}
+  nav.has-burger .nav-burger{display:inline-flex;}
+  .nav-panel{display:flex;}
+  .nav-scrim{display:block;}
+
+  /* No-JS fallback: nav stacks + centers cleanly, tap targets >=40px */
   nav .main-container{
     flex-direction:column;
     align-items:center;
@@ -1191,6 +1701,7 @@ td,th{text-align:left;}
   #profile h2{display:none;}          /* hide "Contact"/"Bio" labels on mobile */
   #profile .bio{display:none;}
   .contact-info p{justify-content:center;}
+  .contact-info p.contact-note{text-align:center;}
 
   .btn-list{justify-content:center;}
   .venue-summary{justify-content:flex-start;}
@@ -1208,6 +1719,30 @@ td,th{text-align:left;}
   /* People single column */
   .people{grid-template-columns:1fr;gap:.7rem 1.5rem;}
 
+  /* Startups: diagrams and grids go single column */
+  .startup-hero{grid-template-columns:1fr;gap:1.25rem;}
+  .startup-hero h1{font-size:1.8rem;}
+  .startup-hero .lede{font-size:1.08rem;max-width:none;}
+  .orbit-wrap{justify-self:center;max-width:340px;}
+  .points{grid-template-columns:1fr;}
+  .eng-grid{grid-template-columns:1fr;}
+  .flow{grid-template-columns:1fr;gap:1.05rem;}
+  .flow-node:not(:last-child)::after{
+    top:auto;bottom:-.72rem;right:50%;
+    transform:translateX(50%);
+    border-left:4.5px solid transparent;
+    border-right:4.5px solid transparent;
+    border-top:6px solid var(--border-2);
+    border-bottom:none;
+  }
+  .flow-return{display:none;}
+  .venture-card{padding:1.2rem 1.15rem;}
+  /* SVG scales down with the column, so scale the type back up */
+  .stack-svg .lbl{font-size:18px;}
+  .stack-svg .lbl-key{font-size:23px;}
+  .stack-svg .sub{font-size:14px;}
+  .stack-svg .tiny{font-size:13px;}
+
   /* Conference header stacks */
   .conf-card-header{flex-direction:column;gap:.35rem;}
   .conf-meta{gap:.15rem;}
@@ -1217,8 +1752,11 @@ td,th{text-align:left;}
 
 @media (max-width:430px){
   .main-container{width:92%;}
+  /* Too many top-level links for one row at this width — let them wrap */
+  nav .main-container > div{flex-wrap:wrap;}
   .venue-summary{font-size:.76rem;}
   .btn-list a{padding:.42rem .75rem;}
+  .venture-card{padding:1.1rem 1.15rem;}
 }
 
 /* ---------------------------------------------------------------------
@@ -1232,6 +1770,15 @@ td,th{text-align:left;}
     scroll-behavior:auto !important;
   }
   .show-toggle i{animation:none !important;}
+  /* Startups: hold every stage lit rather than cycling */
+  .flow-node{animation:none !important;}
+  .stack-svg .wire{animation:none !important;stroke-dasharray:none;}
+  .cta::after{display:none;}
+  .sheen{animation:none !important;}
+  .orbit-link .live{animation:none !important;}
+  .adh-wordmark .dot{animation:none !important;opacity:1;}
+  .has-reveal .reveal{opacity:1 !important;transform:none !important;}
+  .venture-card::before{transform:scaleX(1) !important;}
 }
 
 /* ---------------------------------------------------------------------

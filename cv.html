@@ -200,6 +200,9 @@
     #cv-bar .links a{color:#57554E;transition:color .15s;}
     #cv-bar .links a:hover{color:#C15F3C;}
     #cv-bar .links a.active{color:#9E4A2F;font-weight:600;}
+    /* Startups carries the Adherence blue here too */
+    #cv-bar .links a[href="startups.html"]{color:#00509F;}
+    #cv-bar .links a[href="startups.html"]:hover{color:#006AD6;}
     /* Overflow drawer ("More ▾") inside the CV top bar */
     #cv-bar .nav-drawer{position:relative;display:inline-flex;}
     #cv-bar .nav-drawer > summary{list-style:none;cursor:pointer;color:#57554E;transition:color .15s;}
@@ -224,13 +227,58 @@
     }
     #cv-bar .tools a.btn:hover{background:#a94f31;}
     #cv-bar .tools a.btn:active{transform:translateY(1px);}
-    /* Center the fixed top bar's brand, links and button when they wrap on
-       narrow screens. Placed after the base #cv-bar rules so it wins on
-       source order (media queries add no specificity). */
-    @media (max-width:640px){
-      #cv-bar{justify-content:center;text-align:center;gap:.45rem;padding:.5rem 16px;}
-      #cv-bar .links{width:100%;justify-content:center;gap:.35rem .9rem;}
-      #cv-bar .tools{width:100%;justify-content:center;}
+    /* Mobile: keep the bar to a single line. Links move into a slide-in
+       panel behind a burger, matching the rest of the site. */
+    #cv-bar .cv-burger{
+      display:none;flex-direction:column;align-items:center;justify-content:center;
+      gap:4px;width:40px;height:40px;padding:0;border:none;background:none;cursor:pointer;
+    }
+    #cv-bar .cv-burger span{
+      display:block;width:19px;height:1.6px;border-radius:2px;background:#57554E;
+      transition:transform .25s ease,opacity .2s ease;
+    }
+    #cv-bar .cv-burger[aria-expanded="true"] span:nth-child(1){transform:translateY(5.6px) rotate(45deg);}
+    #cv-bar .cv-burger[aria-expanded="true"] span:nth-child(2){opacity:0;}
+    #cv-bar .cv-burger[aria-expanded="true"] span:nth-child(3){transform:translateY(-5.6px) rotate(-45deg);}
+    #cv-panel{
+      display:none;position:fixed;top:0;right:0;z-index:990;
+      width:min(74vw,265px);height:100%;height:100dvh;
+      padding:4.25rem 1rem 1.25rem;
+      flex-direction:column;gap:.15rem;
+      background:#FAF9F5;border-left:1px solid #DAD7CC;
+      box-shadow:-14px 0 40px rgba(20,20,19,.14);
+      font-family:'Inter','Helvetica Neue',Arial,sans-serif;
+      transform:translateX(102%);
+      transition:transform .3s cubic-bezier(.3,.8,.35,1);
+      overflow-y:auto;
+    }
+    #cv-panel.open{transform:none;}
+    #cv-panel a{
+      display:block;padding:.62rem .7rem;border-radius:5px;
+      font-size:1rem;color:#57554E;text-decoration:none;
+      opacity:0;transform:translateX(14px);
+      transition:opacity .3s ease,transform .3s ease;
+    }
+    #cv-panel.open a{opacity:1;transform:none;}
+    #cv-panel a.active{color:#9E4A2F;font-weight:600;}
+    #cv-panel a[href="startups.html"]{color:#00509F;}
+    #cv-scrim{
+      display:none;position:fixed;inset:0;z-index:980;
+      background:rgba(20,20,19,.34);opacity:0;pointer-events:none;
+      transition:opacity .28s ease;
+    }
+    #cv-scrim.open{opacity:1;pointer-events:auto;}
+    body.cv-nav-open{overflow:hidden;}
+    @media (max-width:720px){
+      #cv-bar{
+        flex-wrap:nowrap;justify-content:space-between;text-align:left;
+        gap:.5rem;padding:.45rem 16px;
+      }
+      #cv-bar .links{display:none;}
+      #cv-bar .cv-burger{display:inline-flex;}
+      #cv-bar .tools a.btn{padding:.4rem .8rem;font-size:.78rem;white-space:nowrap;}
+      #cv-panel{display:flex;}
+      #cv-scrim{display:block;}
     }
 
     /* View modes (set by JS on <html data-cv>) ----------------------------
@@ -1076,6 +1124,59 @@
 
       if (mode === 'pdf') return;   // build mode: no chrome, print CSS handles layout
 
+      /* Mobile slide-in menu for the CV bar. Clones the link row so the bar
+         itself never wraps on narrow screens. */
+      function buildBarMenu(bar) {
+        var panel = document.createElement('div');
+        panel.id = 'cv-panel';
+        bar.querySelectorAll('.links a').forEach(function (a) {
+          panel.appendChild(a.cloneNode(true));
+        });
+
+        var scrim = document.createElement('div');
+        scrim.id = 'cv-scrim';
+
+        var burger = document.createElement('button');
+        burger.type = 'button';
+        burger.className = 'cv-burger';
+        burger.setAttribute('aria-label', 'Menu');
+        burger.setAttribute('aria-expanded', 'false');
+        burger.setAttribute('aria-controls', 'cv-panel');
+        burger.innerHTML = '<span></span><span></span><span></span>';
+
+        function setOpen(open) {
+          panel.classList.toggle('open', open);
+          scrim.classList.toggle('open', open);
+          document.body.classList.toggle('cv-nav-open', open);
+          burger.setAttribute('aria-expanded', open ? 'true' : 'false');
+          if (open) {
+            var first = panel.querySelector('a');
+            if (first) first.focus();
+          }
+        }
+
+        burger.addEventListener('click', function () {
+          setOpen(!panel.classList.contains('open'));
+        });
+        scrim.addEventListener('click', function () { setOpen(false); });
+        panel.addEventListener('click', function (e) {
+          if (e.target.closest('a')) setOpen(false);
+        });
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && panel.classList.contains('open')) {
+            setOpen(false);
+            burger.focus();
+          }
+        });
+        window.matchMedia('(max-width:720px)').addEventListener('change', function (m) {
+          if (!m.matches) setOpen(false);
+        });
+
+        bar.appendChild(burger);
+        document.body.appendChild(scrim);
+        document.body.appendChild(panel);
+      }
+
       function injectBar() {
         if (document.getElementById('cv-bar')) return;
         var bar = document.createElement('div');
@@ -1087,6 +1188,7 @@
             '<a href="publications.html">Publications</a>' +
             '<a href="talks.html">Talks</a>' +
             '<a href="group.html">SpotAI</a>' +
+            '<a href="startups.html">Startups</a>' +
             '<a class="active" href="cv.html">CV</a>' +
             '<a href="#" data-bio-open>Bio</a>' +
             '<details class="nav-drawer">' +
@@ -1100,6 +1202,7 @@
             '<a class="btn" href="assets/pdfs/cv_nils_lukas.pdf" download target="_blank" rel="noopener"><i class="fa fa-download"></i> Download PDF</a>' +
           '</div>';
         document.body.appendChild(bar);
+        buildBarMenu(bar);
         // Close the "More" drawer when clicking outside it.
         document.addEventListener('click', function (ev) {
           var d = document.querySelector('#cv-bar details.nav-drawer[open]');

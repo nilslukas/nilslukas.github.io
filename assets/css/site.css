@@ -743,6 +743,15 @@ footer a:hover{color:var(--accent);}
   margin:.35rem 0 0;
   max-width:66ch;
 }
+/* Which clock the deadline countdowns are being rendered against */
+.page-header p.tz-note{
+  font-size:.84rem;
+  color:var(--muted-2);
+  margin-top:.5rem;
+}
+.page-header p.tz-note i{margin-right:.35rem;color:var(--muted-2);}
+.page-header p.tz-note strong{color:var(--muted-strong);font-weight:600;}
+
 .page-header .lab-logo,
 .lab-logo{height:1.25em;vertical-align:-0.22em;}
 /* Lab logo is a link to the SpotAI page */
@@ -1241,6 +1250,20 @@ a.acad-link{color:var(--accent);}          /* plain links to academic ones */
 }
 .countdown.upcoming{color:var(--muted-strong);}
 .countdown.imminent{color:var(--accent);}
+/* Ticker plus the closing time it counts to, stacked at the row's right edge */
+.countdown-wrap{
+  display:inline-flex;
+  flex-direction:column;
+  align-items:flex-end;
+  gap:.15rem;
+}
+.countdown-sub{
+  font-size:.68rem;
+  font-weight:400;
+  white-space:nowrap;
+  color:var(--muted);
+  font-variant-numeric:tabular-nums;
+}
 /* Under two days out: a live h:m:s ticker, chipped so the eye lands on it */
 .countdown.live{
   padding:.12rem .45rem;

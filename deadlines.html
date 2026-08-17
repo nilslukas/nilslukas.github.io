@@ -52,6 +52,7 @@
       <h2>Conference Deadlines</h2>
       <p>Submission deadlines for top ML and security conferences. All deadlines are AoE (Anywhere on Earth).
       Dates prefixed with <strong>~</strong> are projected from the previous edition — the official call for papers is not out yet.</p>
+      <p class="tz-note" id="tz-note"><!-- filled in by JS: viewer's time zone --></p>
     </div>
 
     <!-- Filters -->
@@ -350,6 +351,45 @@ function daysUntil(dateStr) {
   return Math.round((new Date(y, m - 1, d) - today) / (1000 * 60 * 60 * 24));
 }
 
+/* ----- viewer's time zone -----
+   Everything on this page — day counts, tickers, expiry times — is rendered in
+   whatever zone the browser is in (GST/UTC+4 in Abu Dhabi), never a zone baked
+   into the page. tzInfo() names that zone so the reader knows which clock they
+   are looking at. */
+function tzInfo() {
+  const now = new Date();
+  const named = style => {
+    try {
+      return new Intl.DateTimeFormat('en-US', { timeZoneName: style })
+        .formatToParts(now).find(p => p.type === 'timeZoneName').value;
+    } catch (e) { return ''; }
+  };
+
+  const long = named('long');                       // e.g. "Gulf Standard Time"
+  const short = named('short');                     // "GMT+4" in AE, "EDT" in NY
+  // Browsers only hand back a real abbreviation in some zones; elsewhere they
+  // return "GMT+4", so fall back to the initials of the long name (-> "GST").
+  const abbr = /^[A-Z]{2,5}$/.test(short) ? short
+             : long.split(/\s+/).filter(w => /^[A-Z]/.test(w)).map(w => w[0]).join('');
+
+  const mins = -now.getTimezoneOffset();            // minutes east of UTC
+  const a = Math.abs(mins);
+  const offset = `UTC${mins < 0 ? '−' : '+'}${Math.floor(a / 60)}`
+               + (a % 60 ? ':' + String(a % 60).padStart(2, '0') : '');
+
+  return { long, abbr, offset };
+}
+
+const TZ = tzInfo();
+
+// The moment a deadline actually expires, on the viewer's clock.
+function localExpiry(dateStr) {
+  return parseAoE(dateStr).toLocaleString('en-US', {
+    weekday: 'short', month: 'short', day: 'numeric',
+    hour: 'numeric', minute: '2-digit'
+  });
+}
+
 // Inside this many calendar days, the countdown becomes a live h/m/s ticker.
 const LIVE_WITHIN_DAYS = 1;                          // i.e. today or tomorrow
 
@@ -490,7 +530,8 @@ function renderRail(filter) {
     const item = document.createElement('a');
     item.className = 'rail-item' + (days <= 14 ? ' imminent' : '');
     item.href = '#' + conf.id;
-    item.title = `${conf.name} — ${dl.label}: ${tilde}${formatDate(dl.date)}`;
+    item.title = `${conf.name} — ${dl.label}: ${tilde}${formatDate(dl.date)}`
+               + `\nCloses ${localExpiry(dl.date)} ${TZ.abbr}`;
     // The rail is only ~150px wide, so a ticker will not fit beside the name —
     // live items get it on its own line underneath instead.
     item.innerHTML = `
@@ -554,10 +595,14 @@ function renderCard(conf, now, visible) {
                   : days === 0 ? 'Today!'
                   : 'Final hours (AoE)';
       countdownHtml = isLive
-        ? `<span class="countdown imminent live" data-live="${dl.date}"
-                 title="Counting down to ${formatDate(dl.date)}, 23:59:59 AoE"
-           >${formatHMS(parseAoE(dl.date) - now)}</span>`
-        : `<span class="countdown ${isImminent ? 'imminent' : 'upcoming'}">${label}</span>`;
+        ? `<span class="countdown-wrap">
+             <span class="countdown imminent live" data-live="${dl.date}"
+               >${formatHMS(parseAoE(dl.date) - now)}</span>
+             <span class="countdown-sub">ends ${localExpiry(dl.date)} ${TZ.abbr}</span>
+           </span>`
+        : `<span class="countdown ${isImminent ? 'imminent' : 'upcoming'}"
+                 title="Closes ${localExpiry(dl.date)} ${TZ.abbr} (23:59:59 AoE)"
+           >${label}</span>`;
       rowClass = 'upcoming';
       icon = `<i class="fa fa-clock-o deadline-clock${isImminent ? ' imminent' : ''}" aria-hidden="true"></i>`;
     }
@@ -607,6 +652,12 @@ function tick() {
 
 /* ----- filter logic ----- */
 document.addEventListener('DOMContentLoaded', () => {
+  const tzNote = document.getElementById('tz-note');
+  if (tzNote) {
+    tzNote.innerHTML = `<i class="fa fa-globe" aria-hidden="true"></i> Countdowns and closing times are shown in your local time — `
+      + `<strong>${TZ.long || TZ.abbr}</strong> (${TZ.abbr}, ${TZ.offset}).`;
+  }
+
   renderConferences('all');
   setInterval(tick, 1000);
 

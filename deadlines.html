@@ -350,6 +350,19 @@ function daysUntil(dateStr) {
   return Math.round((new Date(y, m - 1, d) - today) / (1000 * 60 * 60 * 24));
 }
 
+// Inside this many calendar days, the countdown becomes a live h/m/s ticker.
+const LIVE_WITHIN_DAYS = 1;                          // i.e. today or tomorrow
+
+// Live countdowns run to the real submission instant — end of the deadline
+// day AoE — not to local midnight, so the clock is what authors actually have.
+function formatHMS(ms) {
+  const s = Math.max(0, Math.floor(ms / 1000));
+  const pad = n => String(n).padStart(2, '0');
+  const days = Math.floor(s / 86400);
+  const hms = `${pad(Math.floor(s % 86400 / 3600))}:${pad(Math.floor(s % 3600 / 60))}:${pad(s % 60)}`;
+  return days ? `${days}d ${hms}` : hms;
+}
+
 function formatDate(dateStr) {
   const [y, m, d] = dateStr.split('-').map(Number);
   const dt = new Date(y, m - 1, d);
@@ -388,7 +401,10 @@ function sortConferences(confs) {
 }
 
 /* ----- rendering ----- */
+let currentFilter = 'all';                          // the ticker re-renders with it
+
 function renderConferences(filter) {
+  currentFilter = filter;
   const list = document.getElementById('conf-list');
   const noResults = document.getElementById('no-results');
   list.innerHTML = '';
@@ -469,16 +485,23 @@ function renderRail(filter) {
     const days = daysUntil(dl.date);
     const tilde = dl.note ? '~' : '';
 
+    const isLive = days <= LIVE_WITHIN_DAYS;
+
     const item = document.createElement('a');
     item.className = 'rail-item' + (days <= 14 ? ' imminent' : '');
     item.href = '#' + conf.id;
     item.title = `${conf.name} — ${dl.label}: ${tilde}${formatDate(dl.date)}`;
+    // The rail is only ~150px wide, so a ticker will not fit beside the name —
+    // live items get it on its own line underneath instead.
     item.innerHTML = `
       <span class="rail-top">
         <span class="rail-name">${conf.short || conf.name}</span>
-        <span class="rail-days">${railCountdown(days)}</span>
+        ${isLive ? '' : `<span class="rail-days">${railCountdown(days)}</span>`}
       </span>
-      <span class="rail-what">${dl.label}${tilde ? ' (est.)' : ''}</span>`;
+      <span class="rail-what">${dl.label}${tilde ? ' (est.)' : ''}</span>
+      ${isLive
+        ? `<span class="rail-live" data-live="${dl.date}">${formatHMS(parseAoE(dl.date) - now)}</span>`
+        : ''}`;
 
     item.addEventListener('click', () => {
       const card = document.getElementById(conf.id);
@@ -524,12 +547,17 @@ function renderCard(conf, now, visible) {
       icon = '';
     } else {
       const isImminent = days <= 14;
+      const isLive = days <= LIVE_WITHIN_DAYS;
       // days < 0: the date has passed locally but the AoE window is still open
       const label = days > 1 ? `${days} days left`
                   : days === 1 ? '1 day left'
                   : days === 0 ? 'Today!'
                   : 'Final hours (AoE)';
-      countdownHtml = `<span class="countdown ${isImminent ? 'imminent' : 'upcoming'}">${label}</span>`;
+      countdownHtml = isLive
+        ? `<span class="countdown imminent live" data-live="${dl.date}"
+                 title="Counting down to ${formatDate(dl.date)}, 23:59:59 AoE"
+           >${formatHMS(parseAoE(dl.date) - now)}</span>`
+        : `<span class="countdown ${isImminent ? 'imminent' : 'upcoming'}">${label}</span>`;
       rowClass = 'upcoming';
       icon = `<i class="fa fa-clock-o deadline-clock${isImminent ? ' imminent' : ''}" aria-hidden="true"></i>`;
     }
@@ -561,9 +589,26 @@ function renderCard(conf, now, visible) {
   return card;
 }
 
+/* ----- live ticker: drives every [data-live] countdown once a second ----- */
+function tick() {
+  const now = new Date();
+  let expired = false;
+
+  document.querySelectorAll('[data-live]').forEach(el => {
+    const left = parseAoE(el.dataset.live) - now;
+    if (left <= 0) expired = true;
+    el.textContent = formatHMS(left);
+  });
+
+  // A deadline just ran out: rebuild so it moves to "Past Deadlines" and the
+  // next one takes over the ticker.
+  if (expired) renderConferences(currentFilter);
+}
+
 /* ----- filter logic ----- */
 document.addEventListener('DOMContentLoaded', () => {
   renderConferences('all');
+  setInterval(tick, 1000);
 
   document.querySelectorAll('.filter-tag').forEach(tag => {
     tag.addEventListener('click', () => {

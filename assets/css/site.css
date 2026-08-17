@@ -1262,6 +1262,13 @@ a.acad-link{color:var(--accent);}          /* plain links to academic ones */
 }
 .countdown.upcoming{color:var(--muted-strong);}
 .countdown.imminent{color:var(--accent);}
+/* Under two days out: a live h:m:s ticker, chipped so the eye lands on it */
+.countdown.live{
+  padding:.12rem .45rem;
+  border-radius:var(--radius-sm);
+  background:var(--tint);
+  color:var(--accent-strong);
+}
 .countdown.passed{color:var(--muted);}
 /* Past rows carry .countdown.imminent in the markup — keep them calm, not clay */
 .deadline-row.passed .countdown{color:var(--muted);}
@@ -1344,6 +1351,16 @@ a.acad-link{color:var(--accent);}          /* plain links to academic ones */
   font-variant-numeric:tabular-nums;
 }
 .rail-item.imminent .rail-days{color:var(--accent);}
+/* Live ticker sits on its own line — the rail is too narrow for it inline */
+.rail-live{
+  display:block;
+  margin-top:.2rem;
+  font-size:.74rem;
+  font-weight:600;
+  white-space:nowrap;
+  color:var(--accent-strong);
+  font-variant-numeric:tabular-nums;
+}
 .rail-what{
   display:block;
   font-size:.67rem;

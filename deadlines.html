@@ -86,7 +86,7 @@
 <script src="assets/js/bg.js"></script>
 
 <script>
-// Verified 29 Jul 2026 against official calls for papers. Entries whose
+// Verified 17 Aug 2026 against official calls for papers. Entries whose
 // deadlines have all passed are dropped and rolled to the next edition.
 // `note: "Expected"` = projected from the previous edition; no official CfP yet.
 const CONFERENCES = [
@@ -150,6 +150,20 @@ const CONFERENCES = [
     ]
   },
   {
+    id: "iclr2027",
+    name: "ICLR 2027",
+    short: "ICLR '27",
+    fullName: "International Conference on Learning Representations",
+    tags: ["ml"],
+    link: "https://iclr.cc/Conferences/2027/CallForPapers",
+    location: "TBA",
+    dates: "Apr 26–30, 2027",
+    deadlines: [
+      { label: "Abstract", date: "2026-09-18" },
+      { label: "Paper", date: "2026-09-25" }
+    ]
+  },
+  {
     id: "satml2027",
     name: "SaTML 2027",
     short: "SaTML '27",
@@ -178,20 +192,6 @@ const CONFERENCES = [
   },
 
   // ——— Projected: no official CfP yet, dates shifted from the last edition ———
-  {
-    id: "iclr2027",
-    name: "ICLR 2027",
-    short: "ICLR '27",
-    fullName: "International Conference on Learning Representations",
-    tags: ["ml"],
-    link: "https://iclr.cc/Conferences/2027/CallForPapers",
-    location: "TBA",
-    dates: "~Apr 2027",
-    deadlines: [
-      { label: "Abstract", date: "2026-09-18", note: "Expected, TBA" },
-      { label: "Paper", date: "2026-09-23", note: "Expected, TBA" }
-    ]
-  },
   {
     id: "aistats2027",
     name: "AISTATS 2027",
@@ -339,8 +339,15 @@ function parseAoE(dateStr) {
   return new Date(Date.UTC(y, m - 1, d + 1, 12, 0, 0));
 }
 
-function daysBetween(a, b) {
-  return Math.ceil((b - a) / (1000 * 60 * 60 * 24));
+// Calendar days from today (viewer's local date) to the deadline's date.
+// Used for display only: "Aug 18" seen on Aug 17 must read "1 day left".
+// (Counting to the AoE end instant instead would add the +1 grace day and
+// round the partial day up, showing 3.) Round() absorbs DST offsets.
+function daysUntil(dateStr) {
+  const [y, m, d] = dateStr.split('-').map(Number);
+  const now = new Date();
+  const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  return Math.round((new Date(y, m - 1, d) - today) / (1000 * 60 * 60 * 24));
 }
 
 function formatDate(dateStr) {
@@ -459,7 +466,7 @@ function renderRail(filter) {
 
   items.forEach(conf => {
     const dl = getNextDeadline(conf);
-    const days = daysBetween(now, parseAoE(dl.date));
+    const days = daysUntil(dl.date);
     const tilde = dl.note ? '~' : '';
 
     const item = document.createElement('a');
@@ -502,9 +509,8 @@ function renderCard(conf, now, visible) {
 
   let deadlinesHtml = '';
   conf.deadlines.forEach(dl => {
-    const end = parseAoE(dl.date);
-    const isPassed = end <= now;
-    const days = daysBetween(now, end);
+    const isPassed = parseAoE(dl.date) <= now;   // still live until AoE ends
+    const days = daysUntil(dl.date);             // but count in calendar days
 
     let countdownHtml = '';
     let rowClass = '';
@@ -518,7 +524,11 @@ function renderCard(conf, now, visible) {
       icon = '';
     } else {
       const isImminent = days <= 14;
-      const label = days === 0 ? 'Today!' : days === 1 ? '1 day left' : `${days} days left`;
+      // days < 0: the date has passed locally but the AoE window is still open
+      const label = days > 1 ? `${days} days left`
+                  : days === 1 ? '1 day left'
+                  : days === 0 ? 'Today!'
+                  : 'Final hours (AoE)';
       countdownHtml = `<span class="countdown ${isImminent ? 'imminent' : 'upcoming'}">${label}</span>`;
       rowClass = 'upcoming';
       icon = `<i class="fa fa-clock-o deadline-clock${isImminent ? ' imminent' : ''}" aria-hidden="true"></i>`;

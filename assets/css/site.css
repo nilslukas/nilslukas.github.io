@@ -1295,13 +1295,13 @@ a.acad-link{color:var(--accent);}          /* plain links to academic ones */
    --------------------------------------------------------------------- */
 #deadline-rail{
   display:none;                       /* opt-in via the wide-screen query */
+  flex-direction:column;              /* head + scrolling list + colour key */
   position:fixed;
   top:88px;
   right:20px;
   width:176px;
   max-height:calc(100vh - 132px);
-  overflow-y:auto;
-  overscroll-behavior:contain;
+  overflow:hidden;
   padding:.7rem .75rem .5rem;
   border:1px solid var(--border);
   border-radius:var(--radius);
@@ -1310,7 +1310,15 @@ a.acad-link{color:var(--accent);}          /* plain links to academic ones */
   backdrop-filter:saturate(1.6) blur(8px);
   z-index:40;
 }
+/* Only the list scrolls, so the head and the colour key stay pinned. */
+#rail-list{
+  flex:1 1 auto;
+  min-height:0;                       /* lets the flex child actually shrink */
+  overflow-y:auto;
+  overscroll-behavior:contain;
+}
 .rail-head{
+  flex-shrink:0;
   font-family:var(--sans);
   font-size:.66rem;
   font-weight:600;
@@ -1344,10 +1352,144 @@ a.acad-link{color:var(--accent);}          /* plain links to academic ones */
   --rail-tint:transparent;
   --rail-tint-hover:var(--surface-soft);
 }
-.rail-item.field-ml       {--rail-tint:#F6F3EA;--rail-tint-hover:#EFE9D9;}
-.rail-item.field-security {--rail-tint:#F8F0EB;--rail-tint-hover:#F3E6DE;}
-.rail-item.field-vision   {--rail-tint:#F0F4ED;--rail-tint-hover:#E3ECDF;}
-.rail-item.field-nlp      {--rail-tint:#F0F3F6;--rail-tint-hover:#E2E9F1;}
+/* One source of truth per field: the wash on a rail item, its hover, and the
+   saturated ink used for the legend dot and the tooltip's focus pill. */
+.rail-item.field-ml,       .legend-dot.field-ml,       .tip-field.field-ml
+  {--rail-tint:#F6F3EA;--rail-tint-hover:#EFE9D9;--field-ink:#C6B181;}
+.rail-item.field-security, .legend-dot.field-security, .tip-field.field-security
+  {--rail-tint:#F8F0EB;--rail-tint-hover:#F3E6DE;--field-ink:#D49B80;}
+.rail-item.field-vision,   .legend-dot.field-vision,   .tip-field.field-vision
+  {--rail-tint:#F0F4ED;--rail-tint-hover:#E3ECDF;--field-ink:#A5BD9D;}
+.rail-item.field-nlp,      .legend-dot.field-nlp,      .tip-field.field-nlp
+  {--rail-tint:#F0F3F6;--rail-tint-hover:#E2E9F1;--field-ink:#9FB4CB;}
+
+/* Colour key — four dots under the list so the washes are readable as a
+   code rather than as decoration. */
+.rail-legend{
+  flex-shrink:0;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:.2rem .4rem;
+  margin-top:.5rem;
+  padding-top:.45rem;
+  border-top:1px solid var(--border);
+}
+.legend-item{
+  display:flex;
+  align-items:center;
+  gap:.32rem;
+  font-size:.63rem;
+  letter-spacing:.02em;
+  color:var(--muted);
+}
+.legend-dot{
+  width:7px;
+  height:7px;
+  flex-shrink:0;
+  border-radius:50%;
+  background:var(--field-ink);
+}
+
+/* ---------------------------------------------------------------------
+   17c. Rail tooltip — the native title waits ~1s and opens under the
+        cursor, on top of the rail. This one opens at once and is parked
+        to the LEFT of the rail, so it never covers the list it explains.
+   --------------------------------------------------------------------- */
+.rail-tip{
+  position:fixed;
+  z-index:60;                         /* above the rail (40) */
+  width:296px;
+  max-width:calc(100vw - 2rem);
+  padding:.7rem .8rem .75rem;
+  border:1px solid var(--border-2);
+  border-radius:var(--radius);
+  background:var(--bg);
+  box-shadow:0 14px 34px rgba(20,20,19,.14);
+  font-family:var(--sans);
+  opacity:0;
+  visibility:hidden;
+  transform:translateX(4px);
+  transition:opacity .09s ease, transform .09s ease, visibility .09s;
+  pointer-events:none;                /* must never steal the hover */
+}
+.rail-tip.show{opacity:1;visibility:visible;transform:none;}
+@media (prefers-reduced-motion:reduce){
+  .rail-tip{transition:none;transform:none;}
+}
+/* Pointer at the hovered item's centre — --tip-arrow is set by the script.
+   ::before is the hairline, ::after the paper fill 1px inside it. */
+.rail-tip::before,
+.rail-tip::after{
+  content:'';
+  position:absolute;
+  left:100%;
+  top:var(--tip-arrow,24px);
+  width:0;
+  height:0;
+  border:7px solid transparent;
+  border-left-color:var(--border-2);
+  margin-top:-7px;
+}
+.rail-tip::after{
+  border-width:6px;
+  border-left-color:var(--bg);
+  margin:-6px 0 0 -1px;
+}
+.tip-head{
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:.5rem;
+}
+.tip-name{
+  font-family:var(--serif);
+  white-space:nowrap;
+  font-size:1rem;
+  font-weight:600;
+  color:var(--ink);
+}
+.tip-field{
+  flex-shrink:0;
+  padding:.1rem .45rem;
+  border:1px solid var(--border-2);
+  border-radius:999px;
+  background:var(--rail-tint,var(--chip-bg));
+  color:var(--muted-strong);
+  font-size:.62rem;
+  font-weight:600;
+  letter-spacing:.04em;
+  text-transform:uppercase;
+  white-space:nowrap;
+}
+.tip-full{
+  font-size:.72rem;
+  color:var(--muted);
+  margin-top:.1rem;
+}
+.tip-blurb{
+  margin:.5rem 0 .55rem;
+  font-size:.79rem;
+  line-height:1.5;
+  color:var(--body);
+}
+.tip-meta{
+  font-size:.74rem;
+  color:var(--muted-strong);
+  margin-bottom:.12rem;
+}
+.tip-meta i{width:14px;margin-right:.25rem;color:var(--muted-2);}
+.tip-dl{
+  display:flex;
+  justify-content:space-between;
+  gap:.6rem;
+  margin-top:.5rem;
+  padding-top:.45rem;
+  border-top:1px dashed var(--border);
+  font-size:.78rem;
+}
+.tip-dl-label{color:var(--muted-strong);font-weight:600;}
+.tip-dl-date{color:var(--accent);font-weight:600;font-variant-numeric:tabular-nums;}
+.tip-closes{margin-top:.15rem;font-size:.7rem;color:var(--muted);}
 .rail-top{
   display:flex;
   align-items:baseline;
@@ -1389,6 +1531,7 @@ a.acad-link{color:var(--accent);}          /* plain links to academic ones */
   text-overflow:ellipsis;
 }
 .rail-more{
+  flex-shrink:0;
   padding:.45rem .1rem .1rem;
   border-top:1px solid var(--border);
   font-size:.67rem;
@@ -1398,7 +1541,7 @@ a.acad-link{color:var(--accent);}          /* plain links to academic ones */
 .conf-card.flash{border-color:var(--accent-bright);}
 
 @media (min-width:1280px){
-  #deadline-rail{display:block;}
+  #deadline-rail{display:flex;}
 }
 
 /* Generic muted table cells */

@@ -75,6 +75,12 @@
   <div class="rail-head">Next up</div>
   <div id="rail-list"></div>
   <div id="rail-more" class="rail-more"></div>
+  <div class="rail-legend" aria-label="Field colour key">
+    <span class="legend-item"><i class="legend-dot field-ml"></i>ML</span>
+    <span class="legend-item"><i class="legend-dot field-security"></i>Security</span>
+    <span class="legend-item"><i class="legend-dot field-vision"></i>Vision</span>
+    <span class="legend-item"><i class="legend-dot field-nlp"></i>NLP</span>
+  </div>
 </aside>
 
 <footer>
@@ -372,6 +378,10 @@ const FIELD_LABEL = {
   nlp: "Natural Language Processing"
 };
 
+// The tooltip pill sits beside the conference name, so it uses the short
+// form — the same wording as the rail's colour key.
+const FIELD_SHORT = { ml: "ML", security: "Security", vision: "Vision", nlp: "NLP" };
+
 /* ----- helpers ----- */
 function parseAoE(dateStr) {
   // AoE = UTC-12, end of day. So "2026-03-26" AoE ends at 2026-03-27T12:00:00Z
@@ -547,6 +557,85 @@ function railCountdown(days) {
   return days + ' days';
 }
 
+/* ----- rail tooltip -----
+   A single reusable node, parked to the LEFT of the rail so it never covers
+   the item under the cursor. pointer-events:none in CSS keeps it out of the
+   way of the hover that opened it. */
+const TIP_GAP = 12;                                  // px between tip and rail
+let tipEl = null;
+let tipAnchor = null;
+
+function ensureTip() {
+  if (tipEl) return tipEl;
+  tipEl = document.createElement('div');
+  tipEl.id = 'rail-tip';
+  tipEl.className = 'rail-tip';
+  tipEl.setAttribute('role', 'tooltip');
+  document.body.appendChild(tipEl);
+  return tipEl;
+}
+
+function tipHtml(conf, dl, tilde) {
+  const field = conf.tags[0];
+  return `
+    <div class="tip-head">
+      <span class="tip-name">${conf.name}</span>
+      <span class="tip-field field-${field}"
+            title="${FIELD_LABEL[field] || field}">${FIELD_SHORT[field] || field}</span>
+    </div>
+    <div class="tip-full">${conf.fullName}</div>
+    ${conf.blurb ? `<p class="tip-blurb">${conf.blurb}</p>` : ''}
+    <div class="tip-meta"><i class="fa fa-map-marker"></i>${conf.location}</div>
+    <div class="tip-meta"><i class="fa fa-calendar"></i>${conf.dates}</div>
+    <div class="tip-dl">
+      <span class="tip-dl-label">${dl.label}</span>
+      <span class="tip-dl-date">${tilde}${formatDate(dl.date)}</span>
+    </div>
+    <div class="tip-closes">Closes ${localExpiry(dl.date)} ${TZ.abbr}</div>`;
+}
+
+// Left of the anchor, vertically centred on it, clamped into the viewport.
+function placeTip(anchor) {
+  const tip = ensureTip();
+  const a = anchor.getBoundingClientRect();
+  const t = tip.getBoundingClientRect();
+  const left = Math.max(8, a.left - TIP_GAP - t.width);
+  const top = Math.max(8, Math.min(a.top + a.height / 2 - t.height / 2,
+                                   window.innerHeight - t.height - 8));
+  tip.style.left = left + 'px';
+  tip.style.top = top + 'px';
+  // Arrow follows the item's centre, but stays on the tooltip's own edge.
+  const arrow = a.top + a.height / 2 - top;
+  tip.style.setProperty('--tip-arrow',
+    Math.max(14, Math.min(arrow, t.height - 14)) + 'px');
+}
+
+function showTip(conf, dl, tilde, anchor) {
+  const tip = ensureTip();
+  tip.innerHTML = tipHtml(conf, dl, tilde);
+  tipAnchor = anchor;
+  placeTip(anchor);                                  // measure, then reveal
+  tip.classList.add('show');
+  anchor.setAttribute('aria-describedby', 'rail-tip');
+}
+
+function hideTip(anchor) {
+  if (tipEl) tipEl.classList.remove('show');
+  tipAnchor = null;
+  if (anchor) anchor.removeAttribute('aria-describedby');
+}
+
+// The rail scrolls internally, so a shown tooltip has to follow its item —
+// and let go of it once that item scrolls out of the rail's window.
+function syncTip() {
+  if (!tipAnchor || !tipEl || !tipEl.classList.contains('show')) return;
+  const list = document.getElementById('rail-list');
+  const a = tipAnchor.getBoundingClientRect();
+  const r = list.getBoundingClientRect();
+  if (a.bottom < r.top + 4 || a.top > r.bottom - 4) { hideTip(tipAnchor); return; }
+  placeTip(tipAnchor);
+}
+
 function renderRail(filter) {
   const railList = document.getElementById('rail-list');
   if (!railList) return;
@@ -571,14 +660,14 @@ function renderRail(filter) {
     item.className = 'rail-item field-' + conf.tags[0]
                    + (days <= 14 ? ' imminent' : '');
     item.href = '#' + conf.id;
-    // Native title tooltip — the rail only has room for a name and a count,
-    // so hovering explains what the venue actually is.
-    item.title = `${conf.name} — ${conf.fullName}`
-               + `\nFocus: ${FIELD_LABEL[conf.tags[0]] || conf.tags[0]}`
-               + (conf.blurb ? `\n${conf.blurb}` : '')
-               + `\nWhere: ${conf.location} · ${conf.dates}`
-               + `\n\n${dl.label}: ${tilde}${formatDate(dl.date)}`
-               + `\nCloses ${localExpiry(dl.date)} ${TZ.abbr}`;
+    // No `title`: the rail has room for a name and a count, so the full
+    // story lives in the styled tooltip below (which opens without the
+    // native ~1s delay and stays clear of the rail).
+    const openTip = () => showTip(conf, dl, tilde, item);
+    item.addEventListener('mouseenter', openTip);
+    item.addEventListener('focus', openTip);
+    item.addEventListener('mouseleave', () => hideTip(item));
+    item.addEventListener('blur', () => hideTip(item));
     // The rail is only ~150px wide, so a ticker will not fit beside the name —
     // live items get it on its own line underneath instead.
     item.innerHTML = `
@@ -707,6 +796,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   renderConferences('all');
   setInterval(tick, 1000);
+
+  // Keep an open tooltip glued to its item while the rail scrolls or the
+  // window resizes.
+  const railList = document.getElementById('rail-list');
+  if (railList) railList.addEventListener('scroll', syncTip, { passive: true });
+  window.addEventListener('resize', syncTip);
 
   document.querySelectorAll('.filter-tag').forEach(tag => {
     tag.addEventListener('click', () => {

@@ -62,7 +62,6 @@
       <span class="filter-tag" data-tag="security">Security</span>
       <span class="filter-tag" data-tag="vision">Vision</span>
       <span class="filter-tag" data-tag="nlp">NLP</span>
-      <span class="filter-tag" data-tag="privacy">Privacy</span>
     </div>
 
     <!-- Conference list (rendered by JS) -->
@@ -87,7 +86,7 @@
 <script src="assets/js/bg.js"></script>
 
 <script>
-// Verified 25 Aug 2026 against official calls for papers. Entries whose
+// Verified 31 Aug 2026 against official calls for papers. Entries whose
 // deadlines have all passed are dropped and rolled to the next edition.
 // `note: "Expected"` = projected from the previous edition; no official CfP yet.
 const CONFERENCES = [
@@ -97,6 +96,7 @@ const CONFERENCES = [
     name: "EACL 2027",
     short: "EACL '27",
     fullName: "European Chapter of the Association for Computational Linguistics",
+    blurb: "European chapter meeting of the ACL; ARR-reviewed, held in the years it rotates to Europe.",
     tags: ["nlp", "ml"],
     link: "https://2027.eacl.org/",
     location: "Athens, Greece",
@@ -111,6 +111,7 @@ const CONFERENCES = [
     name: "USENIX Security 2027",
     short: "USENIX '27",
     fullName: "USENIX Security Symposium",
+    blurb: "Big-four security venue. Systems security, strong on empirical attacks and measurement; rolling cycles.",
     tags: ["security"],
     link: "https://www.usenix.org/conference/usenixsecurity27/call-for-papers",
     location: "Denver, CO, USA",
@@ -123,25 +124,11 @@ const CONFERENCES = [
     ]
   },
   {
-    id: "pets2027",
-    name: "PETS 2027",
-    short: "PETS '27",
-    fullName: "Privacy Enhancing Technologies Symposium",
-    tags: ["privacy", "security"],
-    link: "https://petsymposium.org/cfp27.php",
-    location: "Delft, Netherlands",
-    dates: "Jul 19–24, 2027",
-    deadlines: [
-      { label: "Issue 2", date: "2026-08-31" },
-      { label: "Issue 3", date: "2026-11-30" },
-      { label: "Issue 4", date: "2027-02-28" }
-    ]
-  },
-  {
     id: "iclr2027",
     name: "ICLR 2027",
     short: "ICLR '27",
     fullName: "International Conference on Learning Representations",
+    blurb: "Core deep-learning venue. Fully open review; representation learning, training, and foundation models.",
     tags: ["ml"],
     link: "https://iclr.cc/Conferences/2027/CallForPapers",
     location: "California, USA (venue TBA)",
@@ -156,6 +143,7 @@ const CONFERENCES = [
     name: "SaTML 2027",
     short: "SaTML '27",
     fullName: "IEEE Conference on Secure and Trustworthy Machine Learning",
+    blurb: "IEEE venue dedicated to the security, privacy, and trustworthiness of ML itself.",
     tags: ["security", "ml"],
     link: "https://satml.org/call-for-papers/",
     location: "Reykjavik, Iceland",
@@ -166,10 +154,26 @@ const CONFERENCES = [
     ]
   },
   {
+    id: "naacl2027",
+    name: "NAACL 2027",
+    short: "NAACL '27",
+    fullName: "Nations of the Americas Chapter of the Association for Computational Linguistics",
+    blurb: "Americas chapter meeting of the ACL; ARR-reviewed, one of the year's main *ACL venues.",
+    tags: ["nlp", "ml"],
+    link: "https://2027.naacl.org/calls/main_conference_papers/",
+    location: "San Francisco, CA, USA",
+    dates: "Jun 1–5, 2027",
+    deadlines: [
+      { label: "ARR Submission", date: "2026-10-12" },
+      { label: "ARR Commitment", date: "2026-12-23" }
+    ]
+  },
+  {
     id: "sp2027",
     name: "IEEE S&P 2027",
     short: "IEEE S&P '27",
     fullName: "IEEE Symposium on Security and Privacy",
+    blurb: "\"Oakland\" — the oldest big-four security venue. Broad computer security and privacy; two cycles.",
     tags: ["security"],
     link: "https://sp2027.ieee-security.org/cfpapers.html",
     location: "Montreal, Canada",
@@ -186,6 +190,7 @@ const CONFERENCES = [
     name: "AISTATS 2027",
     short: "AISTATS '27",
     fullName: "International Conference on AI and Statistics",
+    blurb: "Statistical machine learning and learning theory; smaller and more theory-leaning than ICML.",
     tags: ["ml"],
     link: "https://aistats.org/",
     location: "TBA",
@@ -199,6 +204,7 @@ const CONFERENCES = [
     name: "CVPR 2027",
     short: "CVPR '27",
     fullName: "IEEE/CVF Conference on Computer Vision and Pattern Recognition",
+    blurb: "The largest computer vision venue; recognition, generation, and 3D, plus most vision workshops.",
     tags: ["vision", "ml"],
     link: "https://cvpr.thecvf.com/",
     location: "Seattle, WA, USA",
@@ -213,6 +219,7 @@ const CONFERENCES = [
     name: "CCS 2027",
     short: "CCS '27",
     fullName: "ACM Conference on Computer and Communications Security",
+    blurb: "ACM's big-four security venue. Broad systems and applied crypto security; two cycles.",
     tags: ["security"],
     link: "https://www.sigsac.org/ccs/CCS2027/",
     location: "Atlanta, GA, USA",
@@ -229,12 +236,27 @@ const CONFERENCES = [
     name: "ACL 2027",
     short: "ACL '27",
     fullName: "Annual Meeting of the Association for Computational Linguistics",
+    blurb: "The flagship NLP conference; ARR-reviewed, commits from the January cycle.",
     tags: ["nlp", "ml"],
-    link: "https://aclrollingreview.org/dates",
-    location: "TBA",
-    dates: "~Jul 2027",
+    link: "https://2027.aclweb.org/",
+    location: "Kyoto, Japan",
+    dates: "Aug 17–22, 2027",
     deadlines: [
       { label: "ARR Submission", date: "2027-01-18", note: "Jan cycle, TBA" }
+    ]
+  },
+  {
+    id: "emnlp2027",
+    name: "EMNLP 2027",
+    short: "EMNLP '27",
+    fullName: "Conference on Empirical Methods in Natural Language Processing",
+    blurb: "Empirical methods in NLP — the year's second flagship after ACL; ARR-reviewed.",
+    tags: ["nlp", "ml"],
+    link: "https://aclrollingreview.org/dates",
+    location: "Mexico / Central America (TBA)",
+    dates: "~Nov 2027",
+    deadlines: [
+      { label: "ARR Submission", date: "2027-06-07", note: "Expected cycle, TBA" }
     ]
   },
   {
@@ -242,6 +264,7 @@ const CONFERENCES = [
     name: "ICML 2027",
     short: "ICML '27",
     fullName: "International Conference on Machine Learning",
+    blurb: "Core ML venue alongside NeurIPS and ICLR; methods, theory, and large-scale learning.",
     tags: ["ml"],
     link: "https://icml.cc/",
     location: "TBA",
@@ -256,6 +279,7 @@ const CONFERENCES = [
     name: "ICCV 2027",
     short: "ICCV '27",
     fullName: "IEEE/CVF International Conference on Computer Vision",
+    blurb: "Biennial computer vision venue, alternating years with ECCV.",
     tags: ["vision", "ml"],
     link: "https://iccv.thecvf.com/",
     location: "Hong Kong",
@@ -269,6 +293,7 @@ const CONFERENCES = [
     name: "COLM 2027",
     short: "COLM '27",
     fullName: "Conference on Language Modeling",
+    blurb: "Venue dedicated to language models — training, evaluation, safety, and interpretability.",
     tags: ["ml", "nlp"],
     link: "https://colm.cc/",
     location: "TBA",
@@ -283,6 +308,7 @@ const CONFERENCES = [
     name: "NeurIPS 2027",
     short: "NeurIPS '27",
     fullName: "Conference on Neural Information Processing Systems",
+    blurb: "The largest ML venue; spans theory, methods, applications, and datasets/benchmarks.",
     tags: ["ml"],
     link: "https://neurips.cc/",
     location: "TBA",
@@ -297,6 +323,7 @@ const CONFERENCES = [
     name: "NDSS 2028",
     short: "NDSS '28",
     fullName: "Network and Distributed System Security Symposium",
+    blurb: "Big-four security venue focused on network and distributed systems security; rolling cycles.",
     tags: ["security"],
     link: "https://www.ndss-symposium.org/",
     location: "TBA",
@@ -311,6 +338,7 @@ const CONFERENCES = [
     name: "ACSAC 2027",
     short: "ACSAC '27",
     fullName: "Annual Computer Security Applications Conference",
+    blurb: "Applied security research with an emphasis on practical, deployed systems.",
     tags: ["security"],
     link: "https://www.acsac.org/",
     location: "TBA",
@@ -324,6 +352,7 @@ const CONFERENCES = [
     name: "AAAI 2028",
     short: "AAAI '28",
     fullName: "AAAI Conference on Artificial Intelligence",
+    blurb: "Broad AI venue spanning learning, reasoning, planning, and AI policy.",
     tags: ["ml"],
     link: "https://aaai.org/conference/aaai/",
     location: "TBA",
@@ -334,6 +363,14 @@ const CONFERENCES = [
     ]
   },
 ];
+
+// Primary field (tags[0]) -> the label shown in the rail tooltip.
+const FIELD_LABEL = {
+  ml: "Machine Learning",
+  security: "Security",
+  vision: "Computer Vision",
+  nlp: "Natural Language Processing"
+};
 
 /* ----- helpers ----- */
 function parseAoE(dateStr) {
@@ -530,9 +567,17 @@ function renderRail(filter) {
     const isLive = days <= LIVE_WITHIN_DAYS;
 
     const item = document.createElement('a');
-    item.className = 'rail-item' + (days <= 14 ? ' imminent' : '');
+    // tags[0] is the conference's primary field — it drives the item's wash.
+    item.className = 'rail-item field-' + conf.tags[0]
+                   + (days <= 14 ? ' imminent' : '');
     item.href = '#' + conf.id;
-    item.title = `${conf.name} — ${dl.label}: ${tilde}${formatDate(dl.date)}`
+    // Native title tooltip — the rail only has room for a name and a count,
+    // so hovering explains what the venue actually is.
+    item.title = `${conf.name} — ${conf.fullName}`
+               + `\nFocus: ${FIELD_LABEL[conf.tags[0]] || conf.tags[0]}`
+               + (conf.blurb ? `\n${conf.blurb}` : '')
+               + `\nWhere: ${conf.location} · ${conf.dates}`
+               + `\n\n${dl.label}: ${tilde}${formatDate(dl.date)}`
                + `\nCloses ${localExpiry(dl.date)} ${TZ.abbr}`;
     // The rail is only ~150px wide, so a ticker will not fit beside the name —
     // live items get it on its own line underneath instead.

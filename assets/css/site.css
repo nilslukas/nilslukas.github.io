@@ -1323,14 +1323,31 @@ a.acad-link{color:var(--accent);}          /* plain links to academic ones */
 }
 .rail-item{
   display:block;
-  padding:.42rem .1rem;
+  /* Negative margin lets the field wash bleed into the rail's own padding
+     while the +.45rem inset keeps the text on its original x-position. */
+  margin:0 -.35rem;
+  padding:.42rem .45rem;
   color:inherit;
   text-decoration:none;
   border-radius:var(--radius-sm);
+  background:var(--rail-tint);
 }
 .rail-item + .rail-item{border-top:1px dashed var(--border);}
-.rail-item:hover{text-decoration:none;background:var(--surface-soft);}
+.rail-item:hover{text-decoration:none;background:var(--rail-tint-hover);}
 .rail-item:hover .rail-name{color:var(--accent);}
+
+/* Field wash — each rail item carries a whisper of its conference's primary
+   field (tags[0]) so the queue reads by area at a glance. Deliberately kept
+   at wash strength: the warm paper still shows through, and the card tags
+   below stay uniform clay. Untinted default = the plain cream hover. */
+.rail-item{
+  --rail-tint:transparent;
+  --rail-tint-hover:var(--surface-soft);
+}
+.rail-item.field-ml       {--rail-tint:#F6F3EA;--rail-tint-hover:#EFE9D9;}
+.rail-item.field-security {--rail-tint:#F8F0EB;--rail-tint-hover:#F3E6DE;}
+.rail-item.field-vision   {--rail-tint:#F0F4ED;--rail-tint-hover:#E3ECDF;}
+.rail-item.field-nlp      {--rail-tint:#F0F3F6;--rail-tint-hover:#E2E9F1;}
 .rail-top{
   display:flex;
   align-items:baseline;

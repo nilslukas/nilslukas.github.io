@@ -1275,6 +1275,28 @@ a.acad-link{color:var(--accent);}          /* plain links to academic ones */
 /* Past rows carry .countdown.imminent in the markup — keep them calm, not clay */
 .deadline-row.passed .countdown{color:var(--muted);}
 
+/* Rolling venues (TMLR & co.): always open, so the countdown slot carries a
+   standing status chip instead of a number. Same chip shape as .countdown.live
+   so the two read as one family, but calm — nothing is running out. */
+.countdown.rolling-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:.4rem;
+  padding:.12rem .5rem;
+  border-radius:var(--radius-sm);
+  background:var(--tint);
+  color:var(--accent-strong);
+  font-size:.76rem;
+  letter-spacing:.01em;
+}
+.countdown.rolling-badge::after{
+  content:'';
+  width:.4rem;
+  height:.4rem;
+  border-radius:50%;
+  background:currentColor;
+}
+
 .tba-note{
   font-size:.82rem;
   color:var(--muted);

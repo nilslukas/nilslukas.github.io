@@ -92,26 +92,29 @@
 <script src="assets/js/bg.js"></script>
 
 <script>
-// Verified 31 Aug 2026 against official calls for papers. Entries whose
+// Verified 25 Sep 2026 against official calls for papers. Entries whose
 // deadlines have all passed are dropped and rolled to the next edition.
 // `note: "Expected"` = projected from the previous edition; no official CfP yet.
+// `rolling: true` = a venue that is always open, so it has no deadlines at all
+// and is listed on its own above the countdowns.
 const CONFERENCES = [
-  // ——— Confirmed: official call for papers published ———
+  // ——— Rolling: always open, nothing to count down to ———
   {
-    id: "eacl2027",
-    name: "EACL 2027",
-    short: "EACL '27",
-    fullName: "European Chapter of the Association for Computational Linguistics",
-    blurb: "European chapter meeting of the ACL; ARR-reviewed, held in the years it rotates to Europe.",
-    tags: ["nlp", "ml"],
-    link: "https://2027.eacl.org/",
-    location: "Athens, Greece",
-    dates: "Mar 9–14, 2027",
-    deadlines: [
-      { label: "ARR Submission", date: "2026-08-03" },
-      { label: "ARR Commitment", date: "2026-10-11" }
-    ]
+    id: "tmlr",
+    name: "TMLR",
+    short: "TMLR",
+    fullName: "Transactions on Machine Learning Research",
+    blurb: "Rolling-submission ML journal run by the JMLR team. Reviewed on whether the claims are supported by the evidence rather than on novelty; decisions target roughly two months, and certified papers are presented at partner conferences.",
+    tags: ["ml"],
+    link: "https://jmlr.org/tmlr/",
+    location: "Online (OpenReview)",
+    dates: "Rolling submissions",
+    rolling: true,
+    rollingNote: "Any time, via OpenReview",
+    deadlines: []
   },
+
+  // ——— Confirmed: official call for papers published ———
   {
     id: "usenix2027",
     name: "USENIX Security 2027",
@@ -160,18 +163,33 @@ const CONFERENCES = [
     ]
   },
   {
-    id: "naacl2027",
-    name: "NAACL 2027",
-    short: "NAACL '27",
-    fullName: "Nations of the Americas Chapter of the Association for Computational Linguistics",
-    blurb: "Americas chapter meeting of the ACL; ARR-reviewed, one of the year's main *ACL venues.",
-    tags: ["nlp", "ml"],
-    link: "https://2027.naacl.org/calls/main_conference_papers/",
-    location: "San Francisco, CA, USA",
-    dates: "Jun 1–5, 2027",
+    id: "aistats2027",
+    name: "AISTATS 2027",
+    short: "AISTATS '27",
+    fullName: "International Conference on AI and Statistics",
+    blurb: "Statistical machine learning and learning theory; smaller and more theory-leaning than ICML.",
+    tags: ["ml"],
+    link: "https://aistats.org/aistats2027/",
+    location: "Montréal, Canada",
+    dates: "May 3–6, 2027",
     deadlines: [
-      { label: "ARR Submission", date: "2026-10-12" },
-      { label: "ARR Commitment", date: "2026-12-23" }
+      { label: "Abstract", date: "2026-09-29" },
+      { label: "Paper", date: "2026-10-06" }
+    ]
+  },
+  {
+    id: "facct2027",
+    name: "FAccT 2027",
+    short: "FAccT '27",
+    fullName: "ACM Conference on Fairness, Accountability, and Transparency",
+    blurb: "Interdisciplinary venue for responsible and trustworthy computing — fairness, auditing, accountability, and AI governance.",
+    tags: ["ml"],
+    link: "https://facctconference.org/2027/cfp.html",
+    location: "TBA",
+    dates: "Jun 21–24, 2027",
+    deadlines: [
+      { label: "Abstract", date: "2026-10-27" },
+      { label: "Paper", date: "2026-11-03" }
     ]
   },
   {
@@ -190,21 +208,6 @@ const CONFERENCES = [
     ]
   },
 
-  // ——— Projected: no official CfP yet, dates shifted from the last edition ———
-  {
-    id: "aistats2027",
-    name: "AISTATS 2027",
-    short: "AISTATS '27",
-    fullName: "International Conference on AI and Statistics",
-    blurb: "Statistical machine learning and learning theory; smaller and more theory-leaning than ICML.",
-    tags: ["ml"],
-    link: "https://aistats.org/",
-    location: "TBA",
-    dates: "~Apr–May 2027",
-    deadlines: [
-      { label: "Paper", date: "2026-10-08", note: "Expected, TBA" }
-    ]
-  },
   {
     id: "cvpr2027",
     name: "CVPR 2027",
@@ -212,14 +215,61 @@ const CONFERENCES = [
     fullName: "IEEE/CVF Conference on Computer Vision and Pattern Recognition",
     blurb: "The largest computer vision venue; recognition, generation, and 3D, plus most vision workshops.",
     tags: ["vision", "ml"],
-    link: "https://cvpr.thecvf.com/",
+    link: "https://cvpr.thecvf.com/Conferences/2027/CallForPapers",
     location: "Seattle, WA, USA",
-    dates: "Jun 20–24, 2027",
+    dates: "Jun 20–25, 2027",
     deadlines: [
-      { label: "Abstract", date: "2026-11-06", note: "Expected, TBA" },
-      { label: "Paper", date: "2026-11-12", note: "Expected, TBA" }
+      { label: "Paper Registration", date: "2026-11-10" },
+      { label: "Paper", date: "2026-11-16" }
     ]
   },
+  {
+    id: "eurosp2027",
+    name: "IEEE EuroS&P 2027",
+    short: "EuroS&P '27",
+    fullName: "IEEE European Symposium on Security and Privacy",
+    blurb: "European sister venue of IEEE S&P; broad security and privacy, single deadline with an early-reject round.",
+    tags: ["security"],
+    link: "https://eurosp2027.ieee-security.org/cfp.html",
+    location: "Madrid, Spain",
+    dates: "Jul 5–9, 2027",
+    deadlines: [
+      { label: "Abstract Registration", date: "2026-11-25" },
+      { label: "Paper", date: "2026-12-02" }
+    ]
+  },
+  {
+    id: "pets2027",
+    name: "PETS 2027",
+    short: "PETS '27",
+    fullName: "Privacy Enhancing Technologies Symposium (PoPETs)",
+    blurb: "The main privacy venue; journal-style PoPETs issues with four deadlines a year and major-revision decisions.",
+    tags: ["security"],
+    link: "https://petsymposium.org/",
+    location: "Delft, The Netherlands",
+    dates: "Jul 19–24, 2027",
+    deadlines: [
+      { label: "Issue 3", date: "2026-11-30" },
+      { label: "Issue 4", date: "2027-02-28" }
+    ]
+  },
+  {
+    id: "asiaccs2027",
+    name: "AsiaCCS 2027",
+    short: "AsiaCCS '27",
+    fullName: "ACM ASIA Conference on Computer and Communications Security",
+    blurb: "ACM's Asia-based security venue; broad applied security, two rounds.",
+    tags: ["security"],
+    link: "https://asiaccs2027.cityu.edu.mo/call-for-papers/index.html",
+    location: "Macau",
+    dates: "Jul 12–16, 2027",
+    deadlines: [
+      { label: "Round 1 Paper", date: "2026-08-21" },
+      { label: "Round 2 Paper", date: "2026-12-11" }
+    ]
+  },
+
+  // ——— Projected: no official CfP yet, dates shifted from the last edition ———
   {
     id: "ccs2027",
     name: "CCS 2027",
@@ -229,7 +279,7 @@ const CONFERENCES = [
     tags: ["security"],
     link: "https://www.sigsac.org/ccs/CCS2027/",
     location: "Atlanta, GA, USA",
-    dates: "Oct 2027",
+    dates: "Oct 11–15, 2027",
     deadlines: [
       { label: "Cycle 1 Abstract", date: "2027-01-06", note: "Expected, TBA" },
       { label: "Cycle 1 Paper", date: "2027-01-13", note: "Expected, TBA" },
@@ -238,17 +288,32 @@ const CONFERENCES = [
     ]
   },
   {
-    id: "acl2027",
-    name: "ACL 2027",
-    short: "ACL '27",
-    fullName: "Annual Meeting of the Association for Computational Linguistics",
-    blurb: "The flagship NLP conference; ARR-reviewed, commits from the January cycle.",
-    tags: ["nlp", "ml"],
-    link: "https://2027.aclweb.org/",
-    location: "Kyoto, Japan",
-    dates: "Aug 17–22, 2027",
+    id: "esorics2027",
+    name: "ESORICS 2027",
+    short: "ESORICS '27",
+    fullName: "European Symposium on Research in Computer Security",
+    blurb: "Long-running European security venue; broad scope, winter and spring cycles.",
+    tags: ["security"],
+    link: "http://www.wikicfp.com/cfp/program?id=923",
+    location: "TBA",
+    dates: "~Sep 2027",
     deadlines: [
-      { label: "ARR Submission", date: "2027-01-18", note: "Jan cycle, TBA" }
+      { label: "Winter Cycle", date: "2027-01-08", note: "Expected, TBA" },
+      { label: "Spring Cycle", date: "2027-04-21", note: "Expected, TBA" }
+    ]
+  },
+  {
+    id: "sais2027",
+    name: "SAIS 2027",
+    short: "SAIS '27",
+    fullName: "USENIX Conference on Secure Agentic-AI Systems",
+    blurb: "New USENIX venue dedicated to agent security — designing, verifying, and deploying secure and privacy-preserving AI agents.",
+    tags: ["security", "ml"],
+    link: "https://www.usenix.org/conference/sais27",
+    location: "Santa Clara, CA, USA",
+    dates: "Jun 7–8, 2027",
+    deadlines: [
+      { label: "Paper", date: "2027-02-04", note: "Date posted, full CfP pending" }
     ]
   },
   {
@@ -322,6 +387,21 @@ const CONFERENCES = [
     deadlines: [
       { label: "Abstract", date: "2027-05-03", note: "Expected, TBA" },
       { label: "Paper", date: "2027-05-05", note: "Expected, TBA" }
+    ]
+  },
+  {
+    id: "sp2028",
+    name: "IEEE S&P 2028",
+    short: "IEEE S&P '28",
+    fullName: "IEEE Symposium on Security and Privacy",
+    blurb: "\"Oakland\" — the oldest big-four security venue. Broad computer security and privacy; two cycles.",
+    tags: ["security"],
+    link: "https://www.ieee-security.org/TC/SP-Index.html",
+    location: "TBA",
+    dates: "~May 2028",
+    deadlines: [
+      { label: "Cycle 1 Abstract", date: "2027-06-03", note: "Expected, TBA" },
+      { label: "Cycle 1 Paper", date: "2027-06-10", note: "Expected, TBA" }
     ]
   },
   {
@@ -460,6 +540,8 @@ function formatDate(dateStr) {
 
 function getNextDeadline(conf) {
   const now = new Date();
+  // Rolling venues never have a "next" deadline — that is the point of them.
+  if (conf.rolling) return null;
   for (const dl of conf.deadlines) {
     if (parseAoE(dl.date) > now) return dl;
   }
@@ -499,7 +581,10 @@ function renderConferences(filter) {
   list.innerHTML = '';
 
   const now = new Date();
-  const sorted = sortConferences(CONFERENCES);
+  // Rolling venues have no dates to sort by, so they stay out of the sort and
+  // sit in their own section above the countdowns.
+  const rolling = CONFERENCES.filter(c => c.rolling);
+  const sorted = sortConferences(CONFERENCES.filter(c => !c.rolling));
 
   let hasUpcoming = false;
   let hasPassed = false;
@@ -515,6 +600,20 @@ function renderConferences(filter) {
     if (filter === 'all') return true;
     return conf.tags.includes(filter);
   }
+
+  // Always-open section
+  if (rolling.some(matchesFilter)) {
+    const divider = document.createElement('div');
+    divider.className = 'section-divider';
+    divider.textContent = 'Always Open';
+    list.appendChild(divider);
+  }
+
+  rolling.forEach(conf => {
+    const card = renderCard(conf, now, matchesFilter(conf));
+    list.appendChild(card);
+    if (matchesFilter(conf)) visibleCount++;
+  });
 
   // Upcoming section
   if (upcoming.some(matchesFilter)) {
@@ -643,7 +742,7 @@ function renderRail(filter) {
   const now = new Date();
   railList.innerHTML = '';
 
-  const all = sortConferences(CONFERENCES).filter(conf =>
+  const all = sortConferences(CONFERENCES.filter(c => !c.rolling)).filter(conf =>
     getNextDeadline(conf) && (filter === 'all' || conf.tags.includes(filter))
   );
   const items = all.slice(0, RAIL_MAX);
@@ -708,6 +807,14 @@ function renderCard(conf, now, visible) {
   ).join('');
 
   let deadlinesHtml = '';
+  if (conf.rolling) {
+    deadlinesHtml = `
+      <div class="deadline-row rolling">
+        <span><i class="fa fa-refresh deadline-clock" aria-hidden="true"></i><span class="deadline-label">Submissions:</span>
+        <span class="deadline-date">${conf.rollingNote || 'Accepted at any time'}</span></span>
+        <span class="countdown rolling-badge">Open year-round</span>
+      </div>`;
+  }
   conf.deadlines.forEach(dl => {
     const isPassed = parseAoE(dl.date) <= now;   // still live until AoE ends
     const days = daysUntil(dl.date);             // but count in calendar days

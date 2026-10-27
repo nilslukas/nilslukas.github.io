@@ -1,0 +1,280 @@
+/* =========================================================================
+   ML8502 SHARED SLIDE COMPONENTS  ·  slides/shared/assets/components.css
+   -------------------------------------------------------------------------
+   The deck-independent component layer of the course design system, lifted
+   out of Week 2's src/_head.html on 2026-09-02 so every week loads exactly
+   the same rules instead of re-pasting them. Register: slides/shared/usage.md.
+
+   Load it from a deck's src/_head.html AFTER assets/deck.css and BEFORE that
+   deck's own inline styles, so the cascade order is the one these rules were
+   written against. The link order in the head is:
+
+       1. assets/katex.css        vendored, frozen
+       2. assets/deck.css         the platform stylesheet, frozen
+       3. assets/components.css   this file
+       4. the deck's own inline style blocks
+
+   (No literal link tag is written in this comment on purpose: the handout
+   exporter, artifacts/tools/export_single_file.py, rewrites any
+   rel="stylesheet" tag it finds anywhere in the page, comments included, and
+   would inline a whole stylesheet into this paragraph.)
+
+   Copy the file into the deck's assets/ folder, together with Caveat.woff2 —
+   the @font-face below resolves relative to THIS FILE, so the font must sit
+   beside it.
+
+   What is here: .defbox (definition card), .legendrow (symbol strip), the
+   deck-wide two-size KaTeX rule, .mstage/.mo (maths laid over a drawing),
+   booktabs .ledger, .algo and the algorithm line walk, per-symbol hover and
+   the tooltip edge clamp, and the round-5 scribble / numbering / compact set.
+   What is NOT here: anything that names a slide, a week, or a per-deck layout.
+   Those stay in the deck's own _head.html.
+
+   The comments are the record of why each rule exists; keep them with the rule.
+   ========================================================================= */
+/* ============================================================ SHARED · round-3 consistency components (Nils, 2026-09-01 evening)
+   "every time you present a formula.. in this box with a nice definition for it" — .defbox is THE
+   definition card for every newly introduced formula: soft amber ground (the .note.open/.board
+   family), name line, formula. Hand-drawn border-top/bottom line pairs around formulas are banned.
+   "explanation for what's what.. on the very bottom of the slide.. with a horizontal line that
+   crosses across the whole slide. Make it consistent across all of the slides" — .legendrow is THE
+   symbol legend: full-width hairline, small math size, last child of .body (margin-top:auto pins it
+   above the footer in flex bodies); every symbol wrapped in a data-explain span.
+   "two sizes: normal size and small size" — mathematics renders at exactly two sizes deck-wide:
+   26px in content and .defbox, 20px in .legendrow. Do not set any other math font-size. */
+.defbox{background:#fcfaf3;border-left:0;border-radius:4px;padding:12px 24px 12px 26px;font-size:26px}
+.defbox .dfname{display:block;color:var(--ink);font-family:inherit;font-size:22px;font-weight:700;letter-spacing:0;text-transform:none;margin-bottom:4px}
+.defbox .eq,.defbox p{margin:0;font-size:26px}
+.legendrow{margin-top:auto;padding-top:11px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:6px 42px;font-size:20px;color:var(--ink-2)}
+.legendrow .katex{font-size:20px}
+.defbox .katex{font-size:26px}
+/* DECK-WIDE TWO-SIZE RULE (2026-09-02). KaTeX otherwise renders at 1.21em of its host, which put
+   inline body maths at 30.25px, ledger cells at 25.41px and captions at 22.99px: three sizes
+   Nils did not ask for. Every KaTeX run in the deck is now 26px (normal) or 20px (small: captions,
+   ledgers, legend strips, fineprint, .mo.sm). Slide-scoped CSS must not introduce a third size. */
+.slide .katex{font-size:26px}
+.slide .figcap .katex,.slide .ledger .katex,.slide .legendrow .katex,.slide .fineprint .katex,.slide .mo.sm .katex,.slide .srclbl .katex{font-size:20px}
+/* ================================================ SHARED · maths ON a diagram (Nils, 2026-09-01 evening)
+   APPENDED, nothing above is edited. Owner: 033 Anatomy of an Attack and 035 The Evasion Game; the
+   component is generic, so any later slide that needs a symbol on top of a drawing uses it too.
+
+   Nils, live review round 3, verbatim: "make sure all the symbols, also this gradient for the loss and
+   the loss function itself and h of x, are NOT BOLD and are in LaTeX.. same as in Overleaf" and "the
+   LaTeX is always different sized. I want two sizes".
+
+   WHY AN OVERLAY AND NOT SVG <text>. The round-3 contract says every symbol is KaTeX in the vendored
+   Latin Modern. KaTeX cannot typeset into SVG, and this deck ships no LatinModernMath face of its own:
+   the only Overleaf-looking family present is KaTeX's own Computer Modern, embedded as data URIs inside
+   assets/katex.css. Setting `font-family:KaTeX_Math` on an SVG <text> would get the glyphs but none of
+   the spacing, italic correction or script placement that makes a formula read as a formula. So the
+   drawing keeps its geometry in SVG and every symbol is an ordinary HTML span laid on top of it.
+
+   HOW THE COORDINATES WORK, AND WHY THEY CANNOT DRIFT. .mstage is the positioning context and is
+   exactly as wide as the .body band; its svg is width:100%,height:auto with a viewBox whose width is
+   that same band, so one user unit is one stage pixel and the drawing never scales. Each overlay is
+   placed with left/top in PER CENT of the stage, i.e. (user-unit / viewBox-extent), and centred on that
+   point by translate(-50%,-50%). Percentages resolve against the same box the viewBox maps onto, so the
+   symbol stays on its mark at any window size, in fullscreen and in print.
+
+   TWO SIZES, AND NOTHING ELSE. .mo is the deck's normal content size (26px, the .defbox size); .mo.sm
+   is the deck's small size (20px, the .legendrow size). No third size is introduced here.
+
+   REVEALS. deck.css:556 stages a revealed element with `transform:translateY(5px)`, at specificity
+   (0,5,0) — which would throw an overlay 5px off the geometry it labels and, worse, cancel the
+   centring transform entirely. The two rules below restate the centring in both states at (0,6,0) and
+   (0,7,0) so opacity still animates while position does not move. Same reasoning as the .aoa block's
+   `transform:none` override, one specificity step further because .mo needs a real transform. */
+.mstage{position:relative;width:100%}
+.mstage>svg{display:block;width:100%;height:auto}
+.mo{position:absolute;transform:translate(-50%,-50%);pointer-events:none;white-space:nowrap;
+  line-height:1;color:var(--ink)}
+.mo .katex{font-size:26px}
+.mo.sm .katex{font-size:20px}
+/* PRINT (2026-09-02): deck.css:469/560 print `transform:none!important` on every [data-reveal-step],
+   which threw every revealed .mo label off its mark by half its own size in slides.pdf (the loss box on
+   Anatomy of an Attack). Restate the centring at !important inside print, at higher specificity. */
+@media print{.mstage .mo[data-reveal-step]{transform:translate(-50%,-50%)!important}}
+/* ================================================ ROUND 4 COMPONENTS (Nils, 2026-09-02 morning)
+   1. BOOKTABS TABLES. "Tables look more like a booktabs table in LaTeX, more dense." Every .ledger
+      in this deck is set booktabs-style: a heavy top rule, a light rule under the header, a heavy
+      bottom rule, no vertical rules, no zebra fill, no filled header band, compact 6px rows, the
+      small text size. Numeric cells stay in the mono face. The Week 1 filled-header ledger is not
+      used here; deck.css keeps it for Week 1.
+   2. ALGORITHMS. "Whenever you have an algorithm, design it so the box is an actual algorithm": the
+      .algo environment mirrors LaTeX algorithmic: a rule, "Algorithm N · name" caption, Input/Output
+      lines, numbered lines, bold keywords, a closing rule. Maths inside is the small size.
+   3. DEFINITION BOX refinement: a hairline frame in the amber family, the name line as a small label,
+      and an optional plain-language line (`.plain`) that says the definition in simple words.
+   4. PER-SYMBOL HOVER inside a formula: assets/ktx-trust.js renders `.ktx[data-tex]` spans with
+      KaTeX trust on, so `\htmlData{explain=...}{sym}` gives each symbol its own tooltip; the dotted
+      underline is thinned inside maths so the formula stays clean. */
+.slide .ledger:not(.sched){border-top:2.2px solid var(--ink);border-bottom:2.2px solid var(--ink);table-layout:auto}
+.slide .ledger:not(.sched) th{background:transparent;color:var(--ink);font-size:19px;font-weight:700;letter-spacing:.01em;text-transform:none;padding:7px 12px;border-bottom:1.2px solid var(--ink);text-align:left}
+.slide .ledger:not(.sched) td{padding:6px 12px;border-bottom:0;font-size:var(--fs-sub);line-height:1.22;color:var(--ink-2)}
+.slide .ledger:not(.sched) tbody tr:nth-child(even) td{background:transparent}
+.slide .ledger:not(.sched) td:first-child{color:var(--ink);font-weight:600}
+.slide .ledger:not(.sched) td.n,.slide .ledger:not(.sched) th.n{font-family:var(--mono);text-align:right;font-variant-numeric:tabular-nums}
+.slide .ledger:not(.sched) tr.hi td{background:rgba(176,50,42,.07)}
+.slide .ledger:not(.sched) tr.mid td{border-top:1.2px solid var(--ink)}
+.slide .ledger:not(.sched) .katex{font-size:20px}
+.algo{border-top:1.4px solid var(--ink);border-bottom:1.4px solid var(--ink);font-size:20px;line-height:1.35;color:var(--ink-2);padding:0 0 6px}
+.algo .algo-title{display:block;font-weight:400;color:var(--ink);padding:6px 10px;border-bottom:.8px solid var(--ink)}
+.algo .algo-title b{font-family:inherit;font-size:20px;letter-spacing:0;margin-right:10px;color:var(--ink);font-weight:700;text-transform:none}
+.algo .io{display:block;padding:5px 10px 0;color:var(--ink)}
+.algo .io b{font-weight:700;margin-right:6px}
+.algo ol{list-style:none;margin:4px 0 0;padding:0;counter-reset:algo}
+.algo ol li{counter-increment:algo;position:relative;padding:2px 10px 2px 46px}
+.algo ol li::before{content:counter(algo);position:absolute;left:10px;width:26px;text-align:right;font-family:var(--mono);font-size:18px;color:var(--ink-3);top:4px}
+.algo ol li.in1{padding-left:70px}.algo ol li.in2{padding-left:94px}
+.algo .kw{font-weight:700;color:var(--ink)}
+.algo .cm{color:var(--ink-3);font-style:normal;margin-left:10px}.algo .cm::before{content:'// '}
+.algo .katex{font-size:20px}
+.algo ol li{font-size:20px}   /* deck.css p,li set 25px directly on the li (Q2, 2026-09-02) */
+.algo .algo-title b{font-size:20px}
+.defbox{border:1px solid #e6dcc2;box-shadow:none}
+.defbox .dfname{color:var(--ink)}
+.defbox .plain{display:block;margin-top:6px;font-size:21px;color:var(--ink-2);line-height:1.3}
+.defbox .plain b.inwords{display:none}  /* round 5 dropped the "In words" label; bold part labels (a)/(b) in exercises stay visible (W3-C2a) */
+.katex [data-explain]{border-bottom:0;cursor:help}.slide [data-explain]{border-bottom:1px dotted rgba(35,60,87,.35)}.legendrow [data-explain]{border-bottom:1px dotted rgba(35,60,87,.35)}.slide .katex [data-explain]{border-bottom:0}
+.katex [data-explain]::after{font-family:AktivGrotesk,system-ui,sans-serif;font-size:18px;font-weight:400;line-height:1.3;white-space:normal;width:max-content;max-width:26em}
+/* TOOLTIP EDGE CLAMP (direct children only since round 6: a nested <span><span data-explain> was both first and last child and lost its panel off the left edge) (hoisted from P1's fragments, 2026-09-02). deck.css centres every [data-explain]
+   panel over its target; a target at the left or right edge of the stage therefore loses part of its
+   panel off-stage. The first two and last two .legendrow entries anchor to their own edge, and a symbol
+   wrapped in KaTeX \htmlClass{tipL}{...} (left edge) or \htmlClass{tipR}{...} (right edge) does the same. */
+.tipL[data-explain]::after,.tipL [data-explain]::after{left:0;transform:translateX(0) translateY(5px)}
+.tipL[data-explain]:hover::after,.tipL [data-explain]:hover::after,.tipL[data-explain]:focus-visible::after,.tipL [data-explain]:focus-visible::after{transform:translateX(0) translateY(0)}
+.tipR[data-explain]::after,.tipR [data-explain]::after{left:auto;right:0;transform:translateX(0) translateY(5px)}
+.tipR[data-explain]:hover::after,.tipR [data-explain]:hover::after,.tipR[data-explain]:focus-visible::after,.tipR [data-explain]:focus-visible::after{transform:translateX(0) translateY(0)}
+.legendrow>span[data-explain]:nth-child(-n+2)::after{left:0;transform:translateX(0) translateY(5px)}
+.legendrow>span[data-explain]:nth-child(-n+2):hover::after,.legendrow>span[data-explain]:nth-child(-n+2):focus-visible::after{transform:translateX(0) translateY(0)}
+.legendrow>span[data-explain]:nth-last-child(-n+2)::after{left:auto;right:0;transform:translateX(0) translateY(5px)}
+.legendrow>span[data-explain]:nth-last-child(-n+2):hover::after,.legendrow>span[data-explain]:nth-last-child(-n+2):focus-visible::after{transform:translateX(0) translateY(0)}
+
+.mo.at{color:#b0322a}          /* crimson: the adversary's own marks, matching .aoa-brk / .aoa-pill */
+.mo.on{color:#fff}             /* on a filled band */
+/* A label that crosses the drawing keeps deck.css's annotation halo, in paper rather than white
+   because the ground here is --paper. text-shadow rather than paint-order: this is HTML, not SVG. */
+.mo.halo{text-shadow:0 0 7px var(--paper),0 0 5px var(--paper),0 0 3px var(--paper),0 0 2px var(--paper)}
+/* SCOPED TO .mo AND NOTHING ELSE. A bare `.mstage [data-reveal-step]` also matches the SVG <g>
+   groups that carry each step's geometry, and translating THOSE by -50%,-50% of their own bounding
+   box throws the lit rail, the loss node and the flipped chip clean off the drawing (seen, and
+   measured, on the first render of this rebuild). */
+.mstage .mo[data-reveal-step]:not(.arrow):not(.ring):not(.hl):not(.spot){
+  transform:translate(-50%,-50%)}
+.mstage .mo[data-reveal-step]:not(.arrow):not(.ring):not(.hl):not(.spot).is-revealed{
+  transform:translate(-50%,-50%)}
+
+/* The shared .defbox name line ships at 17px, one under qa_slides.js's 18px projection floor
+   (MIN_FONT_PX), so every slide carrying a definition box would fail the harness on its own label.
+   Raised here for the whole deck rather than per slide, so the boxes stay identical to each other. */
+.defbox .dfname{font-size:22px}
+/* ================================================ ROUND 5 COMPONENTS (Nils, 2026-09-02 afternoon)
+   Verbatim asks: "put the text in a simple class .. and then make an arrow from the text to the equation
+   or formula to animate what it is, as if I scribbled over the lecture"; "highlight the important lines
+   in yellow so that I can talk about these for one or two sentences"; "make all figures with subtext ..
+   so that I can reference them to you later"; "for the definition, please always start with 1.0";
+   "make these tables and the algorithms a bit more compact, also horizontally".
+
+   1. SCRIBBLES. A `.scribs` overlay (absolute, inset 0, pointer-events none) sits inside any
+      position:relative wrapper (.mstage, .algo-wrap, figure.fig). It holds `.scrib` notes in the Caveat
+      handwriting face in the annotation blue (#210eca, the colour of the pencil rings) and one
+      `svg.scrib-svg` whose viewBox equals the wrapper's stage size, carrying library arrows
+      (<use href="#hd-arrow-a..d">). Notes and arrows carry data-reveal-step; a note with class `once` is
+      visible only while its step is the current one (so line-by-line glosses do not pile up).
+   2. ALGORITHM LINE WALK. Lines of an .algo carry data-reveal-step; they are always visible, the current
+      line is lit amber (.is-now) and lines already discussed keep a thin amber tick on the left.
+      Deck.css reserves .hl for drawn marks, so the class is never used here.
+   3. NUMBERING. assets/numbering.js runs at load and writes data-label on every `figure.fig[data-fig] > .figcap`
+      ("Figure 3."), `.defbox[data-env] .dfname` ("Definition 2.1"), `.algo[data-env] .algo-title b`
+      ("Algorithm 4"). Figures and algorithms count once across the lecture's main slides; definitions,
+      lemmas, theorems, corollaries, remarks and equations share one counter per chapter (chapter =
+      number of `.divider:not(.cont)` seen so far) so the first is 1.1. Stacked slides never count: a
+      stack's box repeats its parent's label; a stack's figure gets a bare "Figure".
+   4. COMPACT. `.algo.tight` and `.ledger.tight` shrink to their content width; line and cell paddings
+      are one notch tighter than round 4.
+
+   THE QUOTES IN THE @font-face URL ARE LOAD-BEARING. artifacts/tools/export_single_file.py folds a linked
+   stylesheet's relative url() references into data URIs with a pattern that requires DOUBLE QUOTES
+   (CSS_URL_RE); an unquoted font path would survive the export as a dead relative path and set
+   every scribble in the handout and the PDF in a fallback cursive. The path is relative to THIS FILE,
+   so Caveat.woff2 must sit beside components.css in the deck's assets/. */
+@font-face{font-family:Caveat;src:url("Caveat.woff2") format('woff2');font-weight:400 700;font-display:swap}
+.scribs{position:absolute;inset:0;pointer-events:none;z-index:3}
+.scrib{position:absolute;font-family:Caveat,"Bradley Hand","Segoe Print",cursive;font-weight:500;font-size:28px;line-height:1.02;
+  color:#210eca;max-width:300px;transform:rotate(-1.5deg);white-space:normal;text-align:left}
+.scrib.r{text-align:right}.scrib.c{text-align:center}
+.scrib.attack{color:var(--red)}.scrib.defense{color:var(--green)}
+.scrib .katex{font-size:20px}
+.scrib-svg{position:absolute;inset:0;width:100%;height:100%;color:#210eca;overflow:visible}
+.scrib-svg .attack{color:var(--red)}.scrib-svg .defense{color:var(--green)}
+.scrib[data-reveal-step],.scrib-svg [data-reveal-step]{opacity:0;transition:opacity .24s ease}
+.scrib[data-reveal-step].is-revealed,.scrib-svg [data-reveal-step].is-revealed{opacity:1}
+/* deck.css:556 resets transform on every revealed element at (0,6,0); the tilt is restated with !important
+   so a revealed scribble keeps its hand-written lean (R5-E). */
+.scrib[data-reveal-step]{transform:rotate(-1.5deg)!important}
+.scrib.once[data-reveal-step].is-revealed:not(.is-now){opacity:0}
+.scrib-svg .once[data-reveal-step].is-revealed:not(.is-now){opacity:0}
+/* `once` glosses are stacked on the same spot by design; printing all of them at once overprints three
+   handwritten lines on each other (R5-P0, PDF p. 19), so the PDF omits them: the // comments carry the line. */
+@media print{.scrib.once[data-reveal-step],.scrib-svg .once[data-reveal-step]{opacity:0!important}}
+/* LINE WALK CONTRACT (corrected by R5-C, 2026-09-02). deck.css:556 hides every [data-reveal-step] at (0,5,0)
+   and qa_slides.js errors on any future-step element above 0.05 opacity, so the step must NOT sit on the
+   <li>. It sits on a zero-size marker inside it: <li><span class="mark" data-reveal-step="2"></span>…</li>;
+   the line stays visible and :has() lights it. Likewise a library arrow: deck.css's transform rules
+   override an SVG transform ATTRIBUTE, so put data-reveal-step on a wrapping <g>, never on the <use>; and
+   give every <use> of a library symbol explicit width="200" height="120", otherwise it scales to the whole
+   viewport (R5-H). */
+.algo-wrap{position:relative}
+.algo ol li{transition:background .2s ease}
+.algo ol li>.mark{position:absolute;left:0;top:0;width:0;height:0;overflow:hidden;opacity:0!important;pointer-events:none}
+.algo ol li:has(>.mark.is-revealed){box-shadow:inset 3px 0 0 #f0c74a}
+.algo ol li:has(>.mark.is-now){background:#fff1b8;box-shadow:inset 3px 0 0 #e0a800}
+@media print{.algo ol li{background:transparent!important;box-shadow:none!important}}
+figure.fig>.figcap[data-label]::before,figure.fig>figcaption[data-label]::before{content:attr(data-label) " ";font-weight:700;font-style:normal;color:var(--ink)}
+/* A caption that is display:grid/flex would blockify the pseudo-element into its own row (it cost 15px on
+   Stickers on a Stop Sign); labelled captions are therefore forced to block flow. */
+figure.fig>.figcap[data-label],figure.fig>figcaption[data-label]{display:block}
+.defbox[data-env] .dfname::before{content:attr(data-label) " "}
+.algo[data-env] .algo-title b::before{content:attr(data-label)}
+figure.fig[data-tip],.dfname[data-tip],.algo[data-tip]{cursor:help}
+.algo.tight{width:max-content;max-width:100%}
+.slide .ledger.tight{width:auto;table-layout:auto}
+.algo ol li{padding:2px 10px 2px 40px}.algo ol li::before{left:8px;width:22px}
+.algo ol li.in1{padding-left:62px}.algo ol li.in2{padding-left:84px}
+.slide .ledger:not(.sched) th{padding:6px 10px}.slide .ledger:not(.sched) td{padding:5px 10px}
+
+/* ================================================ ROUND 6 · ACCESS BADGE (Nils, 2026-09-02 night)
+   "Highlight that it's not just query-based attacks, but that it's black box. Put on the top right some
+   black-box attack / white-box attack label so it's clear." One pill under the logo on every slide that
+   presents an attack: .access.white (needs the weights), .access.black (queries only), .access.poison
+   (training-time). Last child of .canvas; two visible words; 18px is the QA type floor, never smaller. */
+.slide .access{position:absolute;right:84px;top:116px;z-index:4;font-family:var(--mono);font-size:18px;font-weight:700;
+  letter-spacing:.08em;text-transform:uppercase;line-height:1;padding:6px 11px;border-radius:999px;
+  border:1.5px solid var(--ink-3);color:var(--ink-2);background:transparent;white-space:nowrap}
+.slide .access.white{border-color:#210eca;color:#210eca}
+.slide .access.black{border-color:var(--ink);background:var(--ink);color:#fff}
+.slide .access.poison{border-color:var(--red);color:var(--red)}
+@media print{.slide .access{position:absolute}}
+
+/* ============================================================ PAPER-STORY COMPONENTS (round 8, 2026-09-15; first used by Week 4)
+   Nils, 2026-09-15: "a chapter is essentially one topic/problem and then I present 3-4 papers (in depth) and
+   what they are doing, the experimental setup, the questions they ask and answer, the results they have, one
+   after the other to tell a story." Every featured paper is told on two slides that share one skeleton, so the
+   room reads every paper the same way: a SETUP slide (the booktabs ledger of the experimental setup beside the
+   mechanism, then the questions the paper asks, one press each) and a RESULT slide (the paper's own figure or
+   re-set table beside the answers, one press each, the last press the limit that hands over to the next paper).
+   .pstory is the two-column band; .qs is the numbered question/answer list. Sizes are on the ladder: 22px body,
+   19px mono labels; nothing new for the type floor. */
+.pstory{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.18fr);gap:12px 34px;align-items:start;flex:1 1 auto;min-height:0}
+.pstory.wide-fig{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr)}
+.pstory>*{min-width:0}
+.pstory .fig{margin:0}
+.pstory .ledger{margin:0;width:100%}
+.pstory .ledger td:first-child{white-space:nowrap}
+.qs{margin:0;padding:0;list-style:none;display:grid;gap:9px;align-content:start}
+.qs>li{display:grid;grid-template-columns:44px minmax(0,1fr);gap:0 12px;align-items:baseline;font-size:22px;line-height:1.3;color:var(--ink-2)}
+.qs>li>b{font-family:var(--mono);font-size:19px;font-weight:700;letter-spacing:.06em;color:var(--green)}
+.qs>li>b.a{color:var(--ink)}
+.qs>li>span>b{color:var(--ink);font-weight:650}
+.qs.hd{padding-top:10px;border-top:1px solid var(--line)}
+.qs.hd::before{content:attr(data-head);display:block;grid-column:1/-1;margin-bottom:2px;color:var(--green);font-size:18px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}

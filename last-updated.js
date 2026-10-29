@@ -1,7 +1,7 @@
 // Single source of truth for the site-wide "Last updated" footer.
 // Edit the date here and every page updates automatically.
 (function () {
-  var LAST_UPDATED = '27 October 2026';
+  var LAST_UPDATED = '29 October 2026';
   document.addEventListener('DOMContentLoaded', function () {
     var el = document.getElementById('last-updated');
     if (el) el.textContent = 'Nils Lukas – Last updated ' + LAST_UPDATED;
@@ -22,7 +22,7 @@
   });
 
   /* ---- Copyable short bio popup ------------------------------------- */
-  var BIO = "Nils Lukas is an Assistant Professor of Machine Learning at MBZUAI in Abu Dhabi, where he leads the SPOT (Secure, Private, Open and Trustworthy) AI Lab. His research builds secure and private machine learning that millions can use responsibly, with a focus on content watermarking, privacy-preserving inference, and AI safety and security. He holds a Ph.D. from the University of Waterloo — awarded its Top Mathematics Doctoral Prize and Alumni Gold Medal — and has worked with Microsoft Research and Borealis AI. His work appears at top venues including ICML, ICLR, NeurIPS, IEEE S&P, and USENIX Security, and has been recognized with a 2025 Amazon Research Award and supported by funding from Etihad Airways, the United Al-Saqer Group, and TII. He recently founded Adherence, delivering enterprise AI agents.";
+  var BIO = "Nils Lukas is an Assistant Professor of Machine Learning at MBZUAI in Abu Dhabi, where he leads the SPOT (Secure, Private, Open and Trustworthy) AI Lab. His research builds secure and private machine learning that millions can use responsibly, with a focus on content watermarking, privacy-preserving inference, and AI safety and security. He holds a Ph.D. from the University of Waterloo — awarded its Top Mathematics Doctoral Prize and Alumni Gold Medal — and has worked with Microsoft Research and Borealis AI. His work appears at top venues including ICML, ICLR, NeurIPS, IEEE S&P, and USENIX Security, and has been recognized with a 2025 Amazon Research Award and a 2026 MBZUAI Innovation Program award, and supported by funding from Etihad Airways, the United Al-Saqer Group, and TII. He recently founded Adherence, delivering enterprise AI agents.";
 
   function injectBioStyle() {
     if (document.getElementById('bio-style')) return;

@@ -106,7 +106,10 @@
     nav.innerHTML = `<div class="sn-pills">${pills}</div><svg class="sn-map${exit ? " sn-exit" : ""}" viewBox="0 0 ${W2} ${H2}" width="${W2}" height="${H2}">${svg}</svg>`;
     return nav;
   }
-  const fit = () => stage.style.setProperty("--fit", String(Math.min(innerWidth / W, innerHeight / H)));
+  const fit = () => {
+    stage.style.setProperty("--fit", String(Math.min(innerWidth / W, innerHeight / H)));
+    document.documentElement.classList.toggle("deck-wide", innerWidth / innerHeight > W / H);
+  };
   addEventListener("resize", fit);
   fit();
   const maxStep = (s) => Number(s.dataset.maxStep || 0);
@@ -346,7 +349,6 @@
   menuTab.title = "Slide menu (m)";
   menuTab.setAttribute("aria-label", "Toggle slide menu");
   menuTab.textContent = "≡";
-  menuTab.style.cssText = "position:fixed;left:10px;bottom:12px;z-index:901;width:34px;height:34px;border:1px solid var(--line,#c9d5e5);border-radius:8px;background:var(--paper,#f4f7fb);color:var(--ink-2,#233c57);font-size:18px;line-height:1;cursor:pointer";
   document.body.appendChild(menuTab);
   const pdfTab = document.createElement("button");
   pdfTab.type = "button";
@@ -354,19 +356,68 @@
   pdfTab.title = "Export PDF (p): prints every slide at its final build step; choose Save as PDF";
   pdfTab.setAttribute("aria-label", "Export the deck as PDF");
   pdfTab.textContent = "⤓";
-  pdfTab.style.cssText = "position:fixed;left:10px;bottom:54px;z-index:901;width:34px;height:34px;border:1px solid var(--line,#c9d5e5);border-radius:8px;background:var(--paper,#f4f7fb);color:var(--ink-2,#233c57);font-size:17px;line-height:1;cursor:pointer";
+  document.body.appendChild(pdfTab);
+  const tabCss = document.createElement("style");
+  tabCss.textContent = [
+    "#slidemenuTab,#pdfTab{position:fixed;z-index:901;left:8px;bottom:8px;width:26px;height:26px;padding:0;",
+    "border:1px solid var(--line,#c9d5e5);border-radius:6px;background:var(--paper,#f4f7fb);color:var(--ink-2,#233c57);",
+    "font:15px/1 system-ui,sans-serif;cursor:pointer;opacity:.92;transition:opacity .3s ease}",
+    "#pdfTab{left:40px}",
+    "html.deck-wide #pdfTab{left:8px;bottom:40px}",
+    "html.deck-idle #slidemenuTab:not(:focus-visible),html.deck-idle #pdfTab:not(:focus-visible){opacity:0;pointer-events:none}",
+    "@media (hover:none),(pointer:coarse){html.deck-idle #slidemenuTab:not(:focus-visible),",
+    "html.deck-idle #pdfTab:not(:focus-visible){opacity:.4;pointer-events:auto}}"
+  ].join("");
+  document.head.appendChild(tabCss);
+  let idleTimer = 0;
+  function wake(ms) {
+    document.documentElement.classList.remove("deck-idle");
+    clearTimeout(idleTimer);
+    idleTimer = setTimeout(() => {
+      if (!menuOpen) document.documentElement.classList.add("deck-idle");
+    }, ms);
+  }
+  addEventListener("pointermove", (e) => {
+    if (e.pointerType === "mouse") wake(2500);
+  }, { passive: true });
+  addEventListener("pointerdown", (e) => wake(e.pointerType === "mouse" ? 2500 : 3500), { passive: true, capture: true });
+  wake(3e3);
+  const pdfMeta = document.querySelector('meta[name="deck-pdf"]');
+  const pdfUrl = pdfMeta && pdfMeta.content;
+  if (pdfUrl) {
+    pdfTab.title = "Download the slides (PDF)";
+    pdfTab.setAttribute("aria-label", "Download the slides as a PDF");
+  }
+  async function exportPdf() {
+    if (pdfUrl && location.protocol !== "file:") {
+      try {
+        const r = await fetch(pdfUrl, { method: "HEAD", cache: "no-store" });
+        if (r.ok) {
+          const a = document.createElement("a");
+          a.href = pdfUrl;
+          a.download = pdfMeta.dataset.name || pdfUrl.split("/").pop();
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          return;
+        }
+      } catch (_) {
+      }
+    }
+    print();
+  }
   pdfTab.onclick = () => {
     setMenu(false);
     setBlank(false);
     pdfTab.blur();
-    print();
+    exportPdf();
   };
-  document.body.appendChild(pdfTab);
   let menuOpen = false;
   function setMenu(on) {
     menuOpen = on;
     menu.style.transform = on ? "translateX(0)" : "translateX(-102%)";
     if (on) syncMenu();
+    else wake(2500);
   }
   menuTab.onclick = () => {
     setMenu(!menuOpen);
@@ -652,6 +703,68 @@
     const n = Number(location.hash.slice(1));
     if (n >= 1 && n <= slides.length && n - 1 !== i) show(n - 1);
   });
+  (() => {
+    const SKIP = "a, button, input, textarea, select, label, summary, [contenteditable], [data-goto], video[controls], #slidemenu, .overview, .controls, .notes, #chapterPick, .cin-seg, #blank";
+    const press = (key) => document.body.dispatchEvent(new KeyboardEvent("keydown", { key, bubbles: true, cancelable: true }));
+    const zoomed = () => !!window.visualViewport && visualViewport.scale > 1.05;
+    let t0 = null;
+    addEventListener("touchstart", (e) => {
+      const p = e.touches[0];
+      t0 = e.touches.length === 1 ? { x: p.clientX, y: p.clientY, t: Date.now(), el: e.target } : null;
+    }, { passive: true });
+    addEventListener("touchmove", (e) => {
+      if (e.touches.length > 1) t0 = null;
+    }, { passive: true });
+    addEventListener("touchcancel", () => {
+      t0 = null;
+    }, { passive: true });
+    addEventListener("touchend", (e) => {
+      const s = t0;
+      t0 = null;
+      if (!s || e.touches.length || e.changedTouches.length !== 1) return;
+      if (document.documentElement.classList.contains("cm-on")) return;
+      if (s.el && s.el.closest && s.el.closest(SKIP)) return;
+      const p = e.changedTouches[0], dx = p.clientX - s.x, dy = p.clientY - s.y, dt = Date.now() - s.t;
+      if (Math.abs(dx) >= 40 && Math.abs(dx) > 1.4 * Math.abs(dy) && dt < 900 && !zoomed()) {
+        if (e.cancelable) e.preventDefault();
+        if (menuOpen) setMenu(false);
+        press(dx < 0 ? "ArrowRight" : "ArrowLeft");
+        return;
+      }
+      if (Math.abs(dx) > 12 || Math.abs(dy) > 12 || dt > 600) return;
+      if (String(getSelection && getSelection()).trim()) return;
+      if (e.cancelable) e.preventDefault();
+      if (menuOpen) {
+        setMenu(false);
+        return;
+      }
+      const r = stage.getBoundingClientRect();
+      press(p.clientX < r.left + r.width / 4 ? "ArrowLeft" : "ArrowRight");
+    }, { passive: false });
+    const css = document.createElement("style");
+    css.textContent = "html{touch-action:manipulation}#tapHint{position:fixed;left:50%;bottom:44px;transform:translateX(-50%);z-index:950;width:max-content;max-width:min(300px,calc(100vw - 32px));padding:6px 12px;border-radius:8px;background:rgba(244,247,251,.94);color:#233c57;box-shadow:0 2px 10px rgba(0,0,0,.25);font:500 12px/1.35 system-ui,sans-serif;text-align:center;pointer-events:none;transition:opacity .4s ease}@media print{#tapHint{display:none!important}}";
+    document.head.appendChild(css);
+    let seen = false;
+    try {
+      seen = sessionStorage.getItem("deckTapHint") === "1";
+      sessionStorage.setItem("deckTapHint", "1");
+    } catch (_) {
+    }
+    if (seen || !matchMedia("(hover: none) and (pointer: coarse)").matches) return;
+    const hint = document.createElement("div");
+    hint.id = "tapHint";
+    hint.textContent = "Tap to go on · left edge goes back" + (innerHeight > innerWidth ? " · turn sideways to enlarge" : "");
+    document.body.appendChild(hint);
+    const gone = () => {
+      hint.style.opacity = "0";
+      setTimeout(() => hint.remove(), 500);
+    };
+    const timer = setTimeout(gone, 5e3);
+    addEventListener("touchend", () => {
+      clearTimeout(timer);
+      gone();
+    }, { once: true, passive: true });
+  })();
   addEventListener("beforeprint", () => {
     clearTimeout(arrivalBuildTimer);
     arrivalBuildTimer = 0;

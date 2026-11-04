@@ -4,6 +4,8 @@
   var instant = navigator.webdriver === true && !/[?&]anim=1\b/.test(location.search);
   var CLIPS = /[?&]anim=clips\b/.test(location.search);
   var INTROS = !/[?&]intro=off\b/.test(location.search);
+  var UA = navigator.userAgent;
+  var NOALPHA = /iP(hone|ad|od)/.test(UA) || /Macintosh/.test(UA) && navigator.maxTouchPoints > 1 || /AppleWebKit/.test(UA) && !/Chrome|Chromium|Android/.test(UA);
   var lastFwd = 0;
   addEventListener("keydown", function(e) {
     if (e.key === "ArrowRight" || e.key === "PageDown" || e.key === " ") lastFwd = Date.now();
@@ -202,14 +204,14 @@
         step: Number(sec.dataset.step || 0),
         keep: null,
         packed: /^data:/.test(orig),
-        hasIntro: INTROS && fig.dataset.intro === "on"
+        hasIntro: !NOALPHA && INTROS && fig.dataset.intro === "on"
       };
       if (st.packed) {
         st.hasIntro = false;
         states.set(sec, st);
         return st;
       }
-      st.clipsOn = CLIPS || fig.dataset.clips === "on";
+      st.clipsOn = !NOALPHA && (CLIPS || fig.dataset.clips === "on");
       if (!st.clipsOn) {
         st.fade = document.createElement("img");
         st.fade.className = "w09m-fade";

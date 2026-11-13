@@ -1096,6 +1096,17 @@ a.acad-link{color:var(--accent);}          /* plain links to academic ones */
   color:var(--ink);
 }
 .talk-actions a i{color:var(--accent);}
+.talk-actions .withheld{
+  display:inline-flex;
+  align-items:center;
+  gap:.4rem;
+  padding:.32rem .75rem;
+  min-height:34px;
+  border:1px dashed var(--border-2);
+  border-radius:999px;
+  font-size:.82rem;
+  color:var(--muted);
+}
 .talk-actions a:hover{
   border-color:var(--accent-bright);
   background:var(--tint);

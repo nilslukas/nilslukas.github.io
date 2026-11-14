@@ -1,7 +1,7 @@
 // Single source of truth for the site-wide "Last updated" footer.
 // Edit the date here and every page updates automatically.
 (function () {
-  var LAST_UPDATED = '13 November 2026';
+  var LAST_UPDATED = '14 November 2026';
   document.addEventListener('DOMContentLoaded', function () {
     var el = document.getElementById('last-updated');
     if (el) el.textContent = 'Nils Lukas – Last updated ' + LAST_UPDATED;
@@ -22,26 +22,26 @@
   });
 
   /* ---- Copyable short bio popup ------------------------------------- */
-  var BIO = "Nils Lukas is an Assistant Professor of Machine Learning at MBZUAI in Abu Dhabi, where he leads the SPOT (Secure, Private, Open and Trustworthy) AI Lab. His research builds secure and private machine learning that millions can use responsibly, with a focus on content watermarking, privacy-preserving inference, and AI safety and security. He holds a Ph.D. from the University of Waterloo — awarded its Top Mathematics Doctoral Prize and Alumni Gold Medal — and has worked with Microsoft Research and Borealis AI. His work appears at top venues including ICML, ICLR, NeurIPS, IEEE S&P, and USENIX Security, and has been recognized with a 2025 Amazon Research Award and a 2026 MBZUAI Innovation Program award, and supported by funding from Etihad Airways, the United Al-Saqer Group, and TII. He recently founded Adherence, delivering enterprise AI agents.";
+  var BIO = "Nils Lukas is an Assistant Professor of Machine Learning at MBZUAI in Abu Dhabi, where he leads the SPOT (Secure, Private, Open and Trustworthy) AI Lab and co-directs the Center for Secure Agentic Control (CSAC). His research builds secure and private machine learning that millions can use responsibly, with a focus on watermarks, adaptive attacks, and privacy and security for AI agents. He holds a Ph.D. from the University of Waterloo, where he received the Top Mathematics Doctoral Prize and the 2024 Alumni Gold Medal, and he has worked with Microsoft Research and Borealis AI. His work appears at top venues including ICML, ICLR, NeurIPS, CVPR, IEEE S&P and USENIX Security. Since 2025, his research has been awarded nearly $2 million in grants, including an Amazon Research Award and an AED 1 million award from the MBZUAI Innovation Program, with further funding from Etihad Airways, the United Al-Saqer Group and TII. He recently founded Adherence, a startup delivering enterprise AI agents.";
 
   function injectBioStyle() {
     if (document.getElementById('bio-style')) return;
     var css = ''
-      + '.bio-dialog{max-width:33rem;width:calc(100% - 2rem);border:1px solid #DAD7CC;'
-      + 'border-radius:10px;padding:1.5rem 1.6rem;background:#FAF9F5;color:#26251F;'
+      + '.bio-dialog{max-width:33rem;width:calc(100% - 2rem);border:1px solid #D2DADC;'
+      + 'border-radius:10px;padding:1.5rem 1.6rem;background:#FAFAF8;color:#232A2E;'
       + "font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;"
-      + 'box-shadow:0 24px 64px rgba(20,20,19,.24);}'
-      + '.bio-dialog::backdrop{background:rgba(20,20,19,.4);}'
+      + 'box-shadow:0 24px 64px rgba(19,26,29,.24);}'
+      + '.bio-dialog::backdrop{background:rgba(19,26,29,.4);}'
       + '.bio-dialog-head{display:flex;align-items:center;justify-content:space-between;gap:1rem;margin-bottom:.5rem;}'
-      + ".bio-dialog-head h3{margin:0;font-family:'Source Serif 4',Georgia,serif;font-size:1.15rem;color:#141413;}"
-      + '.bio-close{border:none;background:none;cursor:pointer;font-size:1.5rem;line-height:1;color:#6B6960;padding:.05rem .35rem;border-radius:5px;}'
-      + '.bio-close:hover{color:#141413;background:#F0EEE6;}'
-      + '.bio-text{font-size:.95rem;line-height:1.6;color:#26251F;margin:0 0 1.15rem;}'
+      + ".bio-dialog-head h3{margin:0;font-family:'Source Serif 4',Georgia,serif;font-size:1.15rem;color:#131A1D;}"
+      + '.bio-close{border:none;background:none;cursor:pointer;font-size:1.5rem;line-height:1;color:#5A6468;padding:.05rem .35rem;border-radius:5px;}'
+      + '.bio-close:hover{color:#131A1D;background:#EEF2F3;}'
+      + '.bio-text{font-size:.95rem;line-height:1.6;color:#232A2E;margin:0 0 1.15rem;}'
       + '.bio-adh{color:#00509F;font-weight:600;}'
       + '.bio-actions{display:flex;justify-content:flex-end;}'
-      + '.bio-copy{font-family:inherit;font-size:.9rem;font-weight:600;cursor:pointer;color:#FAF9F5;'
-      + 'background:#9E4A2F;border:none;border-radius:999px;padding:.5rem 1.15rem;transition:background .15s ease;}'
-      + '.bio-copy:hover{background:#C15F3C;}';
+      + '.bio-copy{font-family:inherit;font-size:.9rem;font-weight:600;cursor:pointer;color:#FAFAF8;'
+      + 'background:#1D5C6E;border:none;border-radius:999px;padding:.5rem 1.15rem;transition:background .15s ease;}'
+      + '.bio-copy:hover{background:#144553;}';
     var st = document.createElement('style'); st.id = 'bio-style'; st.textContent = css;
     document.head.appendChild(st);
   }

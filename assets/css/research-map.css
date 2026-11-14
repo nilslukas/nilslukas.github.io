@@ -1,0 +1,209 @@
+/* =====================================================================
+   Research map (About and Publications pages) — drawn by
+   assets/js/research-map.js.
+   Uses only the colour tokens from site.css (one ink, one accent), so it
+   follows the site palette.
+   ===================================================================== */
+
+#research{padding-top:0;}
+/* Desktop only: below this width the About page ends with the news. */
+@media (max-width:899px){
+  #research{display:none;}
+}
+#research h2{
+  display:flex;
+  align-items:baseline;
+  flex-wrap:wrap;
+  gap:.2rem .6rem;
+  font-size:1.2rem;
+  margin-bottom:1.1rem;
+}
+#research h2 small{
+  font-family:var(--sans);
+  font-size:.82rem;
+  font-weight:400;
+  letter-spacing:0;
+  color:var(--muted);
+}
+
+.rmap{margin:0;}
+.rmap-stage{position:relative;}
+
+/* Publications page: the map is the teaser between the heading and the
+   list. Desktop only, like on the About page. */
+.rmap.rmap-teaser{
+  margin:1rem 0 1.9rem;
+  padding-bottom:1.7rem;
+  border-bottom:1px solid var(--border);
+}
+@media (max-width:899px){
+  .rmap.rmap-teaser{display:none;}
+}
+
+/* --- Lines and dots -------------------------------------------------- */
+.rmap-wires{
+  position:absolute;
+  left:0;top:0;
+  overflow:visible;
+  pointer-events:none;
+}
+.rmap-wires .rules path{stroke:var(--border);stroke-width:1;fill:none;}
+.rmap-wires .rules path.head{stroke:var(--border-2);}
+.rmap-wires .rails path{
+  fill:none;
+  stroke:#BDB9AC;                                             /* fallback */
+  stroke:color-mix(in srgb,var(--muted-2) 46%,var(--bg));
+  stroke-width:1.4;
+  stroke-linecap:round;
+  transition:stroke .15s ease,opacity .15s ease;
+}
+.rmap-wires .dot{transition:opacity .15s ease;}
+.rmap-wires .dot .core{fill:var(--ink-2);}
+.rmap-wires .dot.award .ring{fill:var(--bg);stroke:var(--accent-bright);stroke-width:1.2;}
+.rmap-wires .dot.award .core{fill:var(--accent-bright);}
+.rmap-wires .links path{
+  fill:none;
+  stroke:var(--accent-bright);
+  stroke-width:1.3;
+  stroke-dasharray:1.5 4;
+  stroke-linecap:round;
+}
+
+/* --- Topic headings -------------------------------------------------- */
+.rmap-topic{position:absolute;}
+.rmap-topic h3{
+  margin:0 0 .2rem;
+  font-family:var(--serif);
+  font-size:15px;
+  font-weight:600;
+  line-height:1.25;
+  color:var(--ink);
+}
+.rmap-topic h3 span{
+  margin-left:.45em;
+  font-family:var(--sans);
+  font-size:11.5px;
+  font-weight:500;
+  color:var(--muted-2);
+  font-variant-numeric:tabular-nums;
+}
+.rmap-topic p{
+  margin:0;
+  font-size:11.5px;
+  line-height:1.42;
+  color:var(--muted);
+}
+
+/* --- Years ----------------------------------------------------------- */
+.rmap-year{
+  position:absolute;
+  left:0;
+  font-family:var(--serif);
+  font-size:13px;
+  color:var(--muted);
+  font-variant-numeric:tabular-nums;
+}
+
+/* --- Papers ---------------------------------------------------------- */
+a.rmap-paper{
+  position:absolute;
+  display:block;
+  overflow:hidden;
+  white-space:nowrap;
+  text-overflow:ellipsis;
+  font-size:12px;
+  color:var(--ink-2);
+  text-decoration:none;
+  cursor:pointer;
+  transition:opacity .15s ease,color .15s ease;
+}
+a.rmap-paper:not([href]){cursor:default;}
+a.rmap-paper .name{font-weight:500;}
+a.rmap-paper .note{margin-left:.5em;font-size:11.5px;color:var(--muted-2);}
+a.rmap-paper:hover{color:var(--ink-2);text-decoration:none;}
+a.rmap-paper.is-hot,
+a.rmap-paper.is-hot:hover{color:var(--accent);}
+a.rmap-paper.is-hot[href] .name{text-decoration:underline;text-underline-offset:2px;}
+a.rmap-paper:focus-visible{outline-offset:-2px;}
+
+/* Selected state: the paper, its line of work and related work stay; the
+   rest steps back. */
+.rmap.is-active a.rmap-paper:not(.is-on):not(.is-hot){opacity:.34;}
+.rmap.is-active .rmap-wires .dot:not(.is-on):not(.is-hot){opacity:.28;}
+.rmap.is-active .rmap-wires .rails path:not(.is-on){opacity:.4;}
+.rmap-wires .rails path.is-on{stroke:var(--muted-strong);}
+.rmap-wires .dot.is-hot .core{fill:var(--accent);}
+.rmap-wires .dot.award.is-hot .ring{stroke:var(--accent);}
+
+/* --- Legend and detail card ------------------------------------------ */
+.rmap-key,
+.rmap-card{
+  position:absolute;
+  font-size:12px;
+  line-height:1.45;
+  color:var(--muted-strong);
+}
+.rmap-key p,
+.rmap-card p{margin:0;}
+
+.rmap-key p{display:flex;align-items:center;gap:.55rem;}
+.rmap-key p + p{margin-top:.28rem;}
+.rmap-key svg{flex:0 0 30px;width:30px;height:12px;overflow:visible;}
+.rmap-key .d{fill:var(--ink-2);}
+.rmap-key .r{stroke:#BDB9AC;stroke:color-mix(in srgb,var(--muted-2) 46%,var(--bg));stroke-width:1.4;fill:none;}
+.rmap-key .ar{fill:var(--bg);stroke:var(--accent-bright);stroke-width:1.2;}
+.rmap-key .ad{fill:var(--accent-bright);}
+.rmap-key .l{stroke:var(--accent-bright);stroke-width:1.3;stroke-dasharray:1.5 4;stroke-linecap:round;fill:none;}
+
+.rmap-card .t{
+  font-family:var(--serif);
+  font-size:15px;
+  font-weight:600;
+  line-height:1.3;
+  color:var(--ink);
+}
+.rmap-card .v{margin-top:.2rem;color:var(--muted);}
+.rmap-card .v span{color:var(--accent);font-weight:500;}
+.rmap-card .v span::before{content:'\00B7';margin:0 .4em;color:var(--muted-2);}
+.rmap-card .l{margin-top:.4rem;}
+.rmap-card .l b{font-weight:600;color:var(--ink-2);}
+.rmap-card .go{margin-top:.55rem;}
+.rmap-card .go a{font-weight:600;}
+
+/* Wide layout: both sit in the empty corner; the card replaces the legend. */
+.rmap.has-corner .rmap-key,
+.rmap.has-corner .rmap-card{
+  box-sizing:border-box;
+  overflow:hidden;
+}
+.rmap.has-corner .rmap-key{display:flex;flex-direction:column;justify-content:flex-end;}
+.rmap.has-corner .rmap-card{display:none;}
+.rmap.has-corner.is-active .rmap-card{display:flex;flex-direction:column;justify-content:flex-end;}
+.rmap.has-corner.is-active .rmap-key{display:none;}
+
+/* Narrow layouts: the legend sits under the map, the card floats by the
+   selected paper. */
+.rmap:not(.has-corner) .rmap-card{
+  display:none;
+  z-index:5;
+  padding:.75rem .9rem .8rem;
+  border:1px solid var(--border-2);
+  border-radius:var(--radius);
+  background:var(--bg);
+  box-shadow:0 12px 30px rgba(19,26,29,.13);
+}
+.rmap:not(.has-corner).is-active .rmap-card{display:block;}
+.rmap:not(.has-corner) .rmap-key{
+  padding-top:.8rem;
+  border-top:1px solid var(--border);
+}
+
+.rmap.is-stack a.rmap-paper{font-size:13.5px;}
+.rmap.is-stack a.rmap-paper .note{font-size:12.5px;}
+.rmap.is-stack .rmap-topic h3{font-size:16px;}
+.rmap.is-stack .rmap-topic p{font-size:12.5px;}
+.rmap.is-stack .rmap-key{font-size:12.5px;}
+
+@media print{
+  .rmap-card{display:none !important;}
+}

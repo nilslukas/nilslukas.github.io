@@ -1,0 +1,254 @@
+{
+ "alam2026spqr": {
+  "file": "images/papers/alam2026spqr.jpg",
+  "source": "https://arxiv.org/pdf/2511.19558",
+  "page": 1,
+  "figure": "Figure 1",
+  "width": 480,
+  "height": 218,
+  "note": ""
+ },
+ "alshehyari2026copyshield": {
+  "file": "images/papers/alshehyari2026copyshield.jpg",
+  "source": "https://arxiv.org/pdf/2609.01161",
+  "page": 1,
+  "figure": "Figure 1",
+  "width": 301,
+  "height": 400,
+  "note": ""
+ },
+ "bakr2026collaborative": {
+  "file": "images/papers/bakr2026collaborative.jpg",
+  "source": "https://arxiv.org/pdf/2602.10765",
+  "page": 1,
+  "figure": "Figure 1",
+  "width": 480,
+  "height": 305,
+  "note": ""
+ },
+ "bhattacharjee2026entropy": {
+  "file": "images/papers/bhattacharjee2026entropy.jpg",
+  "source": "https://arxiv.org/pdf/2606.16620",
+  "page": 2,
+  "figure": "Figure 1",
+  "width": 405,
+  "height": 400,
+  "note": "Figure 1 is a single plot (grid of check marks over layer span vs. temperature)."
+ },
+ "diaa2023fast": {
+  "file": "images/papers/diaa2023fast.jpg",
+  "source": "https://arxiv.org/pdf/2306.08538",
+  "page": 1,
+  "figure": "Figure 1",
+  "width": 463,
+  "height": 400,
+  "note": "Figure 1 is a scatter plot (accuracy vs. inference time)."
+ },
+ "diaa2025adaptivellm": {
+  "file": "images/papers/diaa2025adaptivellm.jpg",
+  "source": "https://arxiv.org/pdf/2410.02440",
+  "page": 1,
+  "figure": "Figure 1",
+  "width": 480,
+  "height": 185,
+  "note": ""
+ },
+ "djanibekov2025spirit": {
+  "file": "images/papers/djanibekov2025spirit.jpg",
+  "source": "https://arxiv.org/pdf/2505.13541",
+  "page": 3,
+  "figure": "Figure 1",
+  "width": 480,
+  "height": 193,
+  "note": ""
+ },
+ "hou2026detecting": {
+  "file": "images/papers/hou2026detecting.jpg",
+  "source": "https://arxiv.org/pdf/2607.10787",
+  "page": 2,
+  "figure": "Figure 1",
+  "width": 480,
+  "height": 127,
+  "note": ""
+ },
+ "hu2025mask": {
+  "file": "images/papers/hu2025mask.jpg",
+  "source": "https://arxiv.org/pdf/2504.12739",
+  "page": 4,
+  "figure": "Figure 1",
+  "width": 480,
+  "height": 198,
+  "note": ""
+ },
+ "kacsmar2020differentially": {
+  "file": "images/papers/kacsmar2020differentially.jpg",
+  "source": "assets/pdfs/kacsmar_dipsi_paper.pdf",
+  "page": 6,
+  "figure": "Figure 1",
+  "width": 480,
+  "height": 237,
+  "note": ""
+ },
+ "lukas2021deep": {
+  "file": "images/papers/lukas2021deep.jpg",
+  "source": "https://arxiv.org/pdf/1912.00888",
+  "page": 1,
+  "figure": "Figure 1",
+  "width": 480,
+  "height": 182,
+  "note": "Wrapped figure beside body text on page 1; cropped the graphic only."
+ },
+ "lukas2022sok": {
+  "file": "images/papers/lukas2022sok.jpg",
+  "source": "https://arxiv.org/pdf/2108.04974",
+  "page": 3,
+  "figure": "Figure 1",
+  "width": 480,
+  "height": 287,
+  "note": ""
+ },
+ "lukas2023analyzing": {
+  "file": "images/papers/lukas2023analyzing.jpg",
+  "source": "https://arxiv.org/pdf/2302.00539",
+  "page": 1,
+  "figure": "Figure 1",
+  "width": 480,
+  "height": 256,
+  "note": ""
+ },
+ "lukas2023leveraging": {
+  "file": "images/papers/lukas2023leveraging.jpg",
+  "source": "https://arxiv.org/pdf/2309.16952",
+  "page": 2,
+  "figure": "Figure 1",
+  "width": 480,
+  "height": 190,
+  "note": ""
+ },
+ "lukas2023ptw": {
+  "file": "images/papers/lukas2023ptw.jpg",
+  "source": "https://arxiv.org/pdf/2304.07361",
+  "page": 2,
+  "figure": "Figure 1",
+  "width": 480,
+  "height": 97,
+  "note": ""
+ },
+ "mahdavi2020practical": {
+  "file": "images/papers/mahdavi2020practical.jpg",
+  "source": "assets/pdfs/mahdavi_tpsi_paper.pdf",
+  "page": 4,
+  "figure": "Figure 2",
+  "width": 480,
+  "height": 206,
+  "note": "Figure 1 is a text-only security game (pseudocode), not a picture; used Figure 2 (key holder / participant protocol diagram), the first graphical figure."
+ },
+ "mahdavi2023pepsi": {
+  "file": "images/papers/mahdavi2023pepsi.jpg",
+  "source": "https://arxiv.org/pdf/2310.14565",
+  "page": 5,
+  "figure": "Figure 1",
+  "width": 480,
+  "height": 214,
+  "note": ""
+ },
+ "mishra2026core": {
+  "file": "images/papers/mishra2026core.jpg",
+  "source": "https://arxiv.org/pdf/2601.21600",
+  "page": 1,
+  "figure": "Figure 1",
+  "width": 480,
+  "height": 281,
+  "note": ""
+ },
+ "mishra2026probe": {
+  "file": "images/papers/mishra2026probe.jpg",
+  "source": "https://arxiv.org/pdf/2610.22124",
+  "page": 2,
+  "figure": "Figure 1",
+  "width": 480,
+  "height": 307,
+  "note": "BibTeX entry has no url; arXiv 2610.22124 found by exact-title search (authors match)."
+ },
+ "mishra2026sd": {
+  "file": "images/papers/mishra2026sd.jpg",
+  "source": "https://arxiv.org/pdf/2601.17982",
+  "page": 2,
+  "figure": "Figure 1",
+  "width": 480,
+  "height": 323,
+  "note": ""
+ },
+ "mishra2026tracer": {
+  "file": "images/papers/mishra2026tracer.jpg",
+  "source": "https://arxiv.org/pdf/2610.19133",
+  "page": 2,
+  "figure": "Figure 1",
+  "width": 480,
+  "height": 244,
+  "note": "BibTeX entry has no url; arXiv 2610.19133 found by exact-title search (authors match)."
+ },
+ "schneider2023universal": {
+  "file": "images/papers/schneider2023universal.jpg",
+  "source": "https://arxiv.org/pdf/2312.00157",
+  "page": 2,
+  "figure": "Figure 1",
+  "width": 480,
+  "height": 154,
+  "note": ""
+ },
+ "shafieinejad2021robustness": {
+  "file": "images/papers/shafieinejad2021robustness.jpg",
+  "source": "https://arxiv.org/pdf/1906.07745",
+  "page": 1,
+  "figure": "Figure 1",
+  "width": 480,
+  "height": 316,
+  "note": ""
+ },
+ "shamshad2024neurips": {
+  "file": "images/papers/shamshad2024neurips.jpg",
+  "source": "https://arxiv.org/pdf/2508.21072",
+  "page": 2,
+  "figure": "Figure 1",
+  "width": 480,
+  "height": 281,
+  "note": "Tables 1-2 sit directly above Figure 1 on the page; they are excluded."
+ },
+ "shamshad2026raven": {
+  "file": "images/papers/shamshad2026raven.jpg",
+  "source": "https://arxiv.org/pdf/2601.08832",
+  "page": 4,
+  "figure": "Figure 1",
+  "width": 480,
+  "height": 241,
+  "note": "Caption sits to the right of the figure (side caption); cropped the graphic only."
+ },
+ "thareja2026dpfusion": {
+  "file": "images/papers/thareja2026dpfusion.jpg",
+  "source": "https://arxiv.org/pdf/2507.04531",
+  "page": 1,
+  "figure": "Figure 1",
+  "width": 480,
+  "height": 348,
+  "note": "Wrapped figure beside body text on page 1; cropped the graphic only."
+ },
+ "wang2026forest": {
+  "file": "images/papers/wang2026forest.jpg",
+  "source": "https://arxiv.org/pdf/2601.06803",
+  "page": 2,
+  "figure": "Figure 1",
+  "width": 419,
+  "height": 400,
+  "note": "Wrapped figure beside body text on page 2; cropped the graphic only."
+ },
+ "wu2025cowpox": {
+  "file": "images/papers/wu2025cowpox.jpg",
+  "source": "https://arxiv.org/pdf/2508.09230",
+  "page": 1,
+  "figure": "Figure 1",
+  "width": 480,
+  "height": 399,
+  "note": ""
+ }
+}

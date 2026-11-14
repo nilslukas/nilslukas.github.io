@@ -183,49 +183,49 @@
     /* Fixed top bar (nav + tools), injected by JS */
     #cv-bar{
       position:fixed;top:0;left:0;right:0;z-index:1000;
-      background:#FAF9F5;                                   /* solid fallback */
-      background:rgba(250,249,245,.85);
+      background:#FAFAF8;                                   /* solid fallback */
+      background:rgba(250,250,248,.85);
       -webkit-backdrop-filter:saturate(1.6) blur(8px);
       backdrop-filter:saturate(1.6) blur(8px);
-      color:#141413;border-bottom:1px solid #E7E4DA;
+      color:#131A1D;border-bottom:1px solid #E2E7E8;
       font-family:'Inter','Helvetica Neue',Arial,sans-serif;font-size:.85rem;
       display:flex;align-items:center;justify-content:space-between;
       padding:.55rem max(20px,calc((100% - 1120px)/2));
       gap:1rem;flex-wrap:wrap;
     }
-    #cv-bar a{color:#141413;text-decoration:none;}
+    #cv-bar a{color:#131A1D;text-decoration:none;}
     #cv-bar .brand{font-family:'Source Serif 4','Iowan Old Style',Georgia,serif;
-      font-weight:600;font-size:1.18rem;letter-spacing:-.01em;color:#141413;}
+      font-weight:600;font-size:1.18rem;letter-spacing:-.01em;color:#131A1D;}
     #cv-bar .links{display:flex;align-items:center;gap:1.1rem;flex-wrap:wrap;}
-    #cv-bar .links a{color:#57554E;transition:color .15s;}
-    #cv-bar .links a:hover{color:#C15F3C;}
-    #cv-bar .links a.active{color:#9E4A2F;font-weight:600;}
+    #cv-bar .links a{color:#485256;transition:color .15s;}
+    #cv-bar .links a:hover{color:#3B8595;}
+    #cv-bar .links a.active{color:#1D5C6E;font-weight:600;}
     /* Startups carries the Adherence blue here too */
     #cv-bar .links a[href="startups.html"]{color:#00509F;}
     #cv-bar .links a[href="startups.html"]:hover{color:#006AD6;}
     /* Overflow drawer ("More ▾") inside the CV top bar */
     #cv-bar .nav-drawer{position:relative;display:inline-flex;}
-    #cv-bar .nav-drawer > summary{list-style:none;cursor:pointer;color:#57554E;transition:color .15s;}
+    #cv-bar .nav-drawer > summary{list-style:none;cursor:pointer;color:#485256;transition:color .15s;}
     #cv-bar .nav-drawer > summary::-webkit-details-marker{display:none;}
     #cv-bar .nav-drawer > summary::after{content:'\25BE';margin-left:.28rem;font-size:.75em;}
     #cv-bar .nav-drawer[open] > summary::after{content:'\25B4';}
-    #cv-bar .nav-drawer > summary:hover{color:#C15F3C;}
+    #cv-bar .nav-drawer > summary:hover{color:#3B8595;}
     #cv-bar .nav-drawer-menu{
       position:absolute;top:calc(100% + .4rem);right:0;
       display:flex;flex-direction:column;min-width:9rem;gap:.15rem;
-      background:#FAF9F5;border:1px solid #DAD7CC;border-radius:5px;
-      padding:.35rem;box-shadow:0 8px 24px rgba(20,20,19,.10);z-index:1001;
+      background:#FAFAF8;border:1px solid #D2DADC;border-radius:5px;
+      padding:.35rem;box-shadow:0 8px 24px rgba(19,26,29,.10);z-index:1001;
     }
     #cv-bar .nav-drawer-menu a{padding:.15rem .25rem;}
     #cv-bar .tools{display:flex;gap:.4rem;align-items:center;}
     #cv-bar .tools a.btn{
       display:inline-flex;align-items:center;gap:.45rem;
-      background:#C15F3C;color:#FAF9F5;border:none;border-radius:999px;
+      background:#1D5C6E;color:#FAFAF8;border:none;border-radius:999px;
       padding:.42rem .95rem;font-size:.82rem;font-weight:600;cursor:pointer;
       font-family:'Inter','Helvetica Neue',Arial,sans-serif;text-decoration:none;
       transition:background .15s,transform .05s;
     }
-    #cv-bar .tools a.btn:hover{background:#a94f31;}
+    #cv-bar .tools a.btn:hover{background:#144553;}
     #cv-bar .tools a.btn:active{transform:translateY(1px);}
     /* Mobile: keep the bar to a single line. Links move into a slide-in
        panel behind a burger, matching the rest of the site. */
@@ -234,7 +234,7 @@
       gap:4px;width:40px;height:40px;padding:0;border:none;background:none;cursor:pointer;
     }
     #cv-bar .cv-burger span{
-      display:block;width:19px;height:1.6px;border-radius:2px;background:#57554E;
+      display:block;width:19px;height:1.6px;border-radius:2px;background:#485256;
       transition:transform .25s ease,opacity .2s ease;
     }
     #cv-bar .cv-burger[aria-expanded="true"] span:nth-child(1){transform:translateY(5.6px) rotate(45deg);}
@@ -245,8 +245,8 @@
       width:min(74vw,265px);height:100%;height:100dvh;
       padding:4.25rem 1rem 1.25rem;
       flex-direction:column;gap:.15rem;
-      background:#FAF9F5;border-left:1px solid #DAD7CC;
-      box-shadow:-14px 0 40px rgba(20,20,19,.14);
+      background:#FAFAF8;border-left:1px solid #D2DADC;
+      box-shadow:-14px 0 40px rgba(19,26,29,.14);
       font-family:'Inter','Helvetica Neue',Arial,sans-serif;
       transform:translateX(102%);
       transition:transform .3s cubic-bezier(.3,.8,.35,1);
@@ -255,16 +255,16 @@
     #cv-panel.open{transform:none;}
     #cv-panel a{
       display:block;padding:.62rem .7rem;border-radius:5px;
-      font-size:1rem;color:#57554E;text-decoration:none;
+      font-size:1rem;color:#485256;text-decoration:none;
       opacity:0;transform:translateX(14px);
       transition:opacity .3s ease,transform .3s ease;
     }
     #cv-panel.open a{opacity:1;transform:none;}
-    #cv-panel a.active{color:#9E4A2F;font-weight:600;}
+    #cv-panel a.active{color:#1D5C6E;font-weight:600;}
     #cv-panel a[href="startups.html"]{color:#00509F;}
     #cv-scrim{
       display:none;position:fixed;inset:0;z-index:980;
-      background:rgba(20,20,19,.34);opacity:0;pointer-events:none;
+      background:rgba(19,26,29,.34);opacity:0;pointer-events:none;
       transition:opacity .28s ease;
     }
     #cv-scrim.open{opacity:1;pointer-events:auto;}
@@ -742,12 +742,6 @@
           <li class="line"><span><a href="https://scholar.google.com/citations?user=jfTVBUQAAAAJ&amp;hl=en" target="_blank" rel="noopener">Kshitij Mishra</a> <span class="it">(secondary: <a href="https://mtakac.com/" target="_blank" rel="noopener">Martin Tak&aacute;&#269;</a> &amp; <a href="https://lahlou.org/" target="_blank" rel="noopener">Salem Lahlou</a>)</span></span><span class="dt">since 2025</span></li>
           <li class="line"><span><a href="https://scholar.google.com/citations?user=Gs8MoW4AAAAJ&amp;hl=en" target="_blank" rel="noopener">Dushyant Chauhan</a> <span class="it">(secondary: <a href="https://mtakac.com/" target="_blank" rel="noopener">Martin Tak&aacute;&#269;</a> &amp; <a href="https://lahlou.org/" target="_blank" rel="noopener">Salem Lahlou</a>)</span></span><span class="dt">since 2025</span></li>
         </ul>
-        <div class="hd">Research Engineers</div>
-        <ul class="ul">
-          <li class="line"><span><a href="https://scholar.google.com/citations?user=PFDlCv0AAAAJ&amp;hl=en" target="_blank" rel="noopener">Soham Bhattacharjee</a></span><span class="dt">since 2026</span></li>
-          <li class="line"><span><a href="https://scholar.google.com/citations?user=jWZP7DIAAAAJ&amp;hl=en" target="_blank" rel="noopener">Dikshant Kukreja</a></span><span class="dt">since 2026</span></li>
-          <li class="line"><span><a href="https://sarim-mbzuai.github.io/" target="_blank" rel="noopener">Sarim Hashmi</a></span><span class="dt">since 2025</span></li>
-        </ul>
         <div class="hd">PhD Students</div>
         <ul class="ul">
           <li class="line"><span><a href="https://scholar.google.com/citations?user=Atik3-QAAAAJ&amp;hl=en" target="_blank" rel="noopener">Tameem Bakr</a> (ML)</span><span class="dt">since 2026</span></li>
@@ -756,6 +750,12 @@
           <li class="line"><span><a href="https://sharmaabhijith.github.io/" target="_blank" rel="noopener">Abhijith Sharma</a> (ML) <span class="it">(with <a href="https://lahlou.org/" target="_blank" rel="noopener">Salem Lahlou</a>)</span></span><span class="dt">since 2025</span></li>
           <li class="line"><span><a href="https://scholar.google.com/citations?user=_bKiafcAAAAJ&amp;hl=en" target="_blank" rel="noopener">Rushil Thareja</a> (NLP) <span class="it">(secondary: <a href="https://sites.mit.edu/praneeth/" target="_blank" rel="noopener">Praneeth Vepakomma</a>)</span></span><span class="dt">since 2024</span></li>
           <li class="line"><span><a href="https://scholar.google.com/citations?user=Ji8fnw0AAAAJ&amp;hl=en" target="_blank" rel="noopener">Toluwani Aremu</a> (ML)</span><span class="dt">since 2023</span></li>
+        </ul>
+        <div class="hd">Research Engineers</div>
+        <ul class="ul">
+          <li class="line"><span><a href="https://scholar.google.com/citations?user=PFDlCv0AAAAJ&amp;hl=en" target="_blank" rel="noopener">Soham Bhattacharjee</a></span><span class="dt">since 2026</span></li>
+          <li class="line"><span><a href="https://scholar.google.com/citations?user=jWZP7DIAAAAJ&amp;hl=en" target="_blank" rel="noopener">Dikshant Kukreja</a></span><span class="dt">since 2026</span></li>
+          <li class="line"><span><a href="https://sarim-mbzuai.github.io/" target="_blank" rel="noopener">Sarim Hashmi</a></span><span class="dt">since 2025</span></li>
         </ul>
         <div class="hd">MSc Students</div>
         <ul class="ul">
@@ -1139,6 +1139,16 @@
           a.setAttribute('aria-label', 'Link to ' + lab.textContent.trim());
           lab.appendChild(a);
         });
+        // 1c. Honour deep links such as cv.html#teaching: the ids above did
+        //     not exist yet when the browser first looked for the fragment.
+        if (location.hash.length > 1){
+          var target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+          if (target){
+            var jump = function(){ target.scrollIntoView(); };
+            if (document.readyState === 'complete') jump();
+            else window.addEventListener('load', jump);
+          }
+        }
         // 2. Venue chips + tooltips
         document.querySelectorAll('.pub-tag').forEach(function(tag){
           var txt = tag.textContent.toUpperCase();

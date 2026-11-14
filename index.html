@@ -11,9 +11,18 @@
   <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
   <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="description"
+        content="Nils Lukas is an Assistant Professor of Machine Learning at MBZUAI in Abu Dhabi. He leads the SPOT AI Lab, which works on watermarks, adaptive attacks, and privacy and security for AI agents.">
+  <link rel="canonical" href="https://nilslukas.github.io/">
+  <!-- Link previews (LinkedIn, Slack, WhatsApp, X) -->
+  <meta property="og:type" content="profile">
+  <meta property="og:url" content="https://nilslukas.github.io/">
   <meta property="og:title" content="Nils Lukas">
   <meta property="og:description"
-        content="Assistant Professor at MBZUAI focusing on Secure and Private Machine Learning.">
+        content="Assistant Professor at MBZUAI. Watermarks, adaptive attacks, and privacy and security for AI agents.">
+  <meta property="og:image" content="https://nilslukas.github.io/images/nils.jpg">
+  <meta property="og:image:alt" content="Portrait of Nils Lukas">
+  <meta name="twitter:card" content="summary">
 
   <!-- Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -23,6 +32,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/site.css">
+  <link rel="stylesheet" href="assets/css/research-map.css">
 </head>
 <body>
   <!-- Navigation -->
@@ -55,7 +65,7 @@
              alt="Nils Lukas portrait">
 
         <!-- Contact card -->
-        <div>
+        <div class="contact">
           <h2>Contact</h2>
           <div class="contact-info">
             <div class="contact-group">
@@ -70,44 +80,58 @@
                     data-tooltip="Adherence address — all startup and company business: enterprise inquiries, pilots, partnerships, consulting.">nlukas@adherence.ae</a></p>
               <p><a class="adh-link" href="https://adherence.ae/">🚀 Adherence, Abu Dhabi, UAE</a></p>
             </div>
-            <p class="contact-note">Academic mail goes to the university address. All
-               <strong>startup and company inquiries must</strong> go to the
-               <a class="adh-link" href="startups.html">Adherence</a> address.</p>
+            <p class="contact-note"><strong>Company inquiries:</strong> <a class="adh-link" href="startups.html">Adherence</a> address only.</p>
           </div>
         </div>
 
-        <!-- Bio card -->
+        <!-- Career card (the nav "Bio" link opens the copyable speaker bio) -->
         <div class="bio">
-          <h2>Bio</h2>
+          <h2>Career</h2>
           <table class="small">
-            <tr><td class="muted">2024–now</td><td>Asst. Prof</td><td><i>MBZUAI</i></td></tr>
-            <tr><td class="muted">2019–24</td><td>PhD</td><td><i>U. Waterloo</i></td></tr>
-            <tr><td class="muted">2016–18</td><td>MSc</td><td><i>RWTH-Aachen</i></td></tr>
+            <tr><td class="muted">2024–now</td><td>Assistant Professor<br><i>MBZUAI</i><br>CSAC (co-director)</td></tr>
+            <tr><td class="muted">2019–24</td><td>PhD<br><i>University of Waterloo</i></td></tr>
+            <tr><td class="muted">2024</td><td>Research intern<br><i>Borealis AI</i></td></tr>
+            <tr><td class="muted">2022</td><td>Research intern<br><i>Microsoft Research</i></td></tr>
+            <tr><td class="muted">2016–18</td><td>MSc<br><i>RWTH Aachen</i></td></tr>
           </table>
         </div>
       </div>
 
       <!-- Info column -->
       <div id="info">
-        <p>Guten&nbsp;Tag, I’m Nils 👋. I’m an <strong>Assistant Professor</strong> of Machine Learning at <a href="https://mbzuai.ac.ae/">MBZUAI</a> in Abu&nbsp;Dhabi leading the
-            <strong>Secure, Private, Open and Trustworthy</strong> <a href="group.html" class="lab-logo-link" aria-label="SpotAI lab"><img src="images/spot_lab_logo.png" alt="SPOT&nbsp;Lab logo" style="height:1.2em;vertical-align:-0.2em;"></a>&nbsp;AI&nbsp;lab.
-            I have received Waterloo's 2024 <a href="https://cs.uwaterloo.ca/news/nils-lukas-receives-waterloos-2024-alumni-gold-medal">Alumni Gold medal</a>, my PhD thesis received the <a href="https://cs.uwaterloo.ca/news/nils-lukas-receives-2024-mathematics-doctoral-prizes-top-honour">Top Mathematics Doctoral Prize</a>, in 2025 I won an <a href="https://www.linkedin.com/feed/update/urn:li:activity:7407701184796573697/">Amazon Research Award</a> and in 2026 an AED&nbsp;1&nbsp;million award from the MBZUAI Innovation Program. Since 2025, my research was awarded nearly $2 million USD in research grants. Recently I founded <a class="sheen tone-adh delay-2" href="https://adherence.ae/"><strong>Adherence</strong></a>, a startup delivering enterprise AI agents. <a class="adh-link" href="https://adherence.ae/">Check out our website</a>.
+        <p class="intro">Guten&nbsp;Tag, I’m Nils 👋. I’m an <strong>Assistant Professor</strong> of Machine Learning at <a href="https://mbzuai.ac.ae/">MBZUAI</a> in Abu&nbsp;Dhabi, where I lead the
+            <strong>Secure, Private, Open and Trustworthy</strong> <a href="group.html" class="lab-logo-link" aria-label="SpotAI lab"><img src="images/spot_lab_logo.png" alt="SPOT&nbsp;Lab logo" style="height:1.2em;vertical-align:-0.2em;"></a>&nbsp;AI&nbsp;lab
+            and co-direct the Center for Secure Agentic Control (CSAC).
+            My group works on watermarks, adaptive attacks, and privacy and security for AI agents.</p>
 
-        <p>My research focuses on (i) secure and (ii) private machine learning, and (iii) AI safety.
-          I am interested in researching methods to make large ML system accessible to millions of
-          users in a responsible way. This includes topics such as content watermarking, privacy-preserving inference,
-          AI safety &amp; security and developing conversational agents with social intelligence. </p>
+        <p class="intro">I did my PhD at the University of Waterloo, where my thesis received the <a href="https://cs.uwaterloo.ca/news/nils-lukas-receives-2024-mathematics-doctoral-prizes-top-honour">Top Mathematics Doctoral Prize</a> and I received the 2024 <a href="https://cs.uwaterloo.ca/news/nils-lukas-receives-waterloos-2024-alumni-gold-medal">Alumni Gold Medal</a>.
+            Since 2025, my research has been awarded nearly $2 million in research grants, including an <a href="https://www.linkedin.com/feed/update/urn:li:activity:7407701184796573697/">Amazon Research Award</a> and an AED&nbsp;1&nbsp;million award from the MBZUAI Innovation Program.
+            Recently I founded <a class="sheen tone-adh delay-2" href="https://adherence.ae/"><strong>Adherence</strong></a>, a startup delivering enterprise AI agents. <a class="adh-link" href="https://adherence.ae/">Check out our website</a>.</p>
 
+        <!-- Hiring: two short rows, topics as plain text -->
+        <div class="hiring">
+          <div class="hiring-head">
+            <h2>We're hiring</h2>
+            <a href="mailto:nils.lukas@mbzuai.ac.ae"><i class="fa fa-envelope-o" aria-hidden="true"></i> Email me</a>
+          </div>
+          <dl class="hiring-roles">
+            <dt>Postdocs</dt>
+            <dd>AI Safety, Multi-Agent Systems, Self-Improvement, Differential Privacy</dd>
+            <dt>PhD students</dt>
+            <dd>Security for AI Agents, Scalable Oversight, Privacy</dd>
+          </dl>
+        </div>
+
+        <!-- Teaching: every course I taught, one line each (TA roles are in the CV) -->
         <div class="teaching">
-          I have taught the following courses at MBZUAI
-          <ul style="margin:0; padding-left:1.2em;">
-            <li><strong>F'26:</strong> ML8502 – ML Security (sample lecture: <a href="assets/teaching/ml8502-watermarking/" target="_blank" rel="noopener">Watermarking</a>)</li>
-            <li><strong>S'26:</strong> ML8509 – Collaborative ML (w/ <a href="https://sites.google.com/view/samuelhorvath">S. Horvath</a>)</li>
-            <li><strong>F'25:</strong> ML8502 – ML Security</li>
-            <li><strong>S'25:</strong> ML807 – Federated Learning (w/ <a href="https://sites.mit.edu/praneeth/">P. Vepakomma</a>)</li>
-            <li><strong>F'24:</strong> ML818 – Trustworthy ML (w/ <a href="https://www.cse.msu.edu/~nandakum/">K. Nandakumar</a>, <a href="https://sites.mit.edu/praneeth/">P. Vepakomma</a>)</li>
+          <span class="teaching-label">Teaching</span>
+          <ul class="courses">
+            <li><span class="code">ML8502</span><span class="course">Machine Learning Security</span><span class="when">2025–26</span></li>
+            <li><span class="code">ML8509</span><span class="course">Collaborative ML <span class="with">with <a href="https://sites.google.com/view/samuelhorvath" target="_blank" rel="noopener">S. Horvath</a></span></span><span class="when">2026</span></li>
+            <li><span class="code">ML807</span><span class="course">Federated Learning <span class="with">with <a href="https://sites.mit.edu/praneeth/" target="_blank" rel="noopener">P. Vepakomma</a></span></span><span class="when">2025</span></li>
+            <li><span class="code">ML818</span><span class="course">Trustworthy ML <span class="with">with <a href="https://www.cse.msu.edu/~nandakum/" target="_blank" rel="noopener">K. Nandakumar</a>, <a href="https://sites.mit.edu/praneeth/" target="_blank" rel="noopener">P. Vepakomma</a></span></span><span class="when">2024</span></li>
+            <li><span class="code">RWTH</span><span class="course">Data-driven Medicine <span class="with">co-instructor</span></span><span class="when">2018</span></li>
           </ul>
-          Please reach out if you are interested in seeing the course material.
         </div>
 
         <div class="btn-list">
@@ -117,28 +141,13 @@
           <a href="cv.html"><i class="fa fa-file-pdf-o"></i>CV</a>
         </div>
 
-        <!-- Announcement -->
-        <div class="announcement">
-          <i class="fa fa-bullhorn" aria-hidden="true"></i>
-            <span>> We're hiring <strong>multiple postdocs</strong> on AI safety, multi-agent systems, self-improvement and differential privacy — see the <a href="group.html">SpotAI page</a> to apply.</span>
-        </div>
-
         <div class="news-section">
         <h2>Latest News <a id="see-all-link" class="see-all" href="#">(see&nbsp;all)</a></h2>
-        <div class="venue-summary">
-          <span class="venue-summary-label">Publications by venue:</span>
-          <span class="venue venue-icml" data-tooltip="Spotlight at ICML'25 — Optimizing Adaptive Attacks against Content Watermarks for Language Models">ICML &times;4 <a class="venue-star" href="https://arxiv.org/abs/2410.02440" target="_blank" rel="noopener">🌟</a></span>
-          <span class="venue venue-iclr" data-tooltip="Spotlight at ICLR'21 — Deep Neural Network Fingerprinting by Conferrable Adversarial Examples">ICLR &times;4 <a class="venue-star" href="https://arxiv.org/abs/1912.00888" target="_blank" rel="noopener">🌟</a></span>
-          <span class="venue venue-neurips">NeurIPS &times;4</span>
-          <span class="venue venue-usenix">USENIX &times;3</span>
-          <span class="venue venue-emnlp" data-tooltip="Oral Presentation at EMNLP'26 — CopyShield: A Cross-Level Benchmark of Copyright Defenses in LLMs">EMNLP &times;3 <a class="venue-star" href="https://arxiv.org/abs/2609.01161" target="_blank" rel="noopener">🏆</a></span>
-          <span class="venue venue-snp">IEEE S&amp;P &times;2</span>
-          <span class="venue venue-acl">ACL &times;2</span>
-          <span class="venue venue-cvpr" data-tooltip="Oral (top 0.8%) at CVPR'26 — RAVEN: Erasing Invisible Watermarks via Novel View Synthesis">CVPR &times;1 <a class="venue-star" href="https://arxiv.org/abs/2601.08832" target="_blank" rel="noopener">🏆</a></span>
-          <span class="venue venue-eccv">ECCV &times;1</span>
-          <span class="venue venue-eacl">EACL &times;1</span>
-        </div>
         <div class="news-container">
+          <div class="news">
+            <small class="muted">Nov'26</small>
+            <small>We hosted the <strong>Agentic AI Security Symposium</strong> at MBZUAI, which I co-chaired. My talk was <a href="talks.html"><em>Your Agent Cannot Keep a Secret: Leakage, Side Channels and Provable Mitigations</em></a>.</small>
+          </div>
           <div class="news">
             <small class="muted">Oct'26</small>
             <small>🥇 I received an award of AED 1 million from the MBZUAI Innovation Program for <em>Prompt Internalization for Enterprise AI Agents</em>.</small>
@@ -205,7 +214,7 @@
           </div>
           <div class="news">
             <small class="muted">Sept'25</small>
-            <small>I am a co-PI on a grant from the United Al-Saqer group to research privacy-preserving brain computer interfaces, with <a href="https://ma3mool.github.io/">Abdulrahman Mahmoud<a/> and <a href="https://elizabethchurchill.com/">Elizabeth Churchill</a>.</a></small>
+            <small>I am a co-PI on a grant from the United Al-Saqer group to research privacy-preserving brain computer interfaces, with <a href="https://ma3mool.github.io/">Abdulrahman Mahmoud</a> and <a href="https://elizabethchurchill.com/">Elizabeth Churchill</a>.</small>
           </div>
           <div class="news">
             <small class="muted">Sept'25</small>
@@ -229,11 +238,11 @@
            </div>
           <div class="news">
             <small class="muted">Dec'24</small>
-            <small>🥇First place in the <span class="venue venue-neurips">NeurIPS'24</span> <a href="https://erasinginvisible.github.io/">watermark removal challenge</a> with 4.4k USD price money. Congrats to <a href="https://fahadshamshad.github.io/">Fahad Shamsha</a> and the team. (<a href="https://openreview.net/forum?id=wLaP37BrhE">link</a>)</small>
+            <small>🥇First place in the <span class="venue venue-neurips">NeurIPS'24</span> <a href="https://erasinginvisible.github.io/">watermark removal challenge</a> with 4.4k USD prize money. Congrats to <a href="https://fahadshamshad.github.io/">Fahad Shamshad</a> and the team. (<a href="https://openreview.net/forum?id=wLaP37BrhE">link</a>)</small>
           </div>
           <div class="news">
             <small class="muted">Oct'24</small>
-            <small>🥇First place in GITEX Cybersecurity hackathon with 10.8k USD price money. Congrats to my MSc student <a href="https://scholar.google.com/citations?user=Atik3-QAAAAJ&hl=en">Tameem Bakr</a> and the team.</small>
+            <small>🥇First place in GITEX Cybersecurity hackathon with 10.8k USD prize money. Congrats to my MSc student <a href="https://scholar.google.com/citations?user=Atik3-QAAAAJ&hl=en">Tameem Bakr</a> and the team.</small>
           </div>
           <div class="news">
             <small class="muted">Aug'24</small>
@@ -241,7 +250,7 @@
           </div>
           <div class="news">
             <small class="muted">Jun'24</small>
-            <small>🔥 Two papers accepted at <span class="venue venue-usenix">USENIX’24</span> on Private Set Intersection& secure DNN inference.</small>
+            <small>🔥 Two papers accepted at <span class="venue venue-usenix">USENIX’24</span> on Private Set Intersection &amp; secure DNN inference.</small>
           </div>
           <div class="news">
             <small class="muted">Apr'24</small>
@@ -257,7 +266,7 @@
           </div>
           <div class="news">
             <small class="muted">Oct'23</small>
-            <small>Talk at UCBerkeley & 🥇Best Poster Award at Cheriton Symposium (Waterloo).</small>
+            <small>Talk at UC Berkeley & 🥇Best Poster Award at Cheriton Symposium (Waterloo).</small>
           </div>
           <div class="news">
             <small class="muted">Oct'23</small>
@@ -288,17 +297,32 @@
       </div>
     </div>
 
+    <!-- Recent talk: a card in the right margin, wide screens only -->
+    <aside class="talk-rail" aria-labelledby="talk-rail-head">
+      <h2 id="talk-rail-head" class="talk-rail-head">Recent Talks <a class="see-all" href="talks.html">(see&nbsp;all)</a></h2>
+      <a class="talk-rail-thumb" href="assets/talks/ug-ai-safety-2026/" target="_blank" rel="noopener">
+        <img src="images/talks/ug-ai-safety-title.jpg" width="480" height="271" loading="lazy"
+             alt="Title slide of the talk AI Safety: Alignment, Oversight and Deception">
+      </a>
+      <p class="talk-rail-title">AI Safety: Alignment, Oversight and Deception</p>
+      <p class="talk-rail-where">UG Speaker Series, MBZUAI, Nov&nbsp;2026</p>
+      <div class="talk-actions">
+        <a href="assets/talks/ug-ai-safety-2026/" target="_blank" rel="noopener"><i class="fa fa-desktop"></i> HTML</a>
+        <a href="assets/talks/ug-ai-safety-2026/slides.pdf"><i class="fa fa-file-pdf-o"></i> PDF</a>
+      </div>
+    </aside>
   </section>
 
-
-
-
-  <div class="quote-banner main-container">
-    <blockquote>
-      "Ironically, the best questions are not questions that lead to answers, because answers are on their way to becoming cheap and plentiful. A good question is worth a million good answers."
-      <div class="quote-attr">— Kevin Kelly</div>
-    </blockquote>
-  </div>
+  <!-- Research map (desktop only). research-map.js reads the papers from the
+       BibTeX on publications.html, so a new paper there appears here too. -->
+  <section id="research">
+    <div class="main-container">
+      <h2>Research map <small><span data-rmap="count">29</span> papers in <span data-rmap="topics">4</span> topics, <span data-rmap="first">2020</span> to <span data-rmap="last">2026</span></small></h2>
+      <figure class="rmap" id="research-map" data-papers="publications.html" aria-label="Map of my papers by topic and year">
+        <noscript>The map needs JavaScript. All papers are on the <a href="publications.html">publications page</a>.</noscript>
+      </figure>
+    </div>
+  </section>
 
   <footer>
     <div class="main-container" id="last-updated">
@@ -307,6 +331,7 @@
   </footer>
   <script src="last-updated.js"></script>
 <script src="assets/js/bg.js"></script>
+<script src="assets/js/research-map.js"></script>
 </body>
   <script>
     /* Toggle visibility of additional news items */

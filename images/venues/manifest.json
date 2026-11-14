@@ -1,0 +1,114 @@
+{
+  "icml": {
+    "file": "icml.svg",
+    "venue": "International Conference on Machine Learning (ICML)",
+    "source_url": "https://icml.cc/static/core/img/ICML-logo.svg",
+    "width": 269.94,
+    "height": 89.42,
+    "notes": "Official ICML logo (head mark + ICML + full name), no year. Sanitized, viewBox trimmed to the artwork. Black #100f0d with red/blue/orange/green squares; the subtitle is illegible at 22 px but ICML reads."
+  },
+  "neurips": {
+    "file": "neurips.svg",
+    "venue": "Conference on Neural Information Processing Systems (NeurIPS)",
+    "source_url": "https://neurips.cc/static/core/img/NeurIPS-logo.svg",
+    "width": 24.14,
+    "height": 25.23,
+    "notes": "Mark only: the two purple paths (#68448b, #916ba4) of the official NeurIPS logo; the 'Neural Information Processing Systems' wordmark paths were removed because they are unreadable at 22 px. The neurips.cc navbar logo (mark + 'NeurIPS') sets its word as live <text> in light grey, so it was not used."
+  },
+  "iclr": {
+    "file": "iclr.svg",
+    "venue": "International Conference on Learning Representations (ICLR)",
+    "source_url": "https://iclr.cc/static/core/img/ICLR-logo.svg",
+    "width": 273.42,
+    "height": 75.84,
+    "notes": "Official ICLR logo (head mark + ICLR wordmark), no year. Slate #35414d text, green/cyan squares. Sanitized, viewBox trimmed."
+  },
+  "ieee-sp": {
+    "file": "ieee-sp.png",
+    "venue": "IEEE Symposium on Security and Privacy (IEEE S&P)",
+    "source_url": "https://eurosp2026.ieee-security.org/images/trojan.png",
+    "width": 160,
+    "height": 160,
+    "notes": "Trojan-horse head of the IEEE Technical Community on Security and Privacy, the logo the S&P symposium sites use (sp2026.ieee-security.org/images/trojan.png is the same artwork at 109x98; the 500 px copy from the EuroS&P site was used). Wood-brown raster, transparent background, trimmed, resized to 160 px. Identical to eurosp.png."
+  },
+  "usenix": {
+    "file": "usenix.svg",
+    "venue": "USENIX Security Symposium",
+    "source_url": "https://www.usenix.org/themes/motherboard/images/logo-black.svg",
+    "width": 502.63,
+    "height": 133.92,
+    "notes": "USENIX association logo (U roundel + USENIX wordmark), all black. USENIX Security only has year-specific wordmarks (e.g. sec25_wordmark), so the association logo is used."
+  },
+  "cvpr": {
+    "file": "cvpr.svg",
+    "venue": "IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR)",
+    "source_url": "https://cvpr.thecvf.com/static/core/img/CVPR-logo.svg",
+    "width": 9477.78,
+    "height": 5237.42,
+    "notes": "Year-free CVPR wordmark, single blue #7394c7. Sanitized; viewBox trimmed from a mostly empty 12500x6250 canvas."
+  },
+  "eccv": {
+    "file": "eccv.png",
+    "venue": "European Conference on Computer Vision (ECCV)",
+    "source_url": "https://www.ecva.net/src/img/ECVAlogo.png",
+    "width": 445,
+    "height": 128,
+    "notes": "ECCV has no year-free logo (eccv.ecva.net only carries the 'ECCV 2026 | Malmo' skyline logo, illegible at icon size). This is the logo of ECVA, the European Computer Vision Association that runs ECCV: green #67cd84 'ECVA' with a black dot. Trimmed, resized to 128 px tall."
+  },
+  "acl": {
+    "file": "acl.svg",
+    "venue": "Association for Computational Linguistics (ACL, incl. Findings)",
+    "source_url": "https://aclanthology.org/images/acl-logo.svg",
+    "width": 68.0,
+    "height": 46.0,
+    "notes": "ACL mark, single red #ed1c24, no lettering. Also covers EMNLP and EACL (see aliases)."
+  },
+  "emnlp": {
+    "file": "acl.svg",
+    "venue": "Conference on Empirical Methods in Natural Language Processing (EMNLP, incl. Findings)",
+    "source_url": "https://aclanthology.org/images/acl-logo.svg",
+    "width": 68.0,
+    "height": 46.0,
+    "notes": "Alias of acl.svg. EMNLP has no year-free logo: the 2026 logo (2026.emnlp.org) is the ACL mark plus 'EMNLP2026 Budapest', and emnlp.org redirects to sigdat.org."
+  },
+  "eacl": {
+    "file": "acl.svg",
+    "venue": "Conference of the European Chapter of the ACL (EACL, incl. Findings)",
+    "source_url": "https://aclanthology.org/images/acl-logo.svg",
+    "width": 68.0,
+    "height": 46.0,
+    "notes": "Alias of acl.svg. eacl.org's own logo (eacl.org/assets/images/eacl-logo.png) is the same red ACL mark; the year logo (EACL 2026 Rabat) carries dates."
+  },
+  "acsac": {
+    "file": "acsac.png",
+    "venue": "Annual Computer Security Applications Conference (ACSAC)",
+    "source_url": "https://www.acsac.org/images/acsac-192.png",
+    "width": 175,
+    "height": 170,
+    "notes": "ACSAC emblem (green hooded figure with yellow padlock on a grey disc), no year. Largest official copy found is 192 px; trimmed to 175x170. Colours green #1b8847, yellow #f2b543, grey #a7aea3."
+  },
+  "eurosp": {
+    "file": "eurosp.png",
+    "venue": "IEEE European Symposium on Security and Privacy (EuroS&P)",
+    "source_url": "https://eurosp2026.ieee-security.org/images/trojan.png",
+    "width": 160,
+    "height": 160,
+    "notes": "Same Trojan-horse logo (IEEE TC on Security and Privacy) as ieee-sp.png; EuroS&P has no logo of its own. Wood-brown raster, transparent, 160 px."
+  },
+  "acm": {
+    "file": "acm.svg",
+    "venue": "ACM Workshop on Information Hiding and Multimedia Security (IH&MMSec)",
+    "source_url": "https://upload.wikimedia.org/wikipedia/commons/8/8e/Association_for_Computing_Machinery_(ACM)_logo.svg",
+    "width": 300.0,
+    "height": 299.97,
+    "notes": "IH&MMSec has no logo of its own; ihmmsec.org shows the ACM logo (cms/upload/2023/acm_logo_rect.png) and a 2026 photo banner. ACM diamond, blues #3792c1/#69b4e0 with white 'acm'. Wikimedia Commons, public domain; metadata removed."
+  },
+  "ieee": {
+    "file": "ieee.svg",
+    "venue": "IEEE Security & Privacy (magazine)",
+    "source_url": "https://upload.wikimedia.org/wikipedia/commons/a/a7/Logo_IEEE_Security_and_Privacy.svg",
+    "width": 357.41,
+    "height": 71.42,
+    "notes": "Wordmark of the magazine itself ('IEEE SECURITY & PRIVACY'), dark red #a2151b block, grey ampersand, black #231f20 text. Same artwork as the JPG the S&P symposium site links to computer.org/csdl/magazine/sp. Wide (about 5:1)."
+  }
+}

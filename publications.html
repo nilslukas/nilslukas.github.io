@@ -23,6 +23,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,500;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="assets/css/site.css">
+  <link rel="stylesheet" href="assets/css/research-map.css">
 </head>
 
 <body>
@@ -52,6 +53,22 @@
 <section id="publications" style="background:var(--secondary-bg-color);">
   <div class="main-container">
     <h2>Publications</h2>
+    <!-- Teaser: the research map (desktop only). research-map.js draws it from
+         the BibTeX at the end of this page, so it always matches the list. -->
+    <figure class="rmap rmap-teaser" id="research-map" aria-label="Map of my papers by topic and year"></figure>
+    <div class="venue-summary">
+      <span class="venue-summary-label">Publications by venue:</span>
+      <span class="venue venue-icml" data-tooltip="Spotlight at ICML'25 — Optimizing Adaptive Attacks against Content Watermarks for Language Models">ICML &times;4 <a class="venue-star" href="https://arxiv.org/abs/2410.02440" target="_blank" rel="noopener">🌟</a></span>
+      <span class="venue venue-iclr" data-tooltip="Spotlight at ICLR'21 — Deep Neural Network Fingerprinting by Conferrable Adversarial Examples">ICLR &times;4 <a class="venue-star" href="https://arxiv.org/abs/1912.00888" target="_blank" rel="noopener">🌟</a></span>
+      <span class="venue venue-neurips">NeurIPS &times;4</span>
+      <span class="venue venue-usenix">USENIX &times;3</span>
+      <span class="venue venue-emnlp" data-tooltip="Oral Presentation at EMNLP'26 — CopyShield: A Cross-Level Benchmark of Copyright Defenses in LLMs">EMNLP &times;3 <a class="venue-star" href="https://arxiv.org/abs/2609.01161" target="_blank" rel="noopener">🏆</a></span>
+      <span class="venue venue-snp">IEEE S&amp;P &times;2</span>
+      <span class="venue venue-acl">ACL &times;2</span>
+      <span class="venue venue-cvpr" data-tooltip="Oral (top 0.8%) at CVPR'26 — RAVEN: Erasing Invisible Watermarks via Novel View Synthesis">CVPR &times;1 <a class="venue-star" href="https://arxiv.org/abs/2601.08832" target="_blank" rel="noopener">🏆</a></span>
+      <span class="venue venue-eccv">ECCV &times;1</span>
+      <span class="venue venue-eacl">EACL &times;1</span>
+    </div>
     <p class="pub-legend small">Authors <span class="advisee">underlined</span> are members of my group (<a href="group.html">SPOT&nbsp;Lab</a>) whom I primarily advise; <strong>bold</strong> marks me.</p>
     <p id="pub-loading" class="small" style="margin-bottom:1rem;">Loading publications…</p>
     <table id="pub-table" class="pub-table"></table>
@@ -65,6 +82,7 @@
 </footer>
 <script src="last-updated.js"></script>
 <script src="assets/js/bg.js"></script>
+<script src="assets/js/research-map.js"></script>
 </body>
 <!-- Paste your BibTeX entries in the block below -->
 <script id="bibtex-inline" type="text/plain">
@@ -229,6 +247,7 @@
   title={PROBE: Learning to Audit Policy Compliance in Tool-Using LLM Agents},
   author={Kshitij Mishra, Abhijith Sharma, Nils Lukas, Salem Lahlou},
   journal={NeurIPS 2026},
+  url={https://arxiv.org/abs/2610.22124},
   order={85},
   year={2026}
 }
@@ -247,6 +266,7 @@
   title={TRACER: Trace-Regularized Training Against Indirect Prompt Injection},
   author={Kshitij Mishra, Salem Lahlou, Nils Lukas},
   journal={EMNLP 2026 (Findings)},
+  url={https://arxiv.org/abs/2610.19133},
   order={87},
   year={2026}
 }
@@ -377,6 +397,76 @@ const ADVISEES = [
 ];
 const escapeRe = s => s.replace(/[.*+?^${}()|[\]\\]/g,'\\$&');
 
+/* -------- venue logos (images/venues/) --------
+   Each paper gets the logo of the first venue named in its journal or
+   booktitle field: "ICML 2025 ... Workshop (ICLR'24)" shows ICML. */
+const VENUE_LOGOS = [
+  ['neurips', /NeurIPS/i,                                          'NeurIPS'],
+  ['icml',    /\bICML\b/,                                          'ICML'],
+  ['iclr',    /\bICLR\b/,                                          'ICLR'],
+  ['cvpr',    /\bCVPR\b/,                                          'CVPR'],
+  ['eccv',    /\bECCV\b/,                                          'ECCV'],
+  ['emnlp',   /\bEMNLP\b/,                                         'EMNLP'],
+  ['eacl',    /\bEACL\b/,                                          'EACL'],
+  ['acl',     /\bACL\b/,                                           'ACL'],
+  ['usenix',  /USENIX/i,                                           'USENIX Security'],
+  ['eurosp',  /EuroS&P|European Symposium on Security and Privacy/i, 'IEEE EuroS&P'],
+  ['ieee-sp', /Symposium on Security and Privacy|IEEE S&P\b/i,     'IEEE S&P'],
+  ['ieee',    /IEEE Security & Privacy/,                            'IEEE Security & Privacy'],
+  ['acsac',   /ACSAC|Computer Security Applications Conference/i,  'ACSAC'],
+  ['ihmmsec', /IH&MMSec|Information Hiding and Multimedia Security/i, 'ACM IH&MMSec']
+];
+/* -------- figure previews (images/papers/<bibtex key>.jpg) --------
+   Figure 1 of each paper, cropped from its PDF (sources in
+   images/papers/manifest.json). Add the key here when you add a file; a paper
+   without a preview shows its venue logo instead. */
+const PAPER_FIGURES = new Set([
+  'alam2026spqr',
+  'alshehyari2026copyshield',
+  'bakr2026collaborative',
+  'bhattacharjee2026entropy',
+  'diaa2023fast',
+  'diaa2025adaptivellm',
+  'djanibekov2025spirit',
+  'hou2026detecting',
+  'hu2025mask',
+  'kacsmar2020differentially',
+  'lukas2021deep',
+  'lukas2022sok',
+  'lukas2023analyzing',
+  'lukas2023leveraging',
+  'lukas2023ptw',
+  'mahdavi2020practical',
+  'mahdavi2023pepsi',
+  'mishra2026core',
+  'mishra2026probe',
+  'mishra2026sd',
+  'mishra2026tracer',
+  'schneider2023universal',
+  'shafieinejad2021robustness',
+  'shamshad2024neurips',
+  'shamshad2026raven',
+  'thareja2026dpfusion',
+  'wang2026forest',
+  'wu2025cowpox'
+]);
+
+const VENUE_FILES = {      /* slug -> file in images/venues/ (sources in manifest.json) */
+  neurips:'neurips.svg', icml:'icml.svg', iclr:'iclr.svg', cvpr:'cvpr.svg',
+  eccv:'eccv.png',             /* ECVA, the association that runs ECCV */
+  acl:'acl.svg', emnlp:'acl.svg', eacl:'acl.svg',
+  usenix:'usenix.svg', 'ieee-sp':'ieee-sp.png', eurosp:'eurosp.png',
+  ieee:'ieee.svg', acsac:'acsac.png', ihmmsec:'acm.svg'
+};
+function venueLogo(text){
+  let best = null, at = Infinity;
+  VENUE_LOGOS.forEach(([slug, re, name])=>{
+    const m = re.exec(text||'');
+    if(m && m.index < at && VENUE_FILES[slug]){ at = m.index; best = {slug, name, file: VENUE_FILES[slug]}; }
+  });
+  return best;
+}
+
 /* -------- renderer -------- */
 function renderPublications(list){
   const table=document.getElementById('pub-table');
@@ -405,8 +495,18 @@ function renderPublications(list){
     authorsHtml = authorsHtml
       .replace(/Nils Lukas/gi,'<strong>Nils Lukas</strong>');
 
+    const logo = venueLogo(e.journal||e.booktitle);
+    let thumb = '';
+    if(PAPER_FIGURES.has(e.key)){
+      thumb = `<img src="images/papers/${e.key}.jpg" alt="" loading="lazy">`;
+    }else if(logo){
+      const name = logo.name.replace(/&/g,'&amp;');
+      thumb = `<img class="is-logo" src="images/venues/${logo.file}" alt="${name}" title="${name}" loading="lazy">`;
+    }
+    if(thumb && e.url) thumb = `<a href="${e.url}" target="_blank" rel="noopener" tabindex="-1" aria-hidden="true">${thumb}</a>`;
     row.innerHTML = `
       <td class="year">${e.year===lastYear ? '' : (lastYear=e.year)}</td>
+      <td class="pub-thumb">${thumb}</td>
       <td class="details">
         <div class="title-row">
           <span class="title">${e.title||'Untitled'} ${isSpotlight?'':''}</span>

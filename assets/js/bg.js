@@ -1,6 +1,6 @@
 /* Subtle animated CS backdrop: a proximity graph with slow "walkers" that
    trace paths across it (evokes graph traversal / pointer chasing). Very low
-   opacity, warm-clay palette, respects prefers-reduced-motion, pauses when the
+   opacity, SPOT-teal palette, respects prefers-reduced-motion, pauses when the
    tab is hidden.
 
    The graph is laid out over the FULL document height and the drawing is
@@ -27,8 +27,8 @@
     var nodes = [], edges = [], walkers = [];
     var raf = null, lastT = 0;
 
-    var EDGE = '158, 74, 47';   /* --accent  (clay)        */
-    var GLOW = '193, 95, 60';   /* --accent-bright (clay)  */
+    var EDGE = '29, 92, 110';   /* --accent  (logo teal)   */
+    var GLOW = '59, 133, 149';  /* --accent-bright (teal)  */
     var PARALLAX = 0.4;         /* backdrop scrolls at 40% of page speed */
 
     function docHeight() {

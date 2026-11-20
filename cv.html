@@ -286,6 +286,25 @@
        pdf            : HTML source only, no chrome — used by build-cv-pdf.sh */
     html[data-cv="pdf"] #cv-bar{display:none;}
     @media print{ #cv-bar{display:none !important;} }
+
+    /* Short / full CV slider (in the bar) and the one-page sheet ---------- */
+    #cv-bar .cv-switch{position:relative;display:inline-grid;grid-template-columns:1fr 1fr;
+      background:#E9EEEF;border-radius:999px;padding:3px;font-size:.8rem;font-weight:600;}
+    #cv-bar .cv-switch button{position:relative;z-index:1;border:0;background:none;cursor:pointer;
+      font:inherit;color:#485256;padding:.3rem .8rem;border-radius:999px;transition:color .2s;white-space:nowrap;}
+    #cv-bar .cv-switch button[aria-pressed="true"]{color:#FAFAF8;}
+    #cv-bar .cv-switch .knob{position:absolute;top:3px;bottom:3px;left:3px;width:calc(50% - 3px);
+      background:#1D5C6E;border-radius:999px;transition:transform .25s cubic-bezier(.3,.7,.3,1);}
+    html[data-view="short"] #cv-bar .cv-switch .knob{transform:translateX(100%);}
+    #cv-short{display:none;}
+    html[data-view="short"] main.cv,
+    html[data-view="short"] #cv-toc{display:none !important;}
+    html[data-view="short"] #cv-short{display:block;}
+    #cv-short .sheet{display:block;width:min(210mm,calc(100vw - 32px));margin:24px auto 40px;background:#fff;
+      box-shadow:0 1px 3px rgba(0,0,0,.12),0 8px 24px rgba(0,0,0,.06);}
+    #cv-short .sheet img{display:block;width:100%;height:auto;}
+    #cv-short .note{text-align:center;font:500 .8rem/1.4 'Inter','Helvetica Neue',Arial,sans-serif;color:#6b7478;margin:-24px 0 40px;}
+    @media (max-width:720px){ #cv-bar .tools a.btn .lbl{display:none;} #cv-bar .cv-switch button{padding:.3rem .6rem;} }
   </style>
 
   <!-- HTML-native enhancements (icons, venue chips, resource links, numbering).
@@ -1040,6 +1059,13 @@
 
   </main>
 
+  <section id="cv-short" aria-label="One-page CV">
+    <a class="sheet" href="assets/pdfs/cv_nils_lukas_short.pdf" target="_blank" rel="noopener">
+      <img src="assets/cv/cv_nils_lukas_short.svg" alt="One-page CV of Nils Lukas: awards, professional experience, industry and government projects, talks, education and selected publications." width="595" height="842">
+    </a>
+    <p class="note">One-page CV. Click the page to open the PDF.</p>
+  </section>
+
   <script>
     (function () {
       var sp = new URLSearchParams(location.search);
@@ -1270,10 +1296,34 @@
             '</details>' +
           '</div>' +
           '<div class="tools">' +
-            '<a class="btn" href="assets/pdfs/cv_nils_lukas.pdf" download target="_blank" rel="noopener"><i class="fa fa-download"></i> Download PDF</a>' +
+            '<div class="cv-switch" role="group" aria-label="CV length">' +
+              '<span class="knob" aria-hidden="true"></span>' +
+              '<button type="button" data-v="full" aria-pressed="true">Full</button>' +
+              '<button type="button" data-v="short" aria-pressed="false">1 page</button>' +
+            '</div>' +
+            '<a class="btn" id="cv-dl" href="assets/pdfs/cv_nils_lukas.pdf" download target="_blank" rel="noopener"><i class="fa fa-download"></i><span class="lbl"> Download PDF</span></a>' +
           '</div>';
         document.body.appendChild(bar);
         buildBarMenu(bar);
+        // Full (academic) or one-page CV. ?short in the URL opens the one-page CV.
+        var PDFS = {full:'assets/pdfs/cv_nils_lukas.pdf', short:'assets/pdfs/cv_nils_lukas_short.pdf'};
+        function setView(v, push) {
+          document.documentElement.dataset.view = v;
+          bar.querySelectorAll('.cv-switch button').forEach(function (b) {
+            b.setAttribute('aria-pressed', b.dataset.v === v ? 'true' : 'false');
+          });
+          document.getElementById('cv-dl').setAttribute('href', PDFS[v]);
+          if (push) {
+            var u = new URL(location.href);
+            if (v === 'short') u.searchParams.set('short', ''); else u.searchParams.delete('short');
+            history.replaceState(null, '', u.pathname + (u.search ? u.search.replace('short=', 'short') : '') + u.hash);
+            window.scrollTo(0, 0);
+          }
+        }
+        bar.querySelectorAll('.cv-switch button').forEach(function (b) {
+          b.addEventListener('click', function () { setView(b.dataset.v, true); });
+        });
+        setView(sp.has('short') ? 'short' : 'full', false);
         // Close the "More" drawer when clicking outside it.
         document.addEventListener('click', function (ev) {
           var d = document.querySelector('#cv-bar details.nav-drawer[open]');

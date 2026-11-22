@@ -1,7 +1,7 @@
 {
   "_readme": "A copy of deck-engine's engine/, written by deck-engine/tools/build_deck.py. Never edit these files here: fix deck-engine and rebuild. The next build refuses to overwrite an edited copy.",
-  "version": "1.11.14",
-  "commit": "14b1f2e",
+  "version": "1.11.15",
+  "commit": "14b1f2e + local edits",
   "files": {
     "AktivGrotesk-Bold.woff2": "ef96034e625dda2d94c2a205504e8fdf8110456e17648e975f0a209709ccb20c",
     "AktivGrotesk-Medium.woff2": "8e2211f7d2240dd265fd2a96eeebf4fcc918160a4fd718a31c648cd3b185f0ae",
@@ -13,7 +13,7 @@
     "components.css": "f84f14cd58cb3f72950a461c233fad64383696c839ea170fe362f56e2963b5c6",
     "controls-safe.js": "c0a7223163db3bcd1942c7995b04df3e4c9efc144176d8fcb6ab973fad25cb17",
     "deck.css": "32a1858a370223b429c97413e9371d0c1bb4e5c98388c1e0f13ea80c7ba7340b",
-    "deck.js": "32f40f4af547d27ca7bfbecec7f992592ef0f8c9e04c943bdb2b4ddfb4b36623",
+    "deck.js": "6e26ba89eab1299f65a700835446d5c1c8866c7c192dc548203cc31ba7472794",
     "deploy-watch.js": "4b69e2a0e6caf966cc33fb8b54db6422b91111d62e07b610ed7fa3482f593881",
     "explain-clamp.js": "0077a4b162728ef89d3d8e736f1e57edc71b15f99cf5b133c67835b245ade3e5",
     "flow.js": "05a4eee7ba51760e4239c0c6e474c5ee4fcb794598c4346a05a3e40c8105043a",

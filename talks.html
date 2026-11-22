@@ -52,9 +52,38 @@
       <h2>Talks</h2>
       <p>Selected invited talks, keynotes, and workshops. Slides are linked where available — reach out if you would like a longer version or the source files.</p>
     </div>
+    <div class="talk-filter" role="radiogroup" aria-label="Show talks">
+      <span class="talk-filter-knob" aria-hidden="true"></span>
+      <button type="button" role="radio" aria-checked="true" data-show="all">All</button>
+      <button type="button" role="radio" aria-checked="false" data-show="academic">Academic</button>
+      <button type="button" role="radio" aria-checked="false" data-show="non-academic">Non-academic</button>
+    </div>
+
+
+    <!-- NEP Executive Programme -->
+    <div class="talk" data-kind="non-academic">
+      <div class="talk-meta">
+        <span class="date">Nov 21, 2026</span>
+        <span class="org">National Experts Program · MBZUAI</span>
+        <span class="loc">Abu Dhabi, UAE</span>
+      </div>
+      <div class="talk-body">
+        <h3>AI Security in the Age of Agents</h3>
+        <p class="venue">Executive session for the UAE National Experts Program (NEP), MBZUAI, Abu Dhabi.</p>
+        <p class="summary">AI agents now read e-mail, write code and move money on their own. For leaders without a technical background, the talk shows how agents are attacked and manipulated, what they leak, why their work is becoming too big for people to check, and how to keep them under control by checking every action before it runs.</p>
+        <div class="talk-actions">
+          <a href="assets/talks/nep-ai-security-2026/" target="_blank" rel="noopener"><i class="fa fa-desktop"></i> Slides (interactive)</a>
+          <a href="assets/talks/nep-ai-security-2026/slides.pdf"><i class="fa fa-file-pdf-o"></i> Slides (PDF)</a>
+        </div>
+      </div>
+      <a class="talk-thumb" href="assets/talks/nep-ai-security-2026/" target="_blank" rel="noopener">
+        <img src="images/talks/nep-ai-security-title.jpg" width="480" height="270" loading="lazy"
+             alt="Title slide of the talk AI Security in the Age of Agents">
+      </a>
+    </div>
 
     <!-- Agentic AI Security Symposium -->
-    <div class="talk">
+    <div class="talk" data-kind="academic">
       <div class="talk-meta">
         <span class="date">Nov 12, 2026</span>
         <span class="org">Agentic AI Security Symposium · MBZUAI</span>
@@ -71,7 +100,7 @@
     </div>
 
     <!-- MBZUAI UG Speaker Series -->
-    <div class="talk">
+    <div class="talk" data-kind="non-academic">
       <div class="talk-meta">
         <span class="date">Nov 4, 2026</span>
         <span class="org">UG Speaker Series · MBZUAI</span>
@@ -93,7 +122,7 @@
     </div>
 
     <!-- ADIA Lab & UGR Summer School 2026 -->
-    <div class="talk">
+    <div class="talk" data-kind="academic">
       <div class="talk-meta">
         <span class="date">May 12, 2026</span>
         <span class="org">ADIA Lab &amp; UGR</span>
@@ -114,7 +143,7 @@
     </div>
 
     <!-- CyberQ 2025 watermark talk -->
-    <div class="talk">
+    <div class="talk" data-kind="academic">
       <div class="talk-meta">
         <span class="date">Nov 26, 2025</span>
         <span class="org">UAE Cyber Security Council · TII</span>
@@ -135,7 +164,7 @@
     </div>
 
     <!-- Adaptively Robust and Forgery-Resistant Watermarking (Meta FAIR + MBZUAI) -->
-    <div class="talk">
+    <div class="talk" data-kind="academic">
       <div class="talk-meta">
         <span class="date">2025</span>
         <span class="org">Meta (FAIR) · MBZUAI</span>
@@ -159,7 +188,7 @@
     </div>
 
     <!-- Build with AI 2025 (GDG Abu Dhabi) -->
-    <div class="talk">
+    <div class="talk" data-kind="non-academic">
       <div class="talk-meta">
         <span class="date">May 16, 2025</span>
         <span class="org">Google Developer Groups</span>
@@ -180,7 +209,7 @@
     </div>
 
     <!-- Analyzing Leakage of Personal Information in Language Models -->
-    <div class="talk">
+    <div class="talk" data-kind="academic">
       <div class="talk-meta">
         <span class="date">2023 – 2024</span>
         <span class="org">Microsoft · Meta · MongoDB</span>
@@ -198,7 +227,7 @@
     </div>
 
     <!-- Aviation Future Week -->
-    <div class="talk">
+    <div class="talk" data-kind="non-academic">
       <div class="talk-meta">
         <span class="date">Oct 17, 2024</span>
         <span class="org">Emirates</span>
@@ -211,7 +240,7 @@
     </div>
 
     <!-- Keynote: Cyber Energy Leadership Forum -->
-    <div class="talk">
+    <div class="talk" data-kind="non-academic">
       <div class="talk-meta">
         <span class="date">2024</span>
         <span class="loc">Abu Dhabi, UAE</span>
@@ -223,7 +252,7 @@
     </div>
 
     <!-- Optimizing Adaptive Attacks against Content Watermarks -->
-    <div class="talk">
+    <div class="talk" data-kind="academic">
       <div class="talk-meta">
         <span class="date">2024</span>
         <span class="org">DeepMind · UC Berkeley</span>
@@ -240,7 +269,7 @@
     </div>
 
     <!-- How Reliable is Watermarking for Image Generators? -->
-    <div class="talk">
+    <div class="talk" data-kind="academic">
       <div class="talk-meta">
         <span class="date">2023</span>
         <span class="org">Google · UC Berkeley</span>
@@ -264,6 +293,33 @@
     Nils Lukas – Last updated 14 August 2026
   </div>
 </footer>
+<script>
+/* Talks: All / Academic / Non-academic switch; the choice is kept in the URL (#academic, #non-academic). */
+(function () {
+  var box = document.querySelector('.talk-filter'); if (!box) return;
+  var btns = box.querySelectorAll('button'), talks = document.querySelectorAll('.talk[data-kind]');
+  function show(kind, push) {
+    if (!/^(all|academic|non-academic)$/.test(kind)) kind = 'all';
+    var first = true;
+    for (var i = 0; i < btns.length; i++) {
+      var on = btns[i].getAttribute('data-show') === kind;
+      btns[i].setAttribute('aria-checked', on ? 'true' : 'false');
+      if (on) { box.style.setProperty('--knob-x', btns[i].offsetLeft + 'px'); box.style.setProperty('--knob-w', btns[i].offsetWidth + 'px'); }
+    }
+    for (var j = 0; j < talks.length; j++) {
+      var vis = kind === 'all' || talks[j].getAttribute('data-kind') === kind;
+      talks[j].hidden = !vis;
+      talks[j].classList.toggle('is-first', vis && first);
+      if (vis) first = false;
+    }
+    if (push) history.replaceState(null, '', kind === 'all' ? location.pathname : '#' + kind);
+  }
+  for (var i = 0; i < btns.length; i++) btns[i].addEventListener('click', function () { show(this.getAttribute('data-show'), true); });
+  window.addEventListener('resize', function () { show((location.hash || '#all').slice(1), false); });
+  show((location.hash || '#all').slice(1), false);
+  requestAnimationFrame(function () { box.classList.add('is-ready'); });
+})();
+</script>
 <script src="last-updated.js"></script>
 <script src="assets/js/bg.js"></script>
 </body>

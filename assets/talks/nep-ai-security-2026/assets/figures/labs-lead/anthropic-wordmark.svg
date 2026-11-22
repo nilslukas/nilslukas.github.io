@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 143 16" width="143" height="16" role="img" aria-label="Anthropic">
+<!-- ANTHROPIC wordmark, stored locally so the deck presents with no network.
+
+     SOURCE   anthropic.com's own navigation logo, drawn by Anthropic's own Lottie file
+              https://cdn.prod.website-files.com/67ce28cfec624e2b733f8a52/
+                67d47b4c03b69d41f28cc15c_logo-lottie.json
+              which www.anthropic.com loads into <div class="nav_logo_lottie"> and renders
+              as SVG. Retrieved and read 2026-08-24. The file declares w=143, h=16, which
+              is the viewBox above; the animation is a clip-wipe reveal whose resting frame
+              (autoplay off) is the complete wordmark, and that is the frame captured here.
+
+     TREATMENT Each of the nine letterforms is Anthropic's own path, with its own layer
+              translation folded into the coordinates so no transform attribute is needed.
+              Lottie writes every segment as a cubic even when both control points sit on
+              the endpoints; those are rewritten as L, which is the same curve exactly.
+              Coordinates are rounded to 3 decimals, i.e. to 7 parts per million of the
+              143-unit canvas. Nothing is redrawn, re-spaced, rescaled or recoloured; the
+              fill is Anthropic's own rgb(24,24,24).
+
+     USE      Nominative use: it names Anthropic as a place students should read. -->
+<g fill="rgb(24,24,24)" fill-rule="nonzero">
+<path d="M5.825 9.618L7.935 4.182L10.045 9.618L5.825 9.618ZM6.167 0.27L0 15.74L3.448 15.74L4.709 12.491L11.161 12.491L12.422 15.74L15.87 15.74L9.703 0.27L6.167 0.27Z"/>
+<path d="M29.016 11.099L22.056 0.27L18.3 0.27L18.3 15.74L21.504 15.74L21.504 4.911L28.464 15.74L32.22 15.74L32.22 0.27L29.016 0.27L29.016 11.099Z"/>
+<path d="M34.87 3.254L40.063 3.254L40.063 15.74L43.377 15.74L43.377 3.254L48.57 3.254L48.57 0.27L34.87 0.27L34.87 3.254Z"/>
+<path d="M61.836 6.436L54.544 6.436L54.544 0.27L51.23 0.27L51.23 15.74L54.544 15.74L54.544 9.419L61.836 9.419L61.836 15.74L65.15 15.74L65.15 0.27L61.836 0.27L61.836 6.436Z"/>
+<path d="M72.555 3.254L76.644 3.254C78.279 3.254 79.141 3.85 79.141 4.977C79.141 6.104 78.279 6.701 76.644 6.701L72.555 6.701L72.555 3.254ZM82.456 4.977C82.456 2.06 80.313 0.27 76.799 0.27L69.24 0.27L69.24 15.74L72.555 15.74L72.555 9.685L76.246 9.685L79.561 15.74L83.23 15.74L79.559 9.223C81.402 8.515 82.456 7.024 82.456 4.977Z"/>
+<path d="M92.612 12.906C90.005 12.906 88.414 11.05 88.414 8.022C88.414 4.95 90.005 3.094 92.612 3.094C95.197 3.094 96.766 4.95 96.766 8.022C96.766 11.05 95.197 12.906 92.612 12.906ZM92.612 0C88.149 0 84.99 3.315 84.99 8.022C84.99 12.685 88.149 16 92.612 16C97.053 16 100.19 12.685 100.19 8.022C100.19 3.315 97.053 0 92.612 0Z"/>
+<path d="M110.696 7.143L106.606 7.143L106.606 3.254L110.696 3.254C112.332 3.254 113.194 3.917 113.194 5.198C113.194 6.48 112.332 7.143 110.696 7.143ZM110.851 0.27L103.29 0.27L103.29 15.74L106.606 15.74L106.606 10.127L110.851 10.127C114.366 10.127 116.51 8.27 116.51 5.198C116.51 2.126 114.366 0.27 110.851 0.27Z"/>
+<path d="M117.83 0.27L123.998 15.74L127.38 15.74L121.212 0.27L117.83 0.27Z"/>
+<path d="M138.955 10.541C138.38 12.044 137.231 12.906 135.663 12.906C133.056 12.906 131.465 11.05 131.465 8.022C131.465 4.95 133.056 3.094 135.663 3.094C137.231 3.094 138.38 3.956 138.955 5.459L142.468 5.459C141.606 2.144 139.021 0 135.663 0C131.2 0 128.04 3.315 128.04 8.022C128.04 12.685 131.2 16 135.663 16C139.043 16 141.628 13.834 142.49 10.541L138.955 10.541Z"/>
+</g>
+</svg>
